@@ -16,8 +16,8 @@ export default function Projects() {
     <section id="projects" className="py-32 relative">
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <div className="mb-20">
-          <h2 className="text-3xl md:text-5xl font-bold font-display mb-4">Selected Work</h2>
-          <div className="w-20 h-1 bg-white/20 rounded-full"></div>
+          <h2 className="text-3xl md:text-5xl font-bold font-display mb-4 text-foreground">Selected Work</h2>
+          <div className="w-20 h-1 bg-foreground/20 rounded-full"></div>
         </div>
 
         <div className="space-y-32">
@@ -34,8 +34,8 @@ export default function Projects() {
               >
                 {/* Image Side */}
                 <div className="w-full md:w-1/2 relative">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl z-10 pointer-events-none"></div>
-                  <div className="relative rounded-2xl overflow-hidden glass border-white/10 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-foreground/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl z-10 pointer-events-none"></div>
+                  <div className="relative rounded-2xl overflow-hidden glass shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
                     <img 
                       src={images[project.imageRef as keyof typeof images]} 
                       alt={project.title}
@@ -46,28 +46,28 @@ export default function Projects() {
 
                 {/* Content Side */}
                 <div className="w-full md:w-1/2 space-y-6">
-                  <div className="text-sm font-mono text-neutral-500">Featured Project {idx + 1}</div>
-                  <h3 className="text-3xl font-display font-bold text-white">{project.title}</h3>
+                  <div className="text-sm font-mono text-muted-foreground">Featured Project {idx + 1}</div>
+                  <h3 className="text-3xl font-display font-bold text-foreground">{project.title}</h3>
                   
-                  <div className="glass-card p-6 rounded-xl relative z-20 md:-ml-8 md:mr-0 group-odd:md:ml-0 group-odd:md:-mr-8 bg-neutral-900/90">
-                    <p className="text-neutral-300 leading-relaxed">
+                  <div className="glass-card p-6 rounded-xl relative z-20 md:-ml-8 md:mr-0 group-odd:md:ml-0 group-odd:md:-mr-8 bg-background/95">
+                    <p className="text-muted-foreground leading-relaxed">
                       {project.description}
                     </p>
                   </div>
                   
                   <ul className="flex flex-wrap gap-3">
                     {project.tech.map((t, i) => (
-                      <li key={i} className="text-xs font-mono text-neutral-400 bg-white/5 px-2 py-1 rounded">
+                      <li key={i} className="text-xs font-mono text-muted-foreground bg-foreground/5 px-2 py-1 rounded">
                         {t}
                       </li>
                     ))}
                   </ul>
                   
                   <div className="flex items-center gap-6 pt-2">
-                    <a href={project.github} className="flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors">
+                    <a href={project.github} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                       <Github className="w-5 h-5" /> <span>Source</span>
                     </a>
-                    <a href={project.live} className="flex items-center gap-2 text-sm text-neutral-400 hover:text-white transition-colors">
+                    <a href={project.live} className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                       <ExternalLink className="w-5 h-5" /> <span>Visit Site</span>
                     </a>
                   </div>

@@ -10,13 +10,13 @@ export default function Skills() {
   ];
 
   return (
-    <section id="skills" className="py-32 relative bg-black/40 border-y border-white/5">
-      <div className="absolute inset-0 bg-grid-white opacity-[0.02]"></div>
+    <section id="skills" className="py-32 relative bg-foreground/[0.02] border-y border-border">
+      <div className="absolute inset-0 bg-grid-pattern opacity-100"></div>
       
       <div className="max-w-5xl mx-auto px-6 relative z-10">
         <div className="mb-16 text-center">
-          <h2 className="text-3xl md:text-5xl font-bold font-display mb-4">Technical Arsenal</h2>
-          <p className="text-neutral-400 max-w-2xl mx-auto">
+          <h2 className="text-3xl md:text-5xl font-bold font-display mb-4 text-foreground">Technical Arsenal</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Tools and technologies I've mastered to bring ideas to life.
           </p>
         </div>
@@ -29,13 +29,13 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="glass-card p-6 rounded-2xl group hover:border-white/20 transition-colors"
+              className="glass-card p-6 rounded-2xl group hover:border-foreground/20 transition-colors"
             >
               <div className="flex items-center gap-3 mb-8">
-                <div className="p-3 rounded-lg bg-white/5 text-white group-hover:bg-white group-hover:text-black transition-colors">
+                <div className="p-3 rounded-lg bg-foreground/5 text-foreground group-hover:bg-foreground group-hover:text-background transition-colors">
                   {category.icon}
                 </div>
-                <h3 className="text-lg font-medium">{category.title}</h3>
+                <h3 className="text-lg font-medium text-foreground">{category.title}</h3>
               </div>
               
               <div className="flex flex-wrap gap-2">
@@ -46,7 +46,7 @@ export default function Skills() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: (idx * 0.1) + (skillIdx * 0.05) }}
-                    className="px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/5 rounded-md text-sm text-neutral-300 transition-colors cursor-default"
+                    className="px-3 py-1.5 bg-foreground/5 hover:bg-foreground/10 border border-border rounded-md text-sm text-muted-foreground hover:text-foreground transition-colors cursor-default"
                   >
                     {skill}
                   </motion.span>
