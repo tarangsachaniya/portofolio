@@ -1,36 +1,36 @@
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, Twitter, ExternalLink } from "lucide-react";
+import { Mail, Github, Linkedin, Instagram, ExternalLink } from "lucide-react";
 
 export default function Contact() {
   const contactLinks = [
     {
       name: "Email",
-      value: "hello@devportfolio.com",
+      value: "tarangsachaniya8@gmail.com",
       icon: <Mail className="w-6 h-6" />,
-      href: "mailto:hello@devportfolio.com"
+      href: "mailto:tarangsachaniya8@gmail.com"
     },
     {
       name: "GitHub",
-      value: "github.com/devport",
+      value: "github.com/tarangsachaniya",
       icon: <Github className="w-6 h-6" />,
-      href: "https://github.com"
+      href: "https://github.com/tarangsachaniya"
     },
     {
       name: "LinkedIn",
-      value: "linkedin.com/in/devport",
+      value: "linkedin.com/in/tarang-sachaniya",
       icon: <Linkedin className="w-6 h-6" />,
-      href: "https://linkedin.com"
+      href: "https://www.linkedin.com/in/tarang-sachaniya/"
     },
     {
-      name: "Twitter",
-      value: "@devportfolio",
-      icon: <Twitter className="w-6 h-6" />,
-      href: "https://twitter.com"
+      name: "Instagram",
+      value: "@tarangsachaniya",
+      icon: <Instagram className="w-6 h-6" />,
+      href: "https://instagram.com/tarangsachaniya"
     }
   ];
 
   return (
-    <section id="contact" className="py-32 relative">
+    <section id="contact" className="py-16 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-foreground/[0.02]"></div>
       
       <div className="max-w-4xl mx-auto px-6 relative z-10">

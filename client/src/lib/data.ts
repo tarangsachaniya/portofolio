@@ -1,58 +1,116 @@
 export const skillsData = {
   frontend: [
-    "React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion", "Vue.js", "Redux", "Zustand"
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Redux",
+    "Zustand",
+    "Tailwind CSS",
+    "Bootstrap",
+    "HTML5",
+    "CSS3"
   ],
   backend: [
-    "Node.js", "Express", "Python", "Django", "PostgreSQL", "MongoDB", "GraphQL", "REST APIs"
+    "Node.js",
+    "Express.js",
+    "Laravel",
+    "PHP",
+    "Python",
+    "REST APIs",
+    "MongoDB",
+    "MySQL"
   ],
   tools: [
-    "Git", "Docker", "AWS", "Figma", "Jest", "Cypress", "Vercel", "Linux"
+    "Git",
+    "Docker",
+    "Postman",
+    "AWS",
+    "Linux",
+    "WordPress",
+    "Vercel",
+    "Figma"
   ]
 };
 
 export const projectsData = [
   {
     id: 1,
-    title: "Quantum SaaS Dashboard",
-    description: "A comprehensive analytics dashboard with real-time data visualization and complex state management.",
-    tech: ["React", "TypeScript", "Tailwind", "Recharts"],
-    github: "https://github.com",
-    live: "https://example.com",
-    imageRef: "project-1"
+    title: "Smart Attendance System (IoT-Based)",
+    description:
+      "An IoT-based smart attendance system using fingerprint authentication and OpenCV-based facial verification to automate and secure attendance tracking.",
+    tech: ["IoT", "Python", "OpenCV", "Fingerprint Sensor"]
   },
   {
     id: 2,
-    title: "Aura E-Commerce App",
-    description: "High-performance mobile-first e-commerce platform with seamless animations and optimistic UI updates.",
-    tech: ["Next.js", "Framer Motion", "Stripe", "Prisma"],
-    github: "https://github.com",
-    live: "https://example.com",
-    imageRef: "project-2"
+    title: "Hackovate LJ – AI Hackathon Management Platform",
+    description:
+      "A full-stack hackathon management website built for a 36-hour AI hackathon, handling registrations, team management, submissions, and event coordination.",
+    tech: ["Next.js", "MongoDB", "Node.js", "Express", "Tailwind CSS"],
+    github: "https://github.com/Magazine-LFA/hachakthon",
+    live: "https://hackovate.live/",
   },
   {
     id: 3,
-    title: "Nova Fintech Landing Page",
-    description: "Conversion-optimized landing page with intricate scroll animations and 3D decorative elements.",
-    tech: ["React", "Three.js", "Tailwind CSS", "GSAP"],
-    github: "https://github.com",
-    live: "https://example.com",
-    imageRef: "project-3"
+    title: "COVID-19 Data Analysis & Prediction",
+    description:
+      "Machine learning-based data analysis project performing data cleaning, visualization, and predictive modeling on COVID-19 datasets.",
+    tech: ["Python", "Pandas", "Matplotlib", "Scikit-learn"],
+    github: "https://github.com/tarangsachaniya/covid_data_analysis"
+  },
+  {
+    id: 4,
+    title: "SportsGrid (Production Ready)",
+    description:
+      "A production-ready sports data platform with real-time API integrations, optimized backend logic, and automated data synchronization.",
+    tech: ["Laravel", "PHP", "MySQL", "REST APIs"],
+    live: "https://www.sportsgrid.com/"
+  },
+  {
+    id: 5,
+    title: "Wanderluck (In Development)",
+    description:
+      "A travel-focused web platform currently in development, designed to enhance trip discovery and planning with scalable backend architecture.",
+    tech: ["Next.js", "Node.js", "MongoDB", "Tailwind CSS"]
   }
 ];
 
 export const experienceData = [
   {
     id: 1,
-    role: "Senior Frontend Engineer",
-    company: "TechNova Solutions",
-    period: "2021 - Present",
-    description: "Lead architect for the core SaaS product. Improved render performance by 40% and established the company's design system."
+    role: "Backend Developer",
+    company: "Prime Apps Infotech",
+    period: "2023 - Present",
+    description:
+      "Worked on scalable web applications using Laravel, PHP, and MERN stack. Developed REST APIs, integrated third-party services like Sportradar, optimized database queries, and improved system performance."
+  }
+];
+
+export const educationData = [
+  {
+    id: 1,
+    degree: "Bachelor of Engineering in Computer Science",
+    school: "LJ Engineering College",
+    period: "2021 - 2025",
+    description:
+      "Focused on software engineering, full-stack development, database systems, and machine learning. Actively involved in technical and creative initiatives."
+  }
+];
+
+export const extracurricularData = [
+  {
+    title: "Marketing Head of LFA",
+    description: "Bi-annual magazine leadership role."
   },
   {
-    id: 2,
-    role: "UI/UX Developer",
-    company: "Creative Studio",
-    period: "2019 - 2021",
-    description: "Bridged the gap between design and engineering. Built interactive prototypes and developed production-ready component libraries."
+    title: "President of LFA",
+    description: "Oversaw all operations and initiatives for the magazine."
+  },
+  {
+    title: "Head of Carpediem",
+    description: "Led the annual sports competition twice."
+  },
+  {
+    title: "Head Student Coordinator for Hackovate LJ",
+    description: "Managed and coordinated the Hackovate LJ event."
   }
 ];

@@ -76,7 +76,7 @@ export default function Navbar() {
             className="text-xl font-bold font-display tracking-tight text-foreground cursor-pointer"
             onClick={() => scrollTo("home")}
           >
-            Dev<span className="opacity-50">Port.</span>
+            Tarang<span className="opacity-50">Sachaniya.</span>
           </div>
 
           <div className="hidden md:flex items-center gap-1">
@@ -107,12 +107,6 @@ export default function Navbar() {
               aria-label="Toggle Theme"
             >
               {theme === "dark" ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-            </button>
-            <button 
-              onClick={() => scrollTo("contact")}
-              className="px-4 py-2 text-sm font-medium text-background bg-foreground hover:opacity-90 rounded-full transition-all"
-            >
-              Hire
             </button>
           </div>
         </div>
