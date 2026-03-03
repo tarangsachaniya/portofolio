@@ -1,65 +1,72 @@
 import { motion } from "framer-motion";
-import { Mail, MessageSquare } from "lucide-react";
+import { Mail, Github, Linkedin, Twitter, ExternalLink } from "lucide-react";
 
 export default function Contact() {
+  const contactLinks = [
+    {
+      name: "Email",
+      value: "hello@devportfolio.com",
+      icon: <Mail className="w-6 h-6" />,
+      href: "mailto:hello@devportfolio.com"
+    },
+    {
+      name: "GitHub",
+      value: "github.com/devport",
+      icon: <Github className="w-6 h-6" />,
+      href: "https://github.com"
+    },
+    {
+      name: "LinkedIn",
+      value: "linkedin.com/in/devport",
+      icon: <Linkedin className="w-6 h-6" />,
+      href: "https://linkedin.com"
+    },
+    {
+      name: "Twitter",
+      value: "@devportfolio",
+      icon: <Twitter className="w-6 h-6" />,
+      href: "https://twitter.com"
+    }
+  ];
+
   return (
     <section id="contact" className="py-32 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-foreground/[0.02]"></div>
       
-      <div className="max-w-3xl mx-auto px-6 relative z-10 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="inline-flex items-center justify-center p-4 bg-foreground/5 rounded-full mb-8">
-            <MessageSquare className="w-8 h-8 text-foreground/70" />
-          </div>
-          
-          <h2 className="text-4xl md:text-6xl font-bold font-display mb-6 text-foreground">Let's work together</h2>
-          <p className="text-xl text-muted-foreground mb-12 max-w-xl mx-auto">
-            I'm currently available for freelance work and open to new full-time opportunities. 
-            If you have a project that needs some magic, I'd love to hear about it.
+      <div className="max-w-4xl mx-auto px-6 relative z-10">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-6xl font-bold font-display mb-6 text-foreground">Get in touch</h2>
+          <p className="text-xl text-muted-foreground max-w-xl mx-auto">
+            I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.
           </p>
+        </div>
 
-          <form className="glass-card p-8 md:p-12 rounded-3xl text-left space-y-6 max-w-2xl mx-auto relative overflow-hidden group">
-            <div className="absolute inset-0 bg-gradient-to-tr from-foreground/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-            
-            <div className="grid md:grid-cols-2 gap-6 relative z-10">
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-muted-foreground">Name</label>
-                <input 
-                  type="text" 
-                  className="w-full bg-foreground/5 border border-border rounded-xl px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/10 transition-all placeholder:text-muted-foreground/30"
-                  placeholder="John Doe"
-                />
+        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          {contactLinks.map((link, idx) => (
+            <motion.a
+              key={link.name}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="glass-card p-8 rounded-3xl flex items-center gap-6 group hover:border-foreground/20"
+            >
+              <div className="p-4 rounded-2xl bg-foreground/5 text-foreground group-hover:bg-foreground group-hover:text-background transition-all duration-300">
+                {link.icon}
               </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-muted-foreground">Email</label>
-                <input 
-                  type="email" 
-                  className="w-full bg-foreground/5 border border-border rounded-xl px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/10 transition-all placeholder:text-muted-foreground/30"
-                  placeholder="john@example.com"
-                />
+              <div className="text-left">
+                <div className="text-sm font-medium text-muted-foreground mb-1">{link.name}</div>
+                <div className="text-lg font-medium text-foreground flex items-center gap-2">
+                  {link.value}
+                  <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-50 transition-opacity" />
+                </div>
               </div>
-            </div>
-            
-            <div className="space-y-2 relative z-10">
-              <label className="text-sm font-medium text-muted-foreground">Message</label>
-              <textarea 
-                rows={4}
-                className="w-full bg-foreground/5 border border-border rounded-xl px-4 py-3 text-foreground focus:outline-none focus:ring-2 focus:ring-foreground/10 transition-all resize-none placeholder:text-muted-foreground/30"
-                placeholder="Tell me about your project..."
-              ></textarea>
-            </div>
-            
-            <button type="button" className="w-full py-4 bg-foreground text-background font-medium rounded-xl flex items-center justify-center gap-2 hover:opacity-90 transition-all relative z-10 group/btn">
-              <span>Send Message</span>
-              <Mail className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-            </button>
-          </form>
-        </motion.div>
+            </motion.a>
+          ))}
+        </div>
       </div>
     </section>
   );
