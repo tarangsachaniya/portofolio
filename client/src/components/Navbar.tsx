@@ -110,9 +110,9 @@ export default function Navbar() {
             </button>
             <button 
               onClick={() => scrollTo("contact")}
-              className="hidden md:block px-5 py-2 text-sm font-medium text-background bg-foreground hover:opacity-90 rounded-full transition-all"
+              className="px-4 py-2 text-sm font-medium text-background bg-foreground hover:opacity-90 rounded-full transition-all"
             >
-              Hire Me
+              Hire
             </button>
           </div>
         </div>

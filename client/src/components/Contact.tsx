@@ -41,7 +41,7 @@ export default function Contact() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 max-w-3xl mx-auto">
           {contactLinks.map((link, idx) => (
             <motion.a
               key={link.name}
@@ -52,16 +52,16 @@ export default function Contact() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="glass-card p-8 rounded-3xl flex items-center gap-6 group hover:border-foreground/20"
+              className="glass-card p-6 md:p-8 rounded-2xl md:rounded-3xl flex items-center gap-4 md:gap-6 group hover:border-foreground/20"
             >
-              <div className="p-4 rounded-2xl bg-foreground/5 text-foreground group-hover:bg-foreground group-hover:text-background transition-all duration-300">
+              <div className="p-3 md:p-4 rounded-xl md:rounded-2xl bg-foreground/5 text-foreground group-hover:bg-foreground group-hover:text-background transition-all duration-300 shrink-0">
                 {link.icon}
               </div>
-              <div className="text-left">
-                <div className="text-sm font-medium text-muted-foreground mb-1">{link.name}</div>
-                <div className="text-lg font-medium text-foreground flex items-center gap-2">
-                  {link.value}
-                  <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-50 transition-opacity" />
+              <div className="text-left min-w-0">
+                <div className="text-xs md:text-sm font-medium text-muted-foreground mb-0.5 md:mb-1">{link.name}</div>
+                <div className="text-base md:text-lg font-medium text-foreground flex items-center gap-2 truncate">
+                  <span className="truncate">{link.value}</span>
+                  <ExternalLink className="w-4 h-4 opacity-0 group-hover:opacity-50 transition-opacity shrink-0" />
                 </div>
               </div>
             </motion.a>

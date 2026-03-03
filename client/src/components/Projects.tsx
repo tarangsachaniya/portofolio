@@ -20,7 +20,7 @@ export default function Projects() {
           <div className="w-20 h-1 bg-foreground/20 rounded-full"></div>
         </div>
 
-        <div className="space-y-32">
+        <div className="space-y-20 md:space-y-32">
           {projectsData.map((project, idx) => {
             const isEven = idx % 2 === 0;
             return (
@@ -28,29 +28,29 @@ export default function Projects() {
                 key={project.id}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: true, margin: "-50px" }}
                 transition={{ duration: 0.7 }}
-                className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-10 md:gap-16 items-center group`}
+                className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-8 md:gap-16 items-center group`}
               >
                 {/* Image Side */}
                 <div className="w-full md:w-1/2 relative">
                   <div className="absolute inset-0 bg-gradient-to-tr from-foreground/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl z-10 pointer-events-none"></div>
-                  <div className="relative rounded-2xl overflow-hidden glass shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+                  <div className="relative rounded-2xl overflow-hidden glass shadow-xl transition-transform duration-500 group-hover:scale-[1.02]">
                     <img 
                       src={images[project.imageRef as keyof typeof images]} 
                       alt={project.title}
-                      className="w-full h-[300px] md:h-[400px] object-cover transition-transform duration-700 group-hover:scale-105"
+                      className="w-full h-[240px] sm:h-[300px] md:h-[400px] object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
                 </div>
 
                 {/* Content Side */}
-                <div className="w-full md:w-1/2 space-y-6">
-                  <div className="text-sm font-mono text-muted-foreground">Featured Project {idx + 1}</div>
-                  <h3 className="text-3xl font-display font-bold text-foreground">{project.title}</h3>
+                <div className="w-full md:w-1/2 space-y-4 md:space-y-6">
+                  <div className="text-xs md:text-sm font-mono text-muted-foreground">Featured Project {idx + 1}</div>
+                  <h3 className="text-2xl md:text-3xl font-display font-bold text-foreground">{project.title}</h3>
                   
-                  <div className="glass-card p-6 rounded-xl relative z-20 md:-ml-8 md:mr-0 group-odd:md:ml-0 group-odd:md:-mr-8 bg-background/95">
-                    <p className="text-muted-foreground leading-relaxed">
+                  <div className="glass-card p-5 md:p-6 rounded-xl relative z-20 md:-ml-8 md:mr-0 group-odd:md:ml-0 group-odd:md:-mr-8 bg-background/95 shadow-lg">
+                    <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
                       {project.description}
                     </p>
                   </div>
