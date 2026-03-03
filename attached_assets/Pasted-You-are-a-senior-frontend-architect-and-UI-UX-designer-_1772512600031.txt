@@ -1,0 +1,132 @@
+You are a senior frontend architect and UI/UX designer.
+
+Create a premium, modern developer portfolio using:
+
+* Next.js 14+ (App Router)
+* Tailwind CSS
+* Aceternity UI components
+* Framer Motion
+* TypeScript
+
+Design Inspiration:
+
+* Linear.app
+* Stripe.com
+* Apple.com
+* Modern SaaS landing pages
+
+Design Requirements:
+
+* Dark theme only
+* Premium glassmorphism
+* Smooth micro-interactions
+* Subtle gradients
+* Soft shadows
+* Clean typography
+* Large spacing and breathing room
+* Animated backgrounds (Aurora / Spotlight from Aceternity)
+* Floating navbar
+* Scroll-based animations
+* Fully responsive
+
+Sections Required:
+
+1. Floating Navbar
+
+* Blur background
+* Smooth hover animations
+* Active link indicator
+
+2. Hero Section
+
+* Spotlight background (Aceternity)
+* Large heading with gradient text
+* Short professional description
+* CTA buttons with hover glow
+* Social icons
+* Smooth fade-in animation
+
+3. About Section
+
+* Glass card layout
+* Short bio
+* Experience highlights
+* Animated entrance
+
+4. Skills Section
+
+* Use Aceternity Bento Grid or Card Hover Effects
+* Categorized skills:
+
+  * Frontend
+  * Backend
+  * Database
+  * Tools
+* Animated hover effects
+
+5. Projects Section
+
+* Use Aceternity Card Stack or 3D Hover Cards
+* Each project contains:
+
+  * Image
+  * Title
+  * Description
+  * Tech stack
+  * GitHub link
+  * Live demo link
+* Smooth hover animation
+* Gradient border glow on hover
+
+6. Contact Section
+
+* Glassmorphism card
+* Contact form
+* Social links
+* Animated submit button
+
+7. Footer
+
+* Minimal
+* Subtle gradient line
+* Social icons
+
+Technical Requirements:
+
+* Clean folder structure
+* Use reusable components
+* Use Next.js Image optimization
+* Use motion animations properly
+* SEO optimized metadata
+* Proper layout.tsx setup
+* Use TypeScript everywhere
+* Clean and production-ready code
+
+Project Structure:
+
+/app
+layout.tsx
+page.tsx
+/components
+Navbar.tsx
+Hero.tsx
+About.tsx
+Skills.tsx
+Projects.tsx
+ProjectCard.tsx
+Contact.tsx
+Footer.tsx
+/lib
+data.ts
+
+Include:
+
+* Example project data
+* Example skills data
+* All imports correctly written
+* Installation steps for Aceternity UI
+
+Output:
+Provide complete working production-ready code for all components.
+Ensure it runs without errors.
+Do not skip any files.
