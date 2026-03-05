@@ -89,7 +89,7 @@ export const educationData = [
   {
     id: 1,
     degree: "Bachelor of Engineering in Computer Science",
-    school: "LJ Engineering College",
+    school: "LJK University",
     period: "2021 - 2025",
     description:
       "Focused on software engineering, full-stack development, database systems, and machine learning. Actively involved in technical and creative initiatives."
