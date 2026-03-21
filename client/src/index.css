@@ -126,7 +126,6 @@
   .glass {
     @apply bg-background/60 backdrop-blur-md border border-border/50;
   }
-
   .glass-card {
     @apply bg-background/40 backdrop-blur-xl border border-border shadow-lg transition-all duration-300;
   }
