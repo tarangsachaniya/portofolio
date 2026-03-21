@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, Home, User, Zap, FolderGit2, Mail } from "lucide-react";
 import { FloatingNav, NavItem } from "@/components/ui/aceternity/floating-nav";
 
 const navItems: NavItem[] = [
-  { name: "Home", link: "#home" },
-  { name: "About", link: "#about" },
-  { name: "Skills", link: "#skills" },
-  { name: "Projects", link: "#projects" },
-  { name: "Contact", link: "#contact" },
+  { name: "Home", link: "#home", icon: <Home className="w-4 h-4" /> },
+  { name: "About", link: "#about", icon: <User className="w-4 h-4" /> },
+  { name: "Skills", link: "#skills", icon: <Zap className="w-4 h-4" /> },
+  { name: "Projects", link: "#projects", icon: <FolderGit2 className="w-4 h-4" /> },
+  { name: "Contact", link: "#contact", icon: <Mail className="w-4 h-4" /> },
 ];
 
 export default function Navbar() {
