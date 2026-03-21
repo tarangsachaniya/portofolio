@@ -1,5 +1,4 @@
 "use client";
-
 import { useRef } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -12,12 +11,10 @@ export interface TimelineEntry {
 export function Timeline({ data }: { data: TimelineEntry[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 10%", "end 50%"],
   });
-
   const heightTransform = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
@@ -37,8 +34,7 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
                 {item.title}
               </h3>
             </div>
-
-            <div className="relative pl-20 pr-4 md:pl-4 w-full">
+            <div className="relative pl-4 pr-4 md:pl-4 w-full">
               <h3 className="md:hidden block text-2xl mb-4 text-left font-bold text-foreground">
                 {item.title}
               </h3>
@@ -46,7 +42,6 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
             </div>
           </div>
         ))}
-
         <div
           style={{ height: ref.current?.getBoundingClientRect().height ?? 0 + "px" }}
           className="absolute md:left-8 left-8 top-0 overflow-hidden w-[2px] bg-gradient-to-b from-transparent via-border to-transparent [mask-image:linear-gradient(to_bottom,transparent_0%,black_10%,black_90%,transparent_100%)]"
