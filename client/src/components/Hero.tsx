@@ -13,7 +13,7 @@ const socialLinks = [
     href: "https://github.com/tarangsachaniya",
     label: "GitHub",
     icon: <Github className="w-4 h-4" />,
-    color: "hover:border-white/40 hover:text-white",
+    color: "hover:border-foreground/40 hover:text-foreground dark:hover:border-white/40 dark:hover:text-white",
   },
   {
     href: "https://instagram.com/tarangsachaniya",
@@ -32,7 +32,9 @@ const socialLinks = [
 export default function Hero() {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
+      <div className="hidden dark:block">
+        <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" fill="white" />
+      </div>
       <BackgroundBeams />
 
       <div className="absolute top-1/4 -left-64 w-96 h-96 bg-purple-500/10 rounded-full filter blur-[128px] opacity-40 animate-pulse pointer-events-none"></div>
@@ -49,11 +51,10 @@ export default function Hero() {
             className="order-2 lg:order-1 flex justify-center lg:justify-start"
           >
             <div className="relative">
-              <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 opacity-30 blur-sm animate-spin" style={{ animationDuration: "8s" }}></div>
-              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-foreground/10 shadow-2xl">
+              <div className="absolute -inset-[3px] rounded-full bg-gradient-to-r from-purple-500 via-blue-500 to-cyan-500 opacity-40 dark:opacity-60"></div>
+              <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden shadow-2xl">
                 <img src={profileImage} alt="Tarang Sachaniya" className="w-full h-full object-cover" />
               </div>
-              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-purple-500/20 to-blue-500/20 pointer-events-none"></div>
               <div className="absolute -bottom-2 -right-2 w-20 h-20 bg-green-500 rounded-full flex items-center justify-center border-4 border-background shadow-lg">
                 <span className="text-background font-bold text-sm text-center leading-tight">2.5 Yrs</span>
               </div>
