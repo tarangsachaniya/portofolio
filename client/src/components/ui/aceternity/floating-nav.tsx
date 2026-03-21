@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -36,7 +35,6 @@ export function FloatingNav({
       }
       setLastScrollY(currentScrollY);
     };
-
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
@@ -61,7 +59,7 @@ export function FloatingNav({
           )}
         >
           {navItems.map((item, idx) => (
-            <a
+            
               key={idx}
               href={item.link}
               onClick={(e) => {
@@ -72,7 +70,7 @@ export function FloatingNav({
               className="relative px-4 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors rounded-full hover:bg-foreground/5"
             >
               {item.icon && <span className="sm:hidden">{item.icon}</span>}
-              <span className="hidden sm:inline">{item.name}</span>
+              <span className={item.icon ? "hidden sm:inline" : "inline"}>{item.name}</span>
             </a>
           ))}
           {rightContent && (
