@@ -59,7 +59,7 @@ export function FloatingNav({
           )}
         >
           {navItems.map((item, idx) => (
-            
+            <a
               key={idx}
               href={item.link}
               onClick={(e) => {
