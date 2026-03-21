@@ -9,10 +9,9 @@ export default function About() {
     {
       title: "Experience",
       content: (
-        <div className="space-y-6">
+        <div className="space-y-6 w-full">
           {experienceData.map((exp) => (
-            <div key={exp.id} className="relative glass-card p-6 rounded-2xl overflow-hidden group hover:border-blue-500/30 transition-colors duration-300">
-              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-500 to-blue-500/0 rounded-l-2xl"></div>
+            <div key={exp.id} className="relative glass-card p-6 rounded-2xl overflow-hidden group hover:border-blue-500/30 transition-colors duration-300 w-full">
               <div className="flex items-start gap-3 mb-3">
                 <div className="p-2 rounded-lg bg-blue-500/10 text-blue-400 shrink-0 mt-0.5">
                   <Briefcase className="w-4 h-4" />
@@ -32,10 +31,9 @@ export default function About() {
     {
       title: "Education",
       content: (
-        <div className="space-y-6">
+        <div className="space-y-6 w-full">
           {educationData.map((edu) => (
-            <div key={edu.id} className="relative glass-card p-6 rounded-2xl overflow-hidden group hover:border-purple-500/30 transition-colors duration-300">
-              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-purple-500 to-purple-500/0 rounded-l-2xl"></div>
+            <div key={edu.id} className="relative glass-card p-6 rounded-2xl overflow-hidden group hover:border-purple-500/30 transition-colors duration-300 w-full">
               <div className="flex items-start gap-3 mb-3">
                 <div className="p-2 rounded-lg bg-purple-500/10 text-purple-400 shrink-0 mt-0.5">
                   <GraduationCap className="w-4 h-4" />
