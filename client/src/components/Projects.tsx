@@ -38,7 +38,7 @@ export default function Projects() {
                 </div>
                 <div className="flex items-center gap-4 mt-4 pt-3 border-t border-border">
                   {project.github && (
-                    
+                    <a
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -49,7 +49,7 @@ export default function Projects() {
                     </a>
                   )}
                   {project.live && (
-                    
+                    <a
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
