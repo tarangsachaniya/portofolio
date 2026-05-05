@@ -1,5 +1,5 @@
 import { extracurricularData, projectsData } from "@/lib/data";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Github, Briefcase } from "lucide-react";
 import { HoverEffect } from "@/components/ui/aceternity/card-hover-effect";
 import { BackgroundGradient } from "@/components/ui/aceternity/background-gradient";
 
@@ -11,7 +11,6 @@ export default function Projects() {
           <h2 className="text-3xl md:text-5xl font-bold font-display mb-4 text-foreground">Selected Work</h2>
           <div className="w-20 h-1 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></div>
         </div>
-
         <HoverEffect
           items={projectsData.map((p) => ({
             title: p.title,
@@ -22,6 +21,12 @@ export default function Projects() {
             const project = projectsData[idx];
             return (
               <div className="h-full flex flex-col">
+                {project.workProject && (
+                  <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-3 w-fit">
+                    <Briefcase className="w-3 h-3" />
+                    Work
+                  </span>
+                )}
                 <h4 className="font-bold text-foreground text-lg mb-3 leading-snug">{project.title}</h4>
                 <p className="text-muted-foreground text-sm leading-relaxed flex-1">{project.description}</p>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -33,7 +38,7 @@ export default function Projects() {
                 </div>
                 <div className="flex items-center gap-4 mt-4 pt-3 border-t border-border">
                   {project.github && (
-                    <a
+                    
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -44,7 +49,7 @@ export default function Projects() {
                     </a>
                   )}
                   {project.live && (
-                    <a
+                    
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
