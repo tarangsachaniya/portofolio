@@ -24,7 +24,7 @@ export default function Projects() {
                 {project.workProject && (
                   <span className="inline-flex items-center gap-1 text-[10px] font-semibold uppercase tracking-widest px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20 mb-3 w-fit">
                     <Briefcase className="w-3 h-3" />
-                    Work at Job
+                    Project at Job
                   </span>
                 )}
                 <h4 className="font-bold text-foreground text-lg mb-3 leading-snug">{project.title}</h4>
