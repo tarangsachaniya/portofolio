@@ -100,6 +100,10 @@ export const educationData = [
 
 export const extracurricularData = [
   {
+    title: "Head Student Coordinator & Tech Lead for Hackovate LJ",
+    description: "Managed and coordinated the AI Hackathon."
+  },
+  {
     title: "Marketing Head of LFA",
     description: "Bi-annual magazine leadership role."
   },
@@ -111,8 +115,5 @@ export const extracurricularData = [
     title: "Head of Carpediem",
     description: "Led the annual sports competition twice."
   },
-  {
-    title: "Head Student Coordinator for Hackovate LJ",
-    description: "Managed and coordinated the AI Hackathon."
-  }
+  
 ];
