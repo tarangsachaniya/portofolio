@@ -63,14 +63,16 @@ export const projectsData = [
     description:
       "A production-ready sports data platform with real-time API integrations, optimized backend logic, and automated data synchronization.",
     tech: ["Laravel", "PHP", "MySQL", "REST APIs"],
-    live: "https://www.sportsgrid.com/"
+    live: "https://www.sportsgrid.com/",
+    workProject: true
   },
   {
     id: 5,
     title: "Wanderluck (In Development)",
     description:
       "A travel-focused web platform currently in development, designed to enhance trip discovery and planning with scalable backend architecture.",
-    tech: ["Next.js", "Node.js", "MongoDB", "Tailwind CSS"]
+    tech: ["Next.js", "Node.js", "MongoDB", "Tailwind CSS"],
+    workProject: true
   }
 ];
 
