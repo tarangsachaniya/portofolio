@@ -58,22 +58,21 @@ export const projectsData = [
     github: "https://github.com/tarangsachaniya/covid_data_analysis"
   },
   {
-    id: 4,
-    title: "SportsGrid (Production Ready)",
-    description:
-      "A production-ready sports data platform with real-time API integrations, optimized backend logic, and automated data synchronization.",
-    tech: ["Laravel", "PHP", "MySQL", "REST APIs"],
-    live: "https://www.sportsgrid.com/",
-    workProject: true
-  },
-  {
-    id: 5,
-    title: "Wanderluck (In Development)",
-    description:
-      "A travel-focused web platform currently in development, designed to enhance trip discovery and planning with scalable backend architecture.",
-    tech: ["Next.js", "Node.js", "MongoDB", "Tailwind CSS"],
-    workProject: true
-  }
+  title: "Universal Brew",
+  description:
+    "Developed a full-featured coffee e-commerce platform enabling seamless product discovery, secure payments, order management, and customer engagement. Built with a focus on performance, scalability, and mobile-first user experience.",
+  tech: [
+    "Next.js",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "Laravel",
+    "MySQL",
+    "Stripe"
+  ],
+  live: "https://universalbrew.com",
+  workProject: true,
+},
 ];
 
 export const experienceData = [
