@@ -16,7 +16,13 @@ const sectionIds = navItems.map((n) => n.id);
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const active = useScrollSpy(sectionIds);
+  const [clicked, setClicked] = useState<string | null>(null);
+  const spyActive = useScrollSpy(sectionIds);
+  const active = clicked ?? spyActive;
+
+  useEffect(() => {
+    if (clicked && spyActive === clicked) setClicked(null);
+  }, [spyActive, clicked]);
 
   const [theme, setTheme] = useState<"dark" | "light">(() => {
     if (typeof document !== "undefined") {
@@ -47,6 +53,7 @@ export default function Navbar() {
 
   const handleNav = (id: string) => {
     setOpen(false);
+    setClicked(id);
     history.pushState(null, "", `#${id}`);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
