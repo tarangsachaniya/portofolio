@@ -47,25 +47,22 @@ export default function Navbar() {
   useEffect(() => {
     const hash = window.location.hash.slice(1);
     if (hash && sectionIds.includes(hash)) {
-      setTimeout(() => {
-        const el = document.getElementById(hash);
-        if (el) {
-          const top = el.getBoundingClientRect().top + (window.pageYOffset ?? document.documentElement.scrollTop) - 80;
-          window.scrollTo({ top, behavior: "smooth" });
-        }
-      }, 300);
+      setTimeout(
+        () => document.getElementById(hash)?.scrollIntoView({ behavior: "smooth", block: "start" }),
+        300
+      );
     }
   }, []);
 
   const handleNav = (id: string) => {
+    const wasOpen = open;
     setOpen(false);
     setClicked(id);
     history.pushState(null, "", `#${id}`);
-    const el = document.getElementById(id);
-    if (el) {
-      const top = el.getBoundingClientRect().top + (window.pageYOffset ?? document.documentElement.scrollTop) - 80;
-      window.scrollTo({ top, behavior: "smooth" });
-    }
+    setTimeout(
+      () => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" }),
+      wasOpen ? 300 : 0
+    );
   };
 
   return (
