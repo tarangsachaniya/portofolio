@@ -106,6 +106,11 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
+          {/* Active section label — mobile only */}
+          <span className="text-xs font-medium text-muted-foreground capitalize md:hidden">
+            {active}
+          </span>
+
           <button
             onClick={toggleTheme}
             className="rounded-full p-2 text-foreground transition-colors hover:bg-foreground/5"
@@ -136,20 +141,26 @@ export default function Navbar() {
             className="overflow-hidden border-b border-border bg-background/95 backdrop-blur-xl md:hidden"
           >
             <ul className="flex flex-col gap-1 px-6 py-4">
-              {navItems.map((item) => (
-                <li key={item.id}>
-                  <button
-                    onClick={() => handleNav(item.id)}
-                    className={`w-full rounded-lg px-4 py-3 text-left text-sm font-medium transition-colors ${
-                      active === item.id
-                        ? "bg-foreground/5 text-foreground"
-                        : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
-                    }`}
-                  >
-                    {item.name}
-                  </button>
-                </li>
-              ))}
+              {navItems.map((item) => {
+                const isActive = active === item.id;
+                return (
+                  <li key={item.id}>
+                    <button
+                      onClick={() => handleNav(item.id)}
+                      className={`relative w-full overflow-hidden rounded-lg px-4 py-3 text-left text-sm font-medium transition-colors ${
+                        isActive
+                          ? "bg-foreground/5 text-foreground"
+                          : "text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
+                      }`}
+                    >
+                      {isActive && (
+                        <span className="absolute inset-y-0 left-0 w-0.5 rounded-full bg-gradient-to-b from-accent-indigo to-accent-cyan" />
+                      )}
+                      {item.name}
+                    </button>
+                  </li>
+                );
+              })}
             </ul>
           </motion.div>
         )}
