@@ -79,7 +79,7 @@ export default function Contact() {
 
             <a
               href={`mailto:${EMAIL}`}
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent-indigo to-purple-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-accent-indigo/25 transition-transform hover:scale-[1.03]"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent-indigo to-accent-cyan px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-accent-indigo/25 transition-transform hover:scale-[1.03]"
             >
               <Mail className="h-4 w-4" /> Email me
             </a>

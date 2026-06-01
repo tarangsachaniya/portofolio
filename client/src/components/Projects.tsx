@@ -17,16 +17,16 @@ const TECH_SLUGS: Record<string, string> = {
 /** Gradient + icon-color per project category. */
 const CATEGORY_STYLE: Record<string, { gradient: string; badge: string }> = {
   "Full Stack": {
-    gradient: "from-accent-indigo/30 via-purple-500/20 to-accent-cyan/30",
+    gradient: "from-accent-indigo/30 to-accent-cyan/30",
     badge: "border-accent-indigo/30 bg-accent-indigo/10 text-accent-indigo",
   },
   IoT: {
-    gradient: "from-accent-cyan/30 via-sky-500/20 to-emerald-500/30",
+    gradient: "from-accent-cyan/30 to-accent-indigo/20",
     badge: "border-accent-cyan/30 bg-accent-cyan/10 text-accent-cyan",
   },
   "Data Science": {
-    gradient: "from-violet-500/30 via-fuchsia-500/20 to-accent-indigo/30",
-    badge: "border-violet-400/30 bg-violet-400/10 text-violet-300",
+    gradient: "from-accent-indigo/20 to-accent-cyan/30",
+    badge: "border-accent-indigo/30 bg-accent-indigo/10 text-accent-indigo",
   },
   "E-Commerce": {
     gradient: "from-amber-500/30 via-orange-500/20 to-pink-500/30",

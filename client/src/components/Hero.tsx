@@ -56,12 +56,14 @@ export default function Hero() {
             className="order-2 flex justify-center lg:order-1 lg:justify-start"
           >
             <div className="relative">
-              <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-accent-indigo via-purple-500 to-accent-cyan opacity-60 blur-sm" />
+              <div className="absolute -inset-1 rounded-full bg-gradient-to-tr from-accent-indigo to-accent-cyan opacity-60 blur-sm" />
               <div className="relative h-64 w-64 overflow-hidden rounded-full shadow-2xl md:h-80 md:w-80">
                 <img
                   src={profileImage}
                   alt="Tarang Sachaniya"
                   className="h-full w-full object-cover"
+                  fetchpriority="high"
+                  decoding="async"
                 />
               </div>
               <div className="absolute -bottom-2 -right-2 flex h-20 w-20 items-center justify-center rounded-full border-4 border-background bg-gradient-to-br from-accent-indigo to-accent-cyan shadow-lg">
@@ -129,7 +131,7 @@ export default function Hero() {
             >
               <button
                 onClick={() => scrollTo("projects")}
-                className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent-indigo to-purple-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-accent-indigo/25 transition-transform hover:scale-[1.03]"
+                className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-accent-indigo to-accent-cyan px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-accent-indigo/25 transition-transform hover:scale-[1.03]"
               >
                 View Projects
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

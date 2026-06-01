@@ -66,12 +66,14 @@ export default function About() {
             className="mx-auto w-full max-w-[300px]"
           >
             <div className="group relative">
-              <div className="absolute -inset-0.5 rounded-3xl bg-gradient-to-br from-accent-indigo via-purple-500 to-accent-cyan opacity-70 blur transition-opacity group-hover:opacity-100" />
+              <div className="absolute -inset-0.5 rounded-3xl bg-gradient-to-br from-accent-indigo to-accent-cyan opacity-70 blur transition-opacity group-hover:opacity-100" />
               <div className="relative overflow-hidden rounded-3xl border border-border bg-surface">
                 <img
                   src={profileImage}
                   alt="Tarang Sachaniya"
                   className="aspect-square w-full object-cover"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             </div>

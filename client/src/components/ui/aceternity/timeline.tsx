@@ -49,7 +49,7 @@ export function Timeline({ data }: { data: TimelineEntry[] }) {
           <motion.div
             style={{ height: heightTransform as unknown as string, opacity: heightTransform }}
             className={cn(
-              "absolute inset-x-0 top-0 w-[2px] bg-gradient-to-t from-purple-500 via-blue-500 to-transparent from-[0%] via-[10%] rounded-full"
+              "absolute inset-x-0 top-0 w-[2px] bg-gradient-to-t from-accent-indigo via-accent-cyan to-transparent from-[0%] via-[10%] rounded-full"
             )}
           />
         </div>
