@@ -18,7 +18,7 @@ export default function Home() {
   const loading = useMinDelay(800);
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-accent-indigo/20 selection:text-foreground">
+    <div className="min-h-screen overflow-x-hidden bg-background text-foreground selection:bg-accent-indigo/20 selection:text-foreground">
       <Navbar />
       <main>
         {loading ? (

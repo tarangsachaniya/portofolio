@@ -22,9 +22,11 @@ export function useScrollSpy(ids: string[], navbarHeight = 80): string {
 
     update();
     window.addEventListener("scroll", update, { passive: true });
+    document.addEventListener("scroll", update, { passive: true });
     window.addEventListener("touchmove", update, { passive: true });
     return () => {
       window.removeEventListener("scroll", update);
+      document.removeEventListener("scroll", update);
       window.removeEventListener("touchmove", update);
     };
   }, [ids, navbarHeight]);
