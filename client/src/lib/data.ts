@@ -66,9 +66,9 @@ export const projectsData = [
     "React",
     "TypeScript",
     "Tailwind CSS",
-    "Laravel",
-    "MySQL",
-    "Stripe"
+    "Shadcn",
+    "PGSql",
+    "RazorPay"
   ],
   live: "https://universalbrew.com",
   workProject: true,
