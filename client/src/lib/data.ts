@@ -71,7 +71,6 @@ export const projectsData = [
     "RazorPay"
   ],
   live: "https://universalbrew.com",
-  workProject: true,
 },
 ];
 
