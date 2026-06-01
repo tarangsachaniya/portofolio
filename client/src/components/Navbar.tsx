@@ -38,8 +38,16 @@ export default function Navbar() {
     document.documentElement.classList.toggle("dark", next === "dark");
   };
 
+  useEffect(() => {
+    const hash = window.location.hash.slice(1);
+    if (hash && sectionIds.includes(hash)) {
+      setTimeout(() => document.getElementById(hash)?.scrollIntoView({ behavior: "smooth" }), 100);
+    }
+  }, []);
+
   const handleNav = (id: string) => {
     setOpen(false);
+    history.pushState(null, "", `#${id}`);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
