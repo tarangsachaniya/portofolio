@@ -87,7 +87,7 @@ export const projectsData: Project[] = [
       "RazorPay"
     ],
     category: "E-Commerce",
-    live: "https://universalbrew.com",
+    live: "https://universalbrew.vercel.app",
   },
 ];
 
