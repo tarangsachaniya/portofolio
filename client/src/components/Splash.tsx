@@ -11,7 +11,7 @@ interface SplashProps {
 /**
  * Branded full-screen loader showing the "TS" mark, ~1s, then fades away.
  */
-export default function Splash({ onDone, duration = 1000 }: SplashProps) {
+export default function Splash({ onDone, duration = 350 }: SplashProps) {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function Splash({ onDone, duration = 1000 }: SplashProps) {
         <motion.div
           key="splash"
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
           className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-background"
         >
           <motion.div

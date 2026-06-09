@@ -15,7 +15,7 @@ import {
 } from "@/components/skeletons/Skeletons";
 
 export default function Home() {
-  const loading = useMinDelay(800);
+  const loading = useMinDelay(0);
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-background text-foreground selection:bg-accent-indigo/20 selection:text-foreground">

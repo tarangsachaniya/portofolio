@@ -28,7 +28,7 @@ export default function Navbar() {
     if (typeof document !== "undefined") {
       return document.documentElement.classList.contains("dark") ? "dark" : "light";
     }
-    return "dark";
+    return "light";
   });
 
   useEffect(() => {
