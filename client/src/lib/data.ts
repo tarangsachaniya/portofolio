@@ -69,7 +69,6 @@ export const projectsData: Project[] = [
       "Full-stack hackathon management platform for a 36-hour AI hackathon — handling registrations, team formation, submissions, and real-time event coordination.",
     tech: ["Next.js", "MongoDB", "Node.js", "Express", "Tailwind CSS"],
     category: "Full Stack",
-    github: "https://github.com/Magazine-LFA/hachakthon",
     live: "https://hackovate.live/",
   },
   {
