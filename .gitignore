@@ -6,3 +6,6 @@ vite.config.ts.*
 *.tar.gz
 .agents
 .local
+# large source assets — never commit the print-res brochure
+public/*.pdf
+client/public/brochure/*.pdf

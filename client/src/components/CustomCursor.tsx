@@ -1,89 +1,82 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  m,
+  useMotionValue,
+  useSpring,
+  useReducedMotion,
+} from "framer-motion";
+import { spring } from "@/lib/motion";
+
+const INTERACTIVE = 'a, button, [role="button"], input, textarea, select, label';
 
 /**
- * Minimal dot cursor for desktop (fine pointer) devices. A small dot tracks the
- * pointer precisely; a larger ring trails it and grows over interactive targets.
- * Hidden entirely on touch devices.
+ * Desktop-only two-part cursor: a dot that tracks exactly, and a ring that
+ * trails on a spring and grows over interactive targets.
+ *
+ * Everything runs on MotionValues, so there is no React state churn and no
+ * manual rAF loop (the spring stops itself once at rest). Hover state comes
+ * from mouseover/mouseout, which fire only when the target actually changes —
+ * the previous version ran a 6-selector `closest()` walk on every mousemove.
  */
 export default function CustomCursor() {
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
+  const reduced = useReducedMotion();
   const [enabled, setEnabled] = useState(false);
-  const [hovering, setHovering] = useState(false);
-  const [hidden, setHidden] = useState(true);
+
+  const x = useMotionValue(-100);
+  const y = useMotionValue(-100);
+  const opacity = useMotionValue(0);
+  const scale = useMotionValue(1);
+
+  const ringX = useSpring(x, { stiffness: 420, damping: 38, mass: 0.6 });
+  const ringY = useSpring(y, { stiffness: 420, damping: 38, mass: 0.6 });
+  const ringScale = useSpring(scale, spring.snappy);
 
   useEffect(() => {
-    const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-    if (!fine) return;
+    if (reduced) return;
+    if (!window.matchMedia("(hover: hover) and (pointer: fine)").matches) return;
 
     setEnabled(true);
     document.body.classList.add("has-custom-cursor");
 
-    let raf = 0;
-    let mx = 0;
-    let my = 0;
-    let rx = 0;
-    let ry = 0;
-
     const onMove = (e: MouseEvent) => {
-      mx = e.clientX;
-      my = e.clientY;
-      setHidden(false);
-      const target = e.target as HTMLElement;
-      setHovering(
-        !!target.closest('a, button, [role="button"], input, textarea, select, label')
-      );
+      x.set(e.clientX);
+      y.set(e.clientY);
+      opacity.set(1);
     };
-
-    const onLeave = () => setHidden(true);
-
-    const loop = () => {
-      rx += (mx - rx) * 0.18;
-      ry += (my - ry) * 0.18;
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate(${mx}px, ${my}px)`;
-      }
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate(${rx}px, ${ry}px)`;
-      }
-      raf = requestAnimationFrame(loop);
+    const onOver = (e: MouseEvent) => {
+      const el = e.target as HTMLElement | null;
+      scale.set(el?.closest?.(INTERACTIVE) ? 1.7 : 1);
     };
+    const onLeave = () => opacity.set(0);
 
-    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("mouseover", onOver, { passive: true });
     document.addEventListener("mouseleave", onLeave);
-    raf = requestAnimationFrame(loop);
 
     return () => {
       window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseover", onOver);
       document.removeEventListener("mouseleave", onLeave);
-      cancelAnimationFrame(raf);
       document.body.classList.remove("has-custom-cursor");
     };
-  }, []);
+  }, [reduced, x, y, opacity, scale]);
 
   if (!enabled) return null;
 
   return (
-    <div
-      className="pointer-events-none fixed inset-0 z-[90] hidden md:block"
-      style={{ opacity: hidden ? 0 : 1, transition: "opacity 0.2s" }}
+    <m.div
       aria-hidden
+      style={{ opacity }}
+      className="pointer-events-none fixed inset-0 z-[90] hidden md:block"
     >
-      <div
-        ref={dotRef}
-        className="absolute -ml-1 -mt-1 h-2 w-2 rounded-full bg-accent-indigo"
+      <m.div
+        style={{ x, y }}
+        className="absolute -ml-[3px] -mt-[3px] h-1.5 w-1.5 rounded-full bg-accent"
       />
-      <div
-        ref={ringRef}
-        className="absolute rounded-full border border-accent-indigo/60 transition-[width,height,margin,background-color] duration-200"
-        style={{
-          width: hovering ? 44 : 28,
-          height: hovering ? 44 : 28,
-          marginLeft: hovering ? -22 : -14,
-          marginTop: hovering ? -22 : -14,
-          backgroundColor: hovering ? "hsl(var(--accent-indigo) / 0.1)" : "transparent",
-        }}
+      <m.div
+        style={{ x: ringX, y: ringY, scale: ringScale }}
+        className="absolute -ml-3.5 -mt-3.5 h-7 w-7 rounded-full border border-accent/60"
       />
-    </div>
+    </m.div>
   );
 }

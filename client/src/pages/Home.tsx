@@ -1,43 +1,49 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Skills from "@/components/Skills";
+import Priinteve from "@/components/Priinteve";
 import Projects from "@/components/Projects";
+import Experience from "@/components/Experience";
+import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import { useMinDelay } from "@/hooks/useMinDelay";
-import {
-  AboutSkeleton,
-  ContactSkeleton,
-  HeroSkeleton,
-  ProjectsSkeleton,
-  SkillsSkeleton,
-} from "@/components/skeletons/Skeletons";
+import Marquee from "@/components/motion/Marquee";
+import TextMarquee from "@/components/motion/TextMarquee";
+import { marqueeRowA, marqueeRowB } from "@/lib/data";
 
 export default function Home() {
-  const loading = useMinDelay(0);
-
   return (
-    <div className="min-h-screen overflow-x-hidden bg-background text-foreground selection:bg-accent-indigo/20 selection:text-foreground">
+    <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
       <Navbar />
       <main>
-        {loading ? (
-          <>
-            <HeroSkeleton />
-            <AboutSkeleton />
-            <SkillsSkeleton />
-            <ProjectsSkeleton />
-            <ContactSkeleton />
-          </>
-        ) : (
-          <>
-            <Hero />
-            <About />
-            <Skills />
-            <Projects />
-            <Contact />
-          </>
-        )}
+        <Hero />
+
+        <section
+          aria-label="Technologies"
+          className="space-y-3 border-y border-border/60 bg-surface py-10"
+        >
+          <Marquee items={marqueeRowA} duration={48} />
+          <Marquee items={marqueeRowB} duration={54} reverse />
+        </section>
+
+        <About />
+
+        <TextMarquee
+          items={["Full Stack", "React", "Laravel", "Node", "Next.js", "Python"]}
+        />
+
+        <Priinteve />
+        <Projects />
+        <Experience />
+        <Skills />
+
+        <TextMarquee
+          items={["Let's build", "Available for work", "Get in touch"]}
+          reverse
+          duration={30}
+        />
+
+        <Contact />
       </main>
       <Footer />
     </div>

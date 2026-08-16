@@ -1,171 +1,184 @@
-import { motion } from "framer-motion";
-import { ExternalLink, Github, Instagram, Linkedin, Mail, Send } from "lucide-react";
+import { m } from "framer-motion";
+import {
+  ArrowUpRight,
+  Github,
+  Instagram,
+  Linkedin,
+  Mail,
+  MessageCircle,
+  Phone,
+} from "lucide-react";
+import SectionHeader from "@/components/motion/SectionHeader";
+import { MagneticLink } from "@/components/motion/MagneticButton";
+import { priinteve, profile } from "@/lib/data";
+import { fadeUp, fadeUpSm, revealGroup, stagger, viewport } from "@/lib/motion";
 
-const EMAIL = "tarangsachaniya8@gmail.com";
+const socialIcons = { github: Github, linkedin: Linkedin, instagram: Instagram };
 
-const socials = [
+const channels = [
   {
-    name: "GitHub",
-    icon: Github,
-    href: "https://github.com/tarangsachaniya",
-    color: "hover:border-slate-400 hover:text-slate-700 dark:hover:text-slate-300",
-  },
-  {
-    name: "LinkedIn",
-    icon: Linkedin,
-    href: "https://www.linkedin.com/in/tarang-sachaniya/",
-    color: "hover:border-blue-400 hover:text-blue-600 dark:hover:text-blue-400",
-  },
-  {
-    name: "Instagram",
-    icon: Instagram,
-    href: "https://instagram.com/tarangsachaniya",
-    color: "hover:border-pink-400 hover:text-pink-600 dark:hover:text-pink-400",
-  },
-];
-
-const contactCards = [
-  {
-    name: "Email",
-    value: EMAIL,
     icon: Mail,
-    href: `mailto:${EMAIL}`,
-    iconBg: "bg-blue-50 dark:bg-blue-950/40",
-    iconColor: "text-blue-600 dark:text-blue-400",
+    label: "Personal email",
+    value: profile.email,
+    href: `mailto:${profile.email}`,
   },
   {
-    name: "GitHub",
-    value: "tarangsachaniya",
-    icon: Github,
-    href: "https://github.com/tarangsachaniya",
-    iconBg: "bg-slate-100 dark:bg-slate-800/60",
-    iconColor: "text-slate-700 dark:text-slate-300",
+    icon: Mail,
+    label: "Priinteve",
+    value: priinteve.email,
+    href: `mailto:${priinteve.email}`,
   },
   {
-    name: "LinkedIn",
-    value: "tarang-sachaniya",
-    icon: Linkedin,
-    href: "https://www.linkedin.com/in/tarang-sachaniya/",
-    iconBg: "bg-blue-50 dark:bg-blue-950/40",
-    iconColor: "text-blue-700 dark:text-blue-400",
+    icon: MessageCircle,
+    label: "WhatsApp",
+    value: priinteve.whatsapp,
+    href: `https://wa.me/${priinteve.whatsapp.replace(/\D/g, "")}`,
   },
   {
-    name: "Instagram",
-    value: "@tarangsachaniya",
-    icon: Instagram,
-    href: "https://instagram.com/tarangsachaniya",
-    iconBg: "bg-pink-50 dark:bg-pink-950/40",
-    iconColor: "text-pink-600 dark:text-pink-400",
+    icon: Phone,
+    label: "Call",
+    value: priinteve.phone,
+    href: `tel:${priinteve.phone.replace(/\s/g, "")}`,
   },
 ];
 
 export default function Contact() {
   return (
-    <section id="contact" className="relative bg-surface py-24 md:py-28">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,hsl(var(--accent-indigo)/0.06),transparent)]" />
+    <section id="contact" className="relative py-24 md:py-28">
+      <div className="mx-auto w-full max-w-6xl px-6">
+        <SectionHeader
+          eyebrow="./contact"
+          title="Let's build something"
+          description="Open to freelance work, product partnerships, and interesting engineering problems. Fastest reply is WhatsApp."
+        />
 
-      <div className="relative z-10 mx-auto w-full max-w-[1200px] px-6">
-
-        {/* Section header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.4 }}
-          className="mb-14"
-        >
-          <p className="mb-2 font-mono text-sm font-medium uppercase tracking-widest text-accent-indigo">
-            Let's Connect
-          </p>
-          <h2 className="font-display text-3xl font-bold text-foreground md:text-5xl">
-            Get in Touch
-          </h2>
-          <div className="mt-4 h-1 w-16 rounded-full bg-gradient-to-r from-accent-indigo to-accent-cyan" />
-        </motion.div>
-
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
-
-          {/* Left: heading + CTA + socials */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
+        <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_1fr]">
+          {/* ── primary CTA ── */}
+          <m.div
+            variants={stagger(0.08)}
+            initial="hidden"
+            whileInView="show"
+            viewport={viewport}
+            className="flex flex-col justify-between rounded-xl border border-border bg-card p-6 sm:p-8"
           >
-            <p className="max-w-md text-[17px] leading-relaxed text-muted-foreground">
-              I'm always open to discussing new projects, creative ideas, or
-              opportunities to collaborate. Let's build something great together.
-            </p>
+            <div>
+              <m.p
+                variants={fadeUp}
+                className="font-display text-xl font-bold tracking-tight text-foreground sm:text-2xl"
+              >
+                Have a project in mind?
+              </m.p>
+              <m.p
+                variants={fadeUpSm}
+                className="mt-3 text-sm leading-relaxed text-muted-foreground"
+              >
+                Tell me what you&apos;re building and what&apos;s in the way. I
+                reply to everything — usually within a day.
+              </m.p>
+            </div>
 
-            <a
-              href={`mailto:${EMAIL}`}
-              className="group mt-8 inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-accent-indigo to-accent-cyan px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-accent-indigo/20 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-accent-indigo/25"
+            <m.div variants={fadeUp} className="mt-7 flex flex-wrap gap-2">
+              <MagneticLink
+                href={`mailto:${profile.email}`}
+                className="group inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 font-mono text-sm font-semibold text-accent-foreground transition-shadow hover:shadow-[0_0_30px_-6px_hsl(var(--accent)/0.7)]"
+              >
+                Send an email
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </MagneticLink>
+              <MagneticLink
+                href={`https://wa.me/${priinteve.whatsapp.replace(/\D/g, "")}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                cap={8}
+                className="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 font-mono text-sm font-semibold text-foreground transition-colors hover:border-accent/60 hover:text-accent"
+              >
+                <MessageCircle className="h-4 w-4" />
+                WhatsApp
+              </MagneticLink>
+            </m.div>
+
+            <m.div
+              variants={fadeUpSm}
+              className="mt-7 flex items-center gap-2.5 rounded-lg border border-accent/25 bg-accent/[0.07] px-4 py-3"
             >
-              <Send className="h-4 w-4" />
-              Send an Email
-            </a>
+              <span className="animate-pulse-dot h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
+              <span className="text-[13px] text-muted-foreground">
+                Currently available for new work
+              </span>
+            </m.div>
+          </m.div>
 
-            <div className="mt-8 flex items-center gap-3">
-              {socials.map(({ name, icon: Icon, href, color }) => (
+          {/* ── channels ── */}
+          <m.div {...revealGroup(0.06)} className="grid content-start gap-3">
+            <m.div variants={fadeUp} className="grid gap-3 sm:grid-cols-2">
+              {channels.map(({ icon: Icon, label, value, href }) => (
                 <a
-                  key={name}
+                  key={label}
                   href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={name}
-                  className={`flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-white text-muted-foreground shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md dark:bg-card ${color}`}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  className="group flex items-start gap-3 rounded-xl border border-border bg-card p-4 transition-colors hover:border-accent/40"
                 >
-                  <Icon className="h-5 w-5" />
+                  <Icon
+                    className="mt-0.5 h-4 w-4 shrink-0 text-accent"
+                    aria-hidden
+                  />
+                  <span className="min-w-0">
+                    <span className="block font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">
+                      {label}
+                    </span>
+                    <span className="mt-0.5 block truncate text-[13px] text-foreground">
+                      {value}
+                    </span>
+                  </span>
                 </a>
               ))}
-            </div>
+            </m.div>
 
-            {/* Availability note */}
-            <div className="mt-10 rounded-2xl border border-green-200 bg-green-50 p-5 dark:border-green-900/40 dark:bg-green-950/20">
-              <div className="flex items-center gap-2.5">
-                <div className="h-2.5 w-2.5 rounded-full bg-green-500" />
-                <span className="text-sm font-semibold text-green-700 dark:text-green-400">
-                  Currently available for freelance projects
-                </span>
+            <m.div
+              variants={fadeUp}
+              className="rounded-xl border border-border bg-card p-5"
+            >
+              <h3 className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                Elsewhere
+              </h3>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {profile.socials.map((social) => {
+                  const Icon =
+                    socialIcons[social.icon as keyof typeof socialIcons];
+                  return (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 rounded-lg border border-border bg-elevated px-3 py-2 font-mono text-[11px] text-muted-foreground transition-colors hover:border-accent/40 hover:text-accent"
+                    >
+                      <Icon className="h-3.5 w-3.5" />
+                      {social.label}
+                    </a>
+                  );
+                })}
               </div>
-              <p className="mt-2 text-sm text-green-700/80 dark:text-green-500/80">
-                Open to full-time roles and interesting contract work.
-              </p>
-            </div>
-          </motion.div>
 
-          {/* Right: contact link cards */}
-          <div className="grid grid-cols-2 gap-4">
-            {contactCards.map((card, i) => {
-              const Icon = card.icon;
-              return (
-                <motion.a
-                  key={card.name}
-                  href={card.href}
-                  target={card.href.startsWith("mailto") ? undefined : "_blank"}
-                  rel="noopener noreferrer"
-                  initial={{ opacity: 0, y: 16 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.35, delay: i * 0.07 }}
-                  className="group flex flex-col gap-3 rounded-2xl border border-border bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-accent-indigo/40 hover:shadow-md dark:bg-card"
-                >
-                  <div className={`flex h-11 w-11 items-center justify-center rounded-xl ${card.iconBg} ${card.iconColor}`}>
-                    <Icon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
-                      {card.name}
-                    </div>
-                    <div className="mt-1 flex items-center gap-1 text-sm font-semibold text-foreground">
-                      <span className="truncate">{card.value}</span>
-                      <ExternalLink className="h-3 w-3 shrink-0 opacity-0 transition-opacity group-hover:opacity-50" />
-                    </div>
-                  </div>
-                </motion.a>
-              );
-            })}
-          </div>
+              <h3 className="mt-5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                Priinteve
+              </h3>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {priinteve.socials.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-lg border border-border bg-elevated px-3 py-2 font-mono text-[11px] text-muted-foreground transition-colors hover:border-accent/40 hover:text-accent"
+                  >
+                    {social.label}
+                  </a>
+                ))}
+              </div>
+            </m.div>
+          </m.div>
         </div>
       </div>
     </section>

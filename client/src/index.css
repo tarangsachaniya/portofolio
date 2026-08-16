@@ -1,12 +1,19 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@variant dark (&:where(.dark, .dark *));
+/*
+ * Dark-first "Terminal" identity.
+ * :root holds the DARK palette (the default). `.light` opts into light.
+ * Components should use semantic tokens (bg-card, text-foreground, border-border)
+ * and almost never need a theme-specific override — use `light:` if they do.
+ */
+@variant light (&:where(.light, .light *));
 
 @theme inline {
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-surface: hsl(var(--surface));
+  --color-elevated: hsl(var(--elevated));
   --color-card: hsl(var(--card));
   --color-card-foreground: hsl(var(--card-foreground));
   --color-popover: hsl(var(--popover));
@@ -19,118 +26,137 @@
   --color-muted-foreground: hsl(var(--muted-foreground));
   --color-accent: hsl(var(--accent));
   --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-accent-dim: hsl(var(--accent-dim));
+  --color-accent-bright: hsl(var(--accent-bright));
   --color-destructive: hsl(var(--destructive));
   --color-destructive-foreground: hsl(var(--destructive-foreground));
   --color-border: hsl(var(--border));
+  --color-border-strong: hsl(var(--border-strong));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
-
-  --color-accent-indigo: hsl(var(--accent-indigo));
-  --color-accent-cyan: hsl(var(--accent-cyan));
 
   --color-skeleton-base: hsl(var(--skeleton-base));
   --color-skeleton-shine: hsl(var(--skeleton-shine));
 
-  --font-sans: 'Inter', sans-serif;
-  --font-display: 'Sora', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'JetBrains Mono', ui-monospace, monospace;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
   --breakpoint-xs: 30rem;
 
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-marquee-reverse: marquee-reverse var(--marquee-duration, 40s) linear infinite;
+  --animate-scanline: scanline 7s linear infinite;
+  --animate-beam: beam 2.4s ease-in-out infinite;
   --animate-shimmer: shimmer 1.5s linear infinite;
-  --animate-float: float 6s ease-in-out infinite;
   --animate-bounce-arrow: bounce-arrow 1.8s ease-in-out infinite;
   --animate-pulse-dot: pulse-dot 1.6s ease-in-out infinite;
   --animate-blink: blink 1s step-end infinite;
 
+  /*
+   * The marquee track holds exactly two identical copies, so -50% is one copy
+   * width and the loop is seamless. translate3d keeps it on the compositor.
+   */
+  @keyframes marquee {
+    from { transform: translate3d(0, 0, 0); }
+    to   { transform: translate3d(-50%, 0, 0); }
+  }
+  @keyframes marquee-reverse {
+    from { transform: translate3d(-50%, 0, 0); }
+    to   { transform: translate3d(0, 0, 0); }
+  }
+  @keyframes scanline {
+    from { transform: translate3d(0, -100%, 0); }
+    to   { transform: translate3d(0, 100%, 0); }
+  }
+  @keyframes beam {
+    0%, 100% { opacity: 0.35; }
+    50%      { opacity: 1; }
+  }
   @keyframes shimmer {
-    0% { transform: translateX(-100%); }
+    0%   { transform: translateX(-100%); }
     100% { transform: translateX(100%); }
   }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
-  }
-
   @keyframes bounce-arrow {
     0%, 100% { transform: translateY(0); opacity: 0.5; }
-    50% { transform: translateY(8px); opacity: 1; }
+    50%      { transform: translateY(8px); opacity: 1; }
   }
-
   @keyframes pulse-dot {
-    0%, 100% { box-shadow: 0 0 0 0 hsl(142 76% 36% / 0.5); }
-    50% { box-shadow: 0 0 0 5px hsl(142 76% 36% / 0); }
+    0%, 100% { box-shadow: 0 0 0 0 hsl(var(--accent) / 0.5); }
+    50%      { box-shadow: 0 0 0 5px hsl(var(--accent) / 0); }
   }
-
   @keyframes blink {
     0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
+    50%      { opacity: 0; }
   }
 }
 
+/* ── DARK (default) ───────────────────────────────────────── */
 :root {
+  --background: 229 84% 5%;        /* #020617 slate-950 */
+  --foreground: 210 40% 98%;       /* #F8FAFC */
+  --surface: 229 50% 7%;
+  --elevated: 229 43% 13%;
+  --card: 229 43% 10%;             /* #0E1223 */
+  --card-foreground: 210 40% 98%;
+  --popover: 229 50% 7%;
+  --popover-foreground: 210 40% 98%;
+  --primary: 210 40% 98%;
+  --primary-foreground: 229 84% 5%;
+  --secondary: 229 43% 13%;
+  --secondary-foreground: 210 40% 98%;
+  --muted: 229 40% 12%;
+  --muted-foreground: 215 20% 65%; /* #94A3B8 */
+  --accent: 142 71% 45%;           /* #22C55E emerald-500 */
+  --accent-bright: 142 69% 58%;    /* emerald-400 — hover/glow */
+  --accent-dim: 142 60% 35%;
+  --accent-foreground: 229 84% 5%;
+  --destructive: 0 72% 51%;
+  --destructive-foreground: 210 40% 98%;
+  --border: 215 25% 27%;           /* #334155 */
+  --border-strong: 215 20% 35%;
+  --input: 215 25% 27%;
+  --ring: 142 71% 45%;
+  --radius: 0.625rem;
+
+  --skeleton-base: 229 43% 13%;
+  --skeleton-shine: 229 40% 20%;
+
+  color-scheme: dark;
+}
+
+/* ── LIGHT (opt-in via .light on <html>) ──────────────────── */
+.light {
   --background: 0 0% 100%;
-  --foreground: 222 47% 11%;
+  --foreground: 229 84% 5%;
   --surface: 210 40% 98%;
+  --elevated: 210 40% 96%;
   --card: 0 0% 100%;
-  --card-foreground: 222 47% 11%;
+  --card-foreground: 229 84% 5%;
   --popover: 0 0% 100%;
-  --popover-foreground: 222 47% 11%;
-  --primary: 222 47% 11%;
+  --popover-foreground: 229 84% 5%;
+  --primary: 229 84% 5%;
   --primary-foreground: 0 0% 100%;
   --secondary: 210 40% 96%;
-  --secondary-foreground: 222 47% 11%;
+  --secondary-foreground: 229 84% 5%;
   --muted: 210 40% 96%;
-  --muted-foreground: 215 16% 47%;
-  --accent: 210 40% 96%;
-  --accent-foreground: 222 47% 11%;
-  --destructive: 0 84.2% 60.2%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 214 32% 91%;
-  --input: 214 32% 91%;
-  --ring: 221 83% 53%;
-  --radius: 0.75rem;
-
-  /* Brand: Blue → Violet */
-  --accent-indigo: 221 83% 53%;
-  --accent-cyan: 263 70% 50%;
+  --muted-foreground: 215 25% 35%;
+  /* emerald-500 is only ~1.9:1 on white — light mode needs emerald-700 for AA text */
+  --accent: 142 72% 29%;           /* #15803D */
+  --accent-bright: 142 72% 24%;
+  --accent-dim: 142 55% 45%;
+  --accent-foreground: 0 0% 100%;
+  --destructive: 0 72% 45%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 214 32% 88%;
+  --border-strong: 214 25% 75%;
+  --input: 214 32% 88%;
+  --ring: 142 72% 29%;
 
   --skeleton-base: 210 40% 94%;
   --skeleton-shine: 0 0% 100%;
 
-  --neutral-300: #cbd5e1;
-}
-
-.dark {
-  --background: 222 47% 6%;
-  --foreground: 210 40% 96%;
-  --surface: 222 47% 9%;
-  --card: 222 47% 9%;
-  --card-foreground: 210 40% 96%;
-  --popover: 222 47% 7%;
-  --popover-foreground: 210 40% 96%;
-  --primary: 210 40% 90%;
-  --primary-foreground: 222 47% 9%;
-  --secondary: 222 47% 13%;
-  --secondary-foreground: 210 40% 96%;
-  --muted: 222 47% 12%;
-  --muted-foreground: 215 20% 58%;
-  --accent: 222 47% 13%;
-  --accent-foreground: 210 40% 96%;
-  --destructive: 0 62.8% 45%;
-  --destructive-foreground: 0 0% 98%;
-  --border: 222 47% 16%;
-  --input: 222 47% 16%;
-  --ring: 217 91% 60%;
-
-  --accent-indigo: 217 91% 60%;
-  --accent-cyan: 263 70% 65%;
-
-  --skeleton-base: 222 47% 13%;
-  --skeleton-shine: 222 47% 19%;
-
-  --neutral-300: #334155;
+  color-scheme: light;
 }
 
 @layer base {
@@ -143,8 +169,26 @@
   }
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
   }
 
+  ::selection {
+    background-color: hsl(var(--accent) / 0.25);
+    color: hsl(var(--foreground));
+  }
+
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+
+  /*
+   * This block only reaches CSS animations/transitions. Framer Motion drives
+   * transforms through its own rAF loop and is unaffected — FM is handled
+   * separately by <MotionConfig reducedMotion="user"> plus per-hook
+   * useReducedMotion() gating for scroll/pointer-bound MotionValues.
+   */
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     *, *::before, *::after {
@@ -152,6 +196,12 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
+    /* Infinite loops should stop dead, not fast-forward to a random frame. */
+    .marquee-track,
+    .shimmer::after {
+      animation: none !important;
+    }
+    .marquee-track { transform: none !important; }
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -172,14 +222,28 @@
 
 @layer utilities {
   .glass {
-    @apply bg-white/80 backdrop-blur-md border border-border/60 dark:bg-background/70;
-  }
-  .glass-card {
-    @apply bg-white/90 backdrop-blur-xl border border-border shadow-sm dark:bg-surface/60;
+    background-color: hsl(var(--background) / 0.72);
+    backdrop-filter: blur(12px);
+    border-color: hsl(var(--border) / 0.7);
   }
 
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-indigo to-accent-cyan;
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      100deg,
+      hsl(var(--foreground)) 0%,
+      hsl(var(--accent-bright)) 55%,
+      hsl(var(--accent)) 100%
+    );
+  }
+
+  .text-accent-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(
+      100deg,
+      hsl(var(--accent-bright)) 0%,
+      hsl(var(--accent)) 100%
+    );
   }
 
   .shimmer {
@@ -201,20 +265,33 @@
     animation: shimmer 1.5s linear infinite;
   }
 
-  .bg-grid-pattern {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='currentColor' stroke-opacity='0.06'%3E%3Cpath d='M0 .5H31.5V32'/%3E%3C/svg%3E");
+  /* Terminal grid backdrop — currentColor so it inherits theme */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, currentColor 1px, transparent 1px),
+      linear-gradient(to bottom, currentColor 1px, transparent 1px);
+    background-size: 56px 56px;
   }
 
-  .tilt-card {
-    transform-style: preserve-3d;
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  .bg-dots {
+    background-image: radial-gradient(currentColor 1px, transparent 1px);
+    background-size: 22px 22px;
   }
 
-  .section-alt {
-    @apply bg-surface;
+  /* Edge-faded container for marquees and long rails */
+  .mask-fade-x {
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+  .mask-fade-y {
+    mask-image: linear-gradient(to bottom, transparent, black 6%, black 94%, transparent);
   }
 
   .card-base {
-    @apply bg-white border border-border rounded-2xl shadow-sm hover:shadow-md transition-shadow duration-200 dark:bg-surface dark:border-border;
+    @apply rounded-xl border border-border bg-card;
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 0 1px hsl(var(--accent) / 0.15),
+                0 20px 50px -20px hsl(var(--accent) / 0.35);
   }
 }

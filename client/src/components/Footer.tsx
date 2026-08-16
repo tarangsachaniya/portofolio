@@ -1,39 +1,53 @@
-const links = [
-  { label: "GitHub", href: "https://github.com/tarangsachaniya" },
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/tarang-sachaniya/" },
-  { label: "Instagram", href: "https://instagram.com/tarangsachaniya" },
-];
+import { priinteve, profile } from "@/lib/data";
 
 export default function Footer() {
-  return (
-    <footer className="border-t border-border bg-background py-8">
-      <div className="mx-auto flex max-w-[1200px] flex-col items-center justify-between gap-4 px-6 md:flex-row">
+  const year = new Date().getFullYear();
 
-        <div className="flex items-center gap-2.5">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-accent-indigo/30 bg-gradient-to-br from-accent-indigo/10 to-accent-cyan/10 font-display text-xs font-extrabold text-gradient">
+  return (
+    <footer className="border-t border-border bg-surface">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-5 px-6 py-9 sm:flex-row">
+        <div className="flex items-center gap-3">
+          <span className="flex h-8 w-8 items-center justify-center rounded-lg border border-accent/40 bg-card font-display text-xs font-extrabold text-accent">
             TS
           </span>
-          <span className="font-display text-base font-bold tracking-tight text-foreground">
-            Tarang <span className="text-muted-foreground font-normal">Sachaniya</span>
-          </span>
+          <div>
+            <div className="font-display text-sm font-semibold text-foreground">
+              {profile.name}
+            </div>
+            <div className="font-mono text-[11px] text-muted-foreground">
+              {profile.secondary}
+            </div>
+          </div>
         </div>
 
-        <p className="text-xs text-muted-foreground">
-          &copy; {new Date().getFullYear()} Tarang Sachaniya. All rights reserved.
-        </p>
-
-        <div className="flex items-center gap-5">
-          {links.map((l) => (
+        <div className="flex flex-col items-center gap-2 sm:items-end">
+          <div className="flex items-center gap-4">
             <a
-              key={l.label}
-              href={l.href}
+              href={`mailto:${profile.email}`}
+              className="font-mono text-[11px] text-muted-foreground transition-colors hover:text-accent"
+            >
+              Email
+            </a>
+            <a
+              href={priinteve.website}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-xs font-medium text-muted-foreground transition-colors hover:text-accent-indigo"
+              className="font-mono text-[11px] text-muted-foreground transition-colors hover:text-accent"
             >
-              {l.label}
+              priinteve.com
             </a>
-          ))}
+            <a
+              href="https://github.com/tarangsachaniya"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-mono text-[11px] text-muted-foreground transition-colors hover:text-accent"
+            >
+              GitHub
+            </a>
+          </div>
+          <p className="font-mono text-[11px] text-muted-foreground">
+            © {year} {profile.name}
+          </p>
         </div>
       </div>
     </footer>
