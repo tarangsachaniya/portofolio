@@ -149,7 +149,16 @@ function ProductCard({ product }: { product: PriinteveProduct }) {
 
 export default function Priinteve() {
   return (
-    <section id="priinteve" className="relative border-t border-border/60 py-24 md:py-28">
+    /*
+     * A single high-contrast "spotlight" band, forced dark regardless of the
+     * site theme — see .band-dark in index.css. Every descendant below still
+     * just uses bg-card / border-border / text-accent as normal; only the
+     * custom properties they resolve against change.
+     */
+    <section
+      id="priinteve"
+      className="band-dark relative border-t border-border/60 bg-background py-24 text-foreground md:py-28"
+    >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent"

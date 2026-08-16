@@ -16,7 +16,9 @@ import {
 } from "lucide-react";
 import { useTypewriter } from "@/hooks/useTypewriter";
 import { MagneticButton } from "@/components/motion/MagneticButton";
-import { profile, statsData } from "@/lib/data";
+import { priinteveProducts, profile, statsData } from "@/lib/data";
+
+const liveProductCount = priinteveProducts.filter((p) => p.status === "live").length;
 import { blurIn, dur, ease, fadeUp, fadeUpSm, stagger } from "@/lib/motion";
 
 const socialIcons = { github: Github, linkedin: Linkedin, instagram: Instagram };
@@ -258,7 +260,7 @@ export default function Hero() {
                   Products live
                 </div>
                 <div className="font-display text-xl font-bold text-accent">
-                  3
+                  {liveProductCount}
                 </div>
               </m.div>
             </div>

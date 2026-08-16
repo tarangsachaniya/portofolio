@@ -21,7 +21,7 @@ function ProjectCard({ project }: { project: Project }) {
       ref={ref}
       style={style}
       {...handlers}
-      className="group relative isolate flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card p-5 transition-colors duration-300 hover:border-accent/40"
+      className="group relative isolate flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card p-5 transition-colors duration-300 hover:border-accent-amber/40"
     >
       <m.div
         aria-hidden
@@ -98,7 +98,7 @@ function ProjectCard({ project }: { project: Project }) {
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 font-mono text-xs font-semibold text-muted-foreground transition-colors hover:text-accent"
+              className="flex items-center gap-1.5 font-mono text-xs font-semibold text-muted-foreground transition-colors hover:text-accent-amber"
             >
               <ExternalLink className="h-3.5 w-3.5" /> Live
             </a>
@@ -108,7 +108,7 @@ function ProjectCard({ project }: { project: Project }) {
               href={project.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 font-mono text-xs font-semibold text-muted-foreground transition-colors hover:text-accent"
+              className="flex items-center gap-1.5 font-mono text-xs font-semibold text-muted-foreground transition-colors hover:text-accent-amber"
             >
               <Github className="h-3.5 w-3.5" /> Source
             </a>
@@ -122,12 +122,19 @@ function ProjectCard({ project }: { project: Project }) {
 
 export default function Projects() {
   return (
-    <section id="work" className="relative py-24 md:py-28">
-      <div className="mx-auto w-full max-w-6xl px-6">
+    <section id="work" className="relative overflow-hidden py-24 md:py-28">
+      {/* ambient amber wash — a color, not a panel */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,hsl(var(--accent-amber)/0.06),transparent_70%)]"
+      />
+
+      <div className="relative mx-auto w-full max-w-6xl px-6">
         <SectionHeader
           eyebrow="selected work"
           title="Things I've built"
           description="Client and personal projects outside the Priinteve portfolio."
+          accent="amber"
         />
 
         <m.div
@@ -148,6 +155,7 @@ export default function Projects() {
             eyebrow="beyond code"
             title="Co-curricular"
             description="Leadership and community work alongside engineering."
+            accent="amber"
           />
 
           <m.div
@@ -158,9 +166,9 @@ export default function Projects() {
               <m.div
                 key={`${activity.org}-${activity.title}`}
                 variants={fadeUp}
-                className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-accent/40"
+                className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-accent-amber/40"
               >
-                <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-accent">
+                <div className="font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-accent-amber">
                   {activity.org}
                 </div>
                 <h3 className="mt-2 text-sm font-semibold text-foreground">

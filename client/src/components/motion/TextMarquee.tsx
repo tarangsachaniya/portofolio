@@ -24,7 +24,7 @@ export default function TextMarquee({
     >
       {items.map((item, i) => (
         <span key={`${item}-${i}`} className="flex items-center gap-8">
-          <span className="font-display text-4xl font-bold uppercase tracking-tight text-foreground/[0.13] md:text-6xl">
+          <span className="font-display text-4xl font-bold uppercase tracking-tight text-foreground/[0.22] md:text-6xl">
             {item}
           </span>
           <span aria-hidden className="text-2xl text-accent/40 md:text-3xl">
@@ -38,7 +38,7 @@ export default function TextMarquee({
   return (
     <div
       className={cn(
-        "group relative overflow-hidden border-y border-border/60 py-6 mask-fade-x",
+        "group relative overflow-hidden border-y border-border/60 bg-surface py-6 mask-fade-x",
         className,
       )}
     >

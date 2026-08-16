@@ -22,15 +22,27 @@ import { cn } from "@/lib/utils";
  * because a percentage `y` in Framer Motion resolves against the element's own
  * box (8px), not its container — so height comes from a ResizeObserver.
  */
+const BEAM_GRADIENT: Record<"emerald" | "violet", string> = {
+  emerald: "bg-gradient-to-b from-accent-bright via-accent to-accent/0",
+  violet: "bg-gradient-to-b from-accent-violet-bright via-accent-violet to-accent-violet/0",
+};
+
+const HEAD_COLOR: Record<"emerald" | "violet", string> = {
+  emerald: "bg-accent-bright shadow-[0_0_12px_3px_hsl(var(--accent)/0.6)]",
+  violet: "bg-accent-violet-bright shadow-[0_0_12px_3px_hsl(var(--accent-violet)/0.6)]",
+};
+
 export default function ScrollBeam({
   children,
   className,
   railClassName,
+  accent = "emerald",
 }: {
   children: ReactNode;
   className?: string;
   /** positioning for the rail, e.g. "left-4 md:left-5" */
   railClassName?: string;
+  accent?: "emerald" | "violet";
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
@@ -70,7 +82,7 @@ export default function ScrollBeam({
           style={
             reduced ? { scaleY: 1, opacity: 1 } : { scaleY, opacity, originY: 0 }
           }
-          className="h-full w-px bg-gradient-to-b from-accent-bright via-accent to-accent/0"
+          className={cn("h-full w-px", BEAM_GRADIENT[accent])}
         />
       </div>
 
@@ -79,8 +91,8 @@ export default function ScrollBeam({
           aria-hidden
           style={{ y: headY, opacity: headOpacity }}
           className={cn(
-            "pointer-events-none absolute top-0 -ml-[3.5px] block h-2 w-2 rounded-full bg-accent-bright",
-            "shadow-[0_0_12px_3px_hsl(var(--accent)/0.6)]",
+            "pointer-events-none absolute top-0 -ml-[3.5px] block h-2 w-2 rounded-full",
+            HEAD_COLOR[accent],
             railClassName,
           )}
         />

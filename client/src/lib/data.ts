@@ -172,7 +172,7 @@ export const priinteveProducts: PriinteveProduct[] = [
     name: "Priinteve Web",
     domain: "priinteve.com",
     url: "https://priinteve.com",
-    status: "live",
+    status: "in-development",
     tagline: "Premium custom printing, ordered online",
     description:
       "The commerce platform: businesses upload artwork, get an instant price estimate, and order business cards, marketing material, packaging and bulk print runs with pan-India delivery.",
@@ -183,11 +183,6 @@ export const priinteveProducts: PriinteveProduct[] = [
       "Turnaround from 24 hours",
       "GST invoices, ISO 9001 certified",
       "Marketing material, stationery, labels, packaging",
-    ],
-    metrics: [
-      { value: "10,000+", label: "Business customers" },
-      { value: "250,000+", label: "Orders fulfilled" },
-      { value: "40+", label: "Print partners" },
     ],
     tech: ["Next.js", "TypeScript", "Node.js", "MySQL", "Tailwind CSS"],
     hue: 142,

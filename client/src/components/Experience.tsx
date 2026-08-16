@@ -10,16 +10,27 @@ export default function Experience() {
   return (
     <section
       id="experience"
-      className="relative bg-surface py-24 md:py-28"
+      className="relative overflow-hidden bg-surface py-24 md:py-28"
     >
-      <div className="mx-auto w-full max-w-6xl px-6">
+      {/* ambient violet wash — mirrors the amber wash on Projects */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(ellipse_60%_50%_at_50%_0%,hsl(var(--accent-violet)/0.06),transparent_70%)]"
+      />
+
+      <div className="relative mx-auto w-full max-w-6xl px-6">
         <SectionHeader
           eyebrow="history -i"
           title="Where I've worked"
           description="From backend engineer to running the company."
+          accent="violet"
         />
 
-        <ScrollBeam className="mt-12 pl-8 md:pl-10" railClassName="left-[5px]">
+        <ScrollBeam
+          className="mt-12 pl-8 md:pl-10"
+          railClassName="left-[5px]"
+          accent="violet"
+        >
           <m.ol
             variants={stagger(0.12)}
             initial="hidden"
@@ -37,13 +48,13 @@ export default function Experience() {
                   )}
                 />
 
-                <div className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-accent/40 sm:p-6">
+                <div className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-accent-violet/40 sm:p-6">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <h3 className="font-display text-base font-bold tracking-tight text-foreground">
                         {exp.role}
                       </h3>
-                      <p className="mt-1 flex items-center gap-1.5 text-sm font-medium text-accent">
+                      <p className="mt-1 flex items-center gap-1.5 text-sm font-medium text-accent-violet">
                         <Building2 className="h-3.5 w-3.5" aria-hidden />
                         {exp.company}
                       </p>
@@ -77,7 +88,7 @@ export default function Experience() {
                       >
                         <span
                           aria-hidden
-                          className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent"
+                          className="mt-1.5 h-1 w-1 shrink-0 rounded-full bg-accent-violet"
                         />
                         {h}
                       </li>
@@ -94,13 +105,13 @@ export default function Experience() {
                   aria-hidden
                   className="absolute -left-8 top-6 h-2.5 w-2.5 rounded-full bg-border-strong ring-4 ring-surface md:-left-10"
                 />
-                <div className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-accent/40 sm:p-6">
+                <div className="rounded-xl border border-border bg-card p-5 transition-colors hover:border-accent-violet/40 sm:p-6">
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <h3 className="font-display text-base font-bold tracking-tight text-foreground">
                         {edu.degree}
                       </h3>
-                      <p className="mt-1 flex items-center gap-1.5 text-sm font-medium text-accent">
+                      <p className="mt-1 flex items-center gap-1.5 text-sm font-medium text-accent-violet">
                         <GraduationCap className="h-3.5 w-3.5" aria-hidden />
                         {edu.school}
                       </p>
