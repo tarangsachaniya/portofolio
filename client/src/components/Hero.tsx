@@ -1,281 +1,149 @@
 import { useRef } from "react";
-import {
-  m,
-  useScroll,
-  useTransform,
-  useReducedMotion,
-  type MotionValue,
-} from "framer-motion";
-import {
-  ArrowRight,
-  ChevronDown,
-  Github,
-  Instagram,
-  Linkedin,
-  MapPin,
-} from "lucide-react";
-import { useTypewriter } from "@/hooks/useTypewriter";
-import { MagneticButton } from "@/components/motion/MagneticButton";
-import { priinteveProducts, profile, statsData } from "@/lib/data";
+import { m, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { chapters, profile } from "@/lib/data";
+import GlyphField from "./GlyphField";
+import { ease } from "@/lib/motion";
 
-const liveProductCount = priinteveProducts.filter((p) => p.status === "live").length;
-import { blurIn, dur, ease, fadeUp, fadeUpSm, stagger } from "@/lib/motion";
+const fade = (delay: number) => ({
+  initial: { opacity: 0, y: 14 },
+  animate: { opacity: 1, y: 0 },
+  transition: { duration: 0.8, delay, ease: ease.out },
+});
 
-const socialIcons = { github: Github, linkedin: Linkedin, instagram: Instagram };
+/** Per-letter 3D flip-up. Letters are aria-hidden; the real h1 is sr-only. */
+function Word({ text, delay, className }: { text: string; delay: number; className?: string }) {
+  return (
+    <span className={`block overflow-hidden pb-[0.05em] [perspective:900px] ${className ?? ""}`}>
+      {text.split("").map((ch, i) => (
+        <m.span
+          key={i}
+          className="inline-block origin-bottom will-change-transform"
+          initial={{ y: "110%", rotateX: -85, opacity: 0 }}
+          animate={{ y: "0%", rotateX: 0, opacity: 1 }}
+          transition={{ duration: 1.1, delay: delay + i * 0.045, ease: ease.out }}
+        >
+          {ch}
+        </m.span>
+      ))}
+    </span>
+  );
+}
 
 export default function Hero() {
-  const typed = useTypewriter([...profile.roles]);
   const ref = useRef<HTMLElement>(null);
-  const reduced = useReducedMotion();
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const yTop = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "-35%"]);
+  const yBottom = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "-12%"]);
+  const xTop = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "-6%"]);
+  const xBottom = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "6%"]);
+  const fadeOut = useTransform(scrollYProgress, [0, 0.6], [1, reduce ? 1 : 0]);
 
-  /*
-   * Progress runs 0 → 1 over exactly one viewport height. The animated nodes
-   * are all DESCENDANTS of `ref` — never transform the useScroll target
-   * itself, since its own rect feeds the progress calculation.
-   */
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start start", "end start"],
-  });
-
-  const gridY = useTransform(scrollYProgress, [0, 1], ["0%", "38%"]);
-  const glowY = useTransform(scrollYProgress, [0, 1], ["0%", "26%"]);
-  const copyY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
-  const portraitY = useTransform(scrollYProgress, [0, 1], ["0%", "-8%"]);
-  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-  const cueOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-
-  /** drop a scroll binding entirely when the user asked for reduced motion */
-  const p = <T,>(v: MotionValue<T>) => (reduced ? undefined : v);
-
-  const scrollTo = (id: string) =>
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  const first = Number(chapters[0].year);
+  const last = Number(chapters[chapters.length - 1].year);
+  const pos = (y: number) => ((y - first) / (last - first)) * 88; // leave room for "now"
 
   return (
-    <section
-      ref={ref}
-      id="home"
-      className="relative flex min-h-svh items-center overflow-hidden bg-background pt-16"
-    >
-      {/* backdrop layers */}
-      <m.div
-        aria-hidden
-        style={{ y: p(gridY) }}
-        className="pointer-events-none absolute inset-0 -top-24 bg-grid text-foreground/[0.045] mask-fade-y"
-      />
-      <m.div
-        aria-hidden
-        style={{ y: p(glowY) }}
-        className="pointer-events-none absolute inset-0"
-      >
-        <div className="absolute left-[62%] top-[-18%] h-[520px] w-[520px] rounded-full bg-accent/[0.10] blur-[110px]" />
-        <div className="absolute -left-24 bottom-[-10%] h-[420px] w-[420px] rounded-full bg-accent/[0.06] blur-[110px]" />
-      </m.div>
+    <section ref={ref} id="top" className="relative flex min-h-svh flex-col overflow-hidden pt-24 md:pt-28" aria-labelledby="hero-title">
+      <GlyphField />
+      <div className="wrap relative flex flex-1 flex-col">
+        {/* meta row */}
+        <m.div
+          {...fade(0.1)}
+          className="grid grid-cols-2 gap-y-2 border-b border-line pb-3 text-meta text-ink-3 md:grid-cols-3"
+        >
+          <span>Portfolio · v5.0 · 2026</span>
+          <span className="hidden text-center md:block">{profile.role} · {profile.location}</span>
+          <span className="flex items-center justify-end gap-2">
+            <span className="relative flex size-2" aria-hidden>
+              <span className="absolute inset-0 animate-pulse-dot rounded-full bg-signal" />
+            </span>
+            Currently building
+          </span>
+        </m.div>
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 py-20">
-        <div className="grid items-center gap-14 lg:grid-cols-[1fr_400px]">
-          {/* ── copy ── */}
-          <m.div
-            style={{ y: p(copyY), opacity: p(fade) }}
-            className="order-1 text-center lg:text-left"
-          >
-            <m.div
-              variants={stagger(0.08)}
-              initial="hidden"
-              animate="show"
-            >
-              <m.div
-                variants={fadeUpSm}
-                className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-accent/25 bg-accent/[0.07] px-4 py-1.5"
-              >
-                <span className="animate-pulse-dot h-1.5 w-1.5 rounded-full bg-accent" />
-                <span className="font-mono text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
-                  Available for work
-                </span>
-              </m.div>
-
-              <m.h1
-                variants={blurIn}
-                className="font-display text-[2.75rem] font-extrabold leading-[1.05] tracking-tighter text-foreground sm:text-6xl lg:text-7xl"
-              >
-                <span className="block text-muted-foreground/70">
-                  <span aria-hidden className="text-accent">
-                    &gt;{" "}
-                  </span>
-                  Hi, I&apos;m
-                </span>
-                <span className="text-gradient block">Tarang.</span>
-              </m.h1>
-
-              {/* fixed height stops the caret line reflowing as text types */}
-              <m.div
-                variants={fadeUpSm}
-                className="mt-5 flex h-8 items-center justify-center font-mono text-lg text-accent sm:text-xl lg:justify-start"
-              >
-                <span aria-live="off">{typed}</span>
-                <span className="animate-blink ml-1 inline-block h-5 w-[3px] rounded-sm bg-accent" />
-              </m.div>
-
-              <m.p
-                variants={fadeUp}
-                className="mx-auto mt-6 max-w-xl text-[15px] leading-relaxed text-muted-foreground lg:mx-0 lg:text-base"
-              >
-                {profile.blurb}
-              </m.p>
-
-              <m.div
-                variants={fadeUpSm}
-                className="mt-4 flex items-center justify-center gap-2 font-mono text-[13px] text-muted-foreground lg:justify-start"
-              >
-                <MapPin className="h-3.5 w-3.5 text-accent" />
-                {profile.location}
-              </m.div>
-
-              {/* stats */}
-              <m.dl
-                variants={fadeUp}
-                className="mt-8 flex items-center justify-center gap-8 lg:justify-start"
-              >
-                {statsData.map((stat) => (
-                  <div key={stat.label}>
-                    <dt className="sr-only">{stat.label}</dt>
-                    <dd>
-                      <span className="block font-display text-2xl font-bold text-foreground">
-                        {stat.value}
-                      </span>
-                      <span className="mt-0.5 block font-mono text-[10px] uppercase tracking-[0.14em] text-muted-foreground">
-                        {stat.label}
-                      </span>
-                    </dd>
-                  </div>
-                ))}
-              </m.dl>
-
-              <m.div
-                variants={fadeUp}
-                className="mt-9 flex flex-col items-center gap-2 sm:flex-row lg:justify-start"
-              >
-                <MagneticButton
-                  onClick={() => scrollTo("work")}
-                  className="group inline-flex items-center gap-2 rounded-lg bg-accent px-7 py-3 font-mono text-sm font-semibold text-accent-foreground transition-shadow hover:shadow-[0_0_30px_-6px_hsl(var(--accent)/0.7)]"
-                >
-                  View my work
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-                </MagneticButton>
-                <MagneticButton
-                  onClick={() => scrollTo("contact")}
-                  cap={8}
-                  className="rounded-lg border border-border px-7 py-3 font-mono text-sm font-semibold text-foreground transition-colors hover:border-accent/60 hover:text-accent"
-                >
-                  Get in touch
-                </MagneticButton>
-              </m.div>
-
-              <m.div
-                variants={fadeUpSm}
-                className="mt-8 flex items-center justify-center gap-2 lg:justify-start"
-              >
-                {profile.socials.map((social) => {
-                  const Icon =
-                    socialIcons[social.icon as keyof typeof socialIcons];
-                  return (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={social.label}
-                      className="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-all hover:-translate-y-0.5 hover:border-accent/50 hover:text-accent"
-                    >
-                      <Icon className="h-4 w-4" />
-                    </a>
-                  );
-                })}
-              </m.div>
+        {/* name */}
+        <div className="relative mt-[clamp(2.5rem,7vh,5rem)]">
+          <h1 id="hero-title" className="sr-only">
+            {profile.name} — {profile.role} who learns by making things
+          </h1>
+          <div aria-hidden className="text-display select-none">
+            <m.div style={{ y: yTop, x: xTop }}>
+              <Word text="Tarang" delay={0.2} />
             </m.div>
-          </m.div>
-
-          {/* ── portrait ── */}
-          <m.div
-            style={{ y: p(portraitY), opacity: p(fade) }}
-            className="order-2 flex justify-center"
+            <m.div style={{ y: yBottom, x: xBottom }}>
+              <Word text="Sachaniya" delay={0.42} className="text-right md:pr-[2vw]" />
+            </m.div>
+          </div>
+          <m.p
+            {...fade(0.9)}
+            aria-hidden
+            className="absolute right-0 top-[0.4em] hidden max-w-[16ch] text-right font-serif text-[clamp(1.4rem,2.6vw,2.6rem)] italic leading-[1.05] text-ink-2 md:block"
           >
-            <div className="relative w-[300px] md:w-[360px]">
-              <div
-                aria-hidden
-                className="absolute -inset-6 rounded-full bg-accent/10 blur-3xl"
-              />
-
-              <div className="relative overflow-hidden rounded-xl border border-border bg-card">
-                {/*
-                 * The LCP element renders at full opacity with explicit
-                 * dimensions. Chrome excludes opacity:0 nodes from LCP
-                 * candidacy, so fading the image in would add the animation's
-                 * duration to the reported LCP. The entrance comes from the
-                 * overlay below, which wipes off — occlusion doesn't disqualify
-                 * an LCP candidate.
-                 */}
-                <picture>
-                  <source srcSet="/img/hero-760.avif" type="image/avif" />
-                  <img
-                    src="/img/hero-760.webp"
-                    alt={`${profile.name}, ${profile.headline}`}
-                    width={760}
-                    height={950}
-                    fetchPriority="high"
-                    decoding="async"
-                    className="aspect-[4/5] w-full object-cover"
-                  />
-                </picture>
-
-                <m.div
-                  aria-hidden
-                  initial={{ scaleY: 1 }}
-                  animate={{ scaleY: 0 }}
-                  transition={{ duration: 0.7, ease: ease.inOut, delay: 0.15 }}
-                  style={{ originY: 1 }}
-                  className="absolute inset-0 z-10 bg-background"
-                />
-
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background/85 to-transparent"
-                />
-
-                <div className="absolute bottom-3 left-3 right-3 flex items-center gap-2 rounded-md border border-border/70 bg-background/80 px-3 py-2 backdrop-blur-sm">
-                  <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                  <span className="truncate font-mono text-[11px] text-muted-foreground">
-                    {profile.secondary}
-                  </span>
-                </div>
-              </div>
-
-              <m.div
-                initial={{ opacity: 0, x: 10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: dur.base, delay: 0.8, ease: ease.out }}
-                className="absolute -right-4 top-10 rounded-lg border border-border bg-card px-3.5 py-2.5 shadow-xl md:-right-8"
-              >
-                <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">
-                  Products live
-                </div>
-                <div className="font-display text-xl font-bold text-accent">
-                  {liveProductCount}
-                </div>
-              </m.div>
-            </div>
-          </m.div>
+            learns by
+            <br />
+            making things.
+          </m.p>
         </div>
-      </div>
 
-      <m.button
-        style={{ opacity: p(cueOpacity) }}
-        onClick={() => scrollTo("about")}
-        aria-label="Scroll to about"
-        className="absolute bottom-7 left-1/2 -translate-x-1/2 text-muted-foreground transition-colors hover:text-accent"
-      >
-        <ChevronDown className="animate-bounce-arrow h-5 w-5" />
-      </m.button>
+        {/* intro + ctas */}
+        <m.div style={{ opacity: fadeOut }} className="mt-10 grid gap-8 md:mt-14 md:grid-cols-12 md:items-end">
+          <m.p {...fade(0.55)} className="text-lead text-ink-2 md:col-span-6 lg:col-span-5">
+            I'm a <span className="text-ink">full-stack developer</span> with a backend lean. This site is the
+            changelog — from a first web page in a college lab to{" "}
+            <span className="text-ink">a printing network running five apps on one API.</span>
+          </m.p>
+          <m.div {...fade(0.7)} className="flex flex-wrap gap-3 md:col-span-6 md:justify-end lg:col-span-7">
+            <a
+              href="#story"
+              className="group inline-flex items-center gap-3 rounded-full bg-ink px-6 py-3.5 text-sm font-semibold text-paper transition-transform hover:-translate-y-0.5"
+            >
+              Read the story
+              <span aria-hidden className="transition-transform group-hover:translate-y-0.5">↓</span>
+            </a>
+            <a
+              href="#work"
+              className="inline-flex items-center gap-3 rounded-full border border-line-strong px-6 py-3.5 text-sm font-semibold transition-colors hover:border-ink"
+            >
+              Skip to the work
+            </a>
+          </m.div>
+        </m.div>
+
+        {/* build timeline — real chapters, doubles as wayfinding */}
+        <m.nav {...fade(0.85)} aria-label="Story chapters" className="mt-auto pb-8 pt-16">
+          <div className="mb-3 flex justify-between text-meta text-ink-3">
+            <span>git log --story</span>
+            <span className="hidden sm:inline">{chapters.length} chapters · {first} → now</span>
+          </div>
+          <div className="relative h-14">
+            <m.span
+              aria-hidden
+              className="absolute inset-x-0 top-3 h-px origin-left bg-line-strong"
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1.4, delay: 0.9, ease: ease.inOut }}
+            />
+            <ol>
+              {chapters.map((c) => (
+                <li key={c.n} className="absolute top-0 -translate-x-0" style={{ left: `${pos(Number(c.year))}%` }}>
+                  <a href={`#ch-${c.n}`} className="group flex flex-col items-start gap-2">
+                    <span className="mt-[9px] block size-[9px] rounded-full border border-ink bg-paper transition-colors group-hover:bg-ink" />
+                    <span className="text-meta text-ink-2 group-hover:text-ink">
+                      <span className="hidden sm:inline">{c.n} · </span>
+                      {c.year}
+                    </span>
+                  </a>
+                </li>
+              ))}
+              <li className="absolute right-0 top-0 flex flex-col items-end gap-2" aria-label="Now">
+                <span className="mt-[7px] block size-[13px] animate-pulse-dot rounded-full bg-signal" />
+                <span className="hidden text-meta text-signal-ink sm:inline">now</span>
+              </li>
+            </ol>
+          </div>
+        </m.nav>
+      </div>
     </section>
   );
 }

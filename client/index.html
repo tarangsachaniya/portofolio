@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Tarang Sachaniya — Full Stack Developer & Founder</title>
-    <meta name="description" content="Full Stack Developer and Founder of Priinteve Innovations. MERN, Laravel and Python — production web applications built for performance, clean architecture and real traffic." />
+    <meta name="description" content="Full-stack developer and co-founder of Priinteve Innovations. The changelog of a developer who learns by making things — products, client builds and experiments." />
     <meta name="keywords" content="Full Stack Developer, React, Next.js, Node.js, Laravel, Python, Priinteve Innovations, Ahmedabad, Software Engineer, Portfolio" />
     <meta name="author" content="Tarang Sachaniya" />
-    <meta name="theme-color" content="#020617" />
-    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#f3f0e8" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121211" media="(prefers-color-scheme: dark)" />
+    <meta name="color-scheme" content="light dark" />
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -28,37 +29,16 @@
     <link rel="icon" type="image/png" href="/src/assets/images/favicon.png" />
     <link rel="shortcut icon" href="/src/assets/images/favicon.png" />
 
-    <!--
-      Set the theme before first paint. The site is dark by default; `.light`
-      opts in. Without this the class lands after hydration and the page flashes.
-    -->
+    <!-- Theme before first paint: paper (light) by default, `.dark` opts in. -->
     <script>
       (function () {
         try {
-          var stored = localStorage.getItem("theme");
-          var light =
-            stored === "light" ||
-            (!stored && window.matchMedia("(prefers-color-scheme: light)").matches);
-          if (light) document.documentElement.classList.add("light");
+          var s = localStorage.getItem("theme");
+          var dark = s === "dark" || (!s && window.matchMedia("(prefers-color-scheme: dark)").matches);
+          if (dark) document.documentElement.classList.add("dark");
         } catch (e) {}
       })();
     </script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- LCP image: stable public/ URL so it is preloadable, unlike a hashed import -->
-    <link
-      rel="preload"
-      as="image"
-      href="/img/hero-760.avif"
-      type="image/avif"
-      fetchpriority="high"
-    />
   </head>
   <body>
     <div id="root"></div>

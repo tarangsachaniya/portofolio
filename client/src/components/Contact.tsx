@@ -1,186 +1,151 @@
-import { m } from "framer-motion";
-import {
-  ArrowUpRight,
-  Github,
-  Instagram,
-  Linkedin,
-  Mail,
-  MessageCircle,
-  Phone,
-} from "lucide-react";
-import SectionHeader from "@/components/motion/SectionHeader";
-import { MagneticLink } from "@/components/motion/MagneticButton";
-import { priinteve, profile } from "@/lib/data";
-import { fadeUp, fadeUpSm, revealGroup, stagger, viewport } from "@/lib/motion";
+import { useRef, useState } from "react";
+import { m, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
+import { profile } from "@/lib/data";
+import { useClock } from "@/hooks/useClock";
 
-const socialIcons = { github: Github, linkedin: Linkedin, instagram: Instagram };
+/** Display line printed as a faint ghost, then inked left→right as you scroll. */
+function FillLine({ text, progress, range }: { text: string; progress: ReturnType<typeof useScroll>["scrollYProgress"]; range: [number, number] }) {
+  const reduce = useReducedMotion();
+  const pct = useTransform(progress, range, reduce ? [0, 0] : [100, 0]);
+  const clipPath = useTransform(pct, (v) => `inset(-25% ${v}% -25% 0)`);
+  return (
+    <span className="relative block">
+      <span className="block text-[color-mix(in_srgb,var(--ink)_13%,transparent)]">{text}</span>
+      <m.span aria-hidden className="absolute inset-0 block text-ink" style={{ clipPath }}>
+        {text}
+      </m.span>
+    </span>
+  );
+}
 
-const channels = [
-  {
-    icon: Mail,
-    label: "Personal email",
-    value: profile.email,
-    href: `mailto:${profile.email}`,
-  },
-  {
-    icon: Mail,
-    label: "Priinteve",
-    value: priinteve.email,
-    href: `mailto:${priinteve.email}`,
-  },
-  {
-    icon: MessageCircle,
-    label: "WhatsApp",
-    value: priinteve.whatsapp,
-    href: `https://wa.me/${priinteve.whatsapp.replace(/\D/g, "")}`,
-  },
-  {
-    icon: Phone,
-    label: "Call",
-    value: priinteve.phone,
-    href: `tel:${priinteve.phone.replace(/\s/g, "")}`,
-  },
-];
+function Magnetic({ children, className, href }: { children: React.ReactNode; className?: string; href: string }) {
+  const reduce = useReducedMotion();
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const sx = useSpring(x, { stiffness: 300, damping: 20, mass: 0.4 });
+  const sy = useSpring(y, { stiffness: 300, damping: 20, mass: 0.4 });
+  return (
+    <m.a
+      href={href}
+      className={className}
+      style={{ x: sx, y: sy }}
+      onPointerMove={(e) => {
+        if (reduce || e.pointerType !== "mouse") return;
+        const r = e.currentTarget.getBoundingClientRect();
+        x.set((e.clientX - r.left - r.width / 2) * 0.3);
+        y.set((e.clientY - r.top - r.height / 2) * 0.4);
+      }}
+      onPointerLeave={() => {
+        x.set(0);
+        y.set(0);
+      }}
+    >
+      {children}
+    </m.a>
+  );
+}
 
 export default function Contact() {
+  const ref = useRef<HTMLElement>(null);
+  const time = useClock(profile.timezone);
+  const [copied, setCopied] = useState(false);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 15%"] });
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      /* clipboard blocked — the mailto link still works */
+    }
+  };
+
   return (
-    <section id="contact" className="relative py-24 md:py-28">
-      <div className="mx-auto w-full max-w-6xl px-6">
-        <SectionHeader
-          eyebrow="./contact"
-          title="Let's build something"
-          description="Open to freelance work, product partnerships, and interesting engineering problems. Fastest reply is WhatsApp."
-        />
+    <section ref={ref} id="contact" className="relative pt-[clamp(5.5rem,11vw,10rem)]" aria-labelledby="contact-title">
+      <div className="wrap">
+        <div className="flex items-baseline justify-between border-b border-line pb-3 text-meta text-ink-3">
+          <span>
+            <span className="text-signal-ink">$</span> ./contact --now
+          </span>
+          <span>05 / 05</span>
+        </div>
 
-        <div className="mt-12 grid gap-6 lg:grid-cols-[1fr_1fr]">
-          {/* ── primary CTA ── */}
-          <m.div
-            variants={stagger(0.08)}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewport}
-            className="flex flex-col justify-between rounded-xl border border-border bg-card p-6 sm:p-8"
-          >
-            <div>
-              <m.p
-                variants={fadeUp}
-                className="font-display text-xl font-bold tracking-tight text-foreground sm:text-2xl"
-              >
-                Have a project in mind?
-              </m.p>
-              <m.p
-                variants={fadeUpSm}
-                className="mt-3 text-sm leading-relaxed text-muted-foreground"
-              >
-                Tell me what you&apos;re building and what&apos;s in the way. I
-                reply to everything — usually within a day.
-              </m.p>
-            </div>
+        <h2 id="contact-title" className="mt-10 text-display">
+          <span className="sr-only">Let's build something.</span>
+          <span aria-hidden>
+            <FillLine text="Let's build" progress={scrollYProgress} range={[0.1, 0.65]} />
+            <FillLine text="something." progress={scrollYProgress} range={[0.35, 1]} />
+          </span>
+        </h2>
 
-            <m.div variants={fadeUp} className="mt-7 flex flex-wrap gap-2">
-              <MagneticLink
+        <div className="mt-14 grid gap-10 md:grid-cols-12 md:items-end">
+          <div className="md:col-span-7">
+            <p className="max-w-[46ch] text-lead text-ink-2">
+              Freelance builds, product collaborations, or a backend problem you want a second brain on. I reply within a day — WhatsApp is fastest.
+            </p>
+            <div className="mt-8 flex flex-wrap items-center gap-3">
+              <Magnetic
                 href={`mailto:${profile.email}`}
-                className="group inline-flex items-center gap-2 rounded-lg bg-accent px-6 py-3 font-mono text-sm font-semibold text-accent-foreground transition-shadow hover:shadow-[0_0_30px_-6px_hsl(var(--accent)/0.7)]"
+                className="inline-flex items-center gap-3 rounded-full bg-signal px-7 py-4 text-base font-semibold text-on-signal"
               >
-                Send an email
-                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </MagneticLink>
-              <MagneticLink
-                href={`https://wa.me/${priinteve.whatsapp.replace(/\D/g, "")}`}
+                Start a project <span aria-hidden>→</span>
+              </Magnetic>
+              <a
+                href={`https://wa.me/${profile.whatsapp}`}
                 target="_blank"
-                rel="noopener noreferrer"
-                cap={8}
-                className="inline-flex items-center gap-2 rounded-lg border border-border px-6 py-3 font-mono text-sm font-semibold text-foreground transition-colors hover:border-accent/60 hover:text-accent"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-line-strong px-6 py-4 text-base font-semibold transition-colors hover:border-ink"
               >
-                <MessageCircle className="h-4 w-4" />
-                WhatsApp
-              </MagneticLink>
-            </m.div>
+                WhatsApp <span aria-hidden>↗</span>
+              </a>
+            </div>
+          </div>
 
-            <m.div
-              variants={fadeUpSm}
-              className="mt-7 flex items-center gap-2.5 rounded-lg border border-accent/25 bg-accent/[0.07] px-4 py-3"
-            >
-              <span className="animate-pulse-dot h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-              <span className="text-[13px] text-muted-foreground">
-                Currently available for new work
-              </span>
-            </m.div>
-          </m.div>
-
-          {/* ── channels ── */}
-          <m.div {...revealGroup(0.06)} className="grid content-start gap-3">
-            <m.div variants={fadeUp} className="grid gap-3 sm:grid-cols-2">
-              {channels.map(({ icon: Icon, label, value, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("http") ? "_blank" : undefined}
-                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="group flex items-start gap-3 rounded-xl border border-border bg-card p-4 transition-colors hover:border-accent/40"
-                >
-                  <Icon
-                    className="mt-0.5 h-4 w-4 shrink-0 text-accent"
-                    aria-hidden
-                  />
-                  <span className="min-w-0">
-                    <span className="block font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">
-                      {label}
-                    </span>
-                    <span className="mt-0.5 block truncate text-[13px] text-foreground">
-                      {value}
-                    </span>
-                  </span>
-                </a>
-              ))}
-            </m.div>
-
-            <m.div
-              variants={fadeUp}
-              className="rounded-xl border border-border bg-card p-5"
-            >
-              <h3 className="font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                Elsewhere
-              </h3>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {profile.socials.map((social) => {
-                  const Icon =
-                    socialIcons[social.icon as keyof typeof socialIcons];
-                  return (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 rounded-lg border border-border bg-elevated px-3 py-2 font-mono text-[11px] text-muted-foreground transition-colors hover:border-accent/40 hover:text-accent"
-                    >
-                      <Icon className="h-3.5 w-3.5" />
-                      {social.label}
-                    </a>
-                  );
-                })}
-              </div>
-
-              <h3 className="mt-5 font-mono text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
-                Priinteve
-              </h3>
-              <div className="mt-3 flex flex-wrap gap-2">
-                {priinteve.socials.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-lg border border-border bg-elevated px-3 py-2 font-mono text-[11px] text-muted-foreground transition-colors hover:border-accent/40 hover:text-accent"
-                  >
-                    {social.label}
+          <div className="md:col-span-5">
+            <p className="text-meta text-ink-3">Email</p>
+            <div className="mt-2 flex flex-wrap items-center gap-3">
+              <a href={`mailto:${profile.email}`} className="ulink break-all text-[clamp(1.1rem,0.9rem+0.9vw,1.6rem)] font-semibold tracking-[-0.02em]">
+                {profile.email}
+              </a>
+              <button
+                type="button"
+                onClick={copy}
+                className="text-meta rounded-full border border-line-strong px-3 py-1 text-ink-2 transition-colors hover:border-ink hover:text-ink"
+              >
+                <span aria-live="polite">{copied ? "Copied ✓" : "Copy"}</span>
+              </button>
+            </div>
+            <p className="mt-6 text-meta text-ink-3">Elsewhere</p>
+            <ul className="mt-2 flex flex-wrap gap-x-5 gap-y-2">
+              {profile.socials.map((s) => (
+                <li key={s.label}>
+                  <a href={s.href} target="_blank" rel="noreferrer" className="ulink font-medium">
+                    {s.label} ↗
                   </a>
-                ))}
-              </div>
-            </m.div>
-          </m.div>
+                </li>
+              ))}
+              <li>
+                <a href="https://priinteve.com" target="_blank" rel="noreferrer" className="ulink font-medium">
+                  Priinteve ↗
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
+
+      <footer className="mt-[clamp(5rem,10vw,8rem)] border-t border-line">
+        <div className="wrap grid gap-3 py-6 text-meta text-ink-3 md:grid-cols-3">
+          <span>© {new Date().getFullYear()} {profile.name}</span>
+          <span className="md:text-center">
+            Hand-built in Ahmedabad · <span className="tabular-nums">{time}</span> IST
+          </span>
+          <a href="#top" className="ulink justify-self-start md:justify-self-end">
+            Back to top ↑
+          </a>
+        </div>
+      </footer>
     </section>
   );
 }

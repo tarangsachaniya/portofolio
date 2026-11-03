@@ -1,51 +1,28 @@
-import Navbar from "@/components/Navbar";
+import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Priinteve from "@/components/Priinteve";
-import Projects from "@/components/Projects";
-import Experience from "@/components/Experience";
-import Skills from "@/components/Skills";
+import Readme from "@/components/Readme";
+import Story from "@/components/Story";
+import Work from "@/components/Work";
+import Bench from "@/components/Bench";
+import Toolbox from "@/components/Toolbox";
 import Contact from "@/components/Contact";
-import Footer from "@/components/Footer";
-import Marquee from "@/components/motion/Marquee";
-import TextMarquee from "@/components/motion/TextMarquee";
-import { marqueeRowA, marqueeRowB } from "@/lib/data";
+import VelocityBand from "@/components/VelocityBand";
 
 export default function Home() {
   return (
-    <div className="min-h-screen overflow-x-hidden bg-background text-foreground">
-      <Navbar />
-      <main>
+    <div className="grain min-h-screen overflow-x-clip">
+      <Nav />
+      <main id="main">
         <Hero />
-
-        <section
-          aria-label="Technologies"
-          className="space-y-3 border-y border-border/60 bg-surface py-10"
-        >
-          <Marquee items={marqueeRowA} duration={48} />
-          <Marquee items={marqueeRowB} duration={54} reverse />
-        </section>
-
-        <About />
-
-        <TextMarquee
-          items={["Full Stack", "React", "Laravel", "Node", "Next.js", "Python"]}
-        />
-
-        <Priinteve />
-        <Projects />
-        <Experience />
-        <Skills />
-
-        <TextMarquee
-          items={["Let's build", "Available for work", "Get in touch"]}
-          reverse
-          duration={30}
-        />
-
+        <VelocityBand words={["learn", "make", "ship", "break", "fix", "repeat"]} />
+        <Readme />
+        <Story />
+        <Work />
+        <Bench />
+        <Toolbox />
+        <VelocityBand tone="signal" base={3} words={["open for freelance", "let's build", "Ahmedabad → anywhere"]} />
         <Contact />
       </main>
-      <Footer />
     </div>
   );
 }
