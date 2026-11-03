@@ -3,22 +3,20 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { work } from "@/lib/content";
-import { buildGraph, neighbours, type GNode } from "@/lib/graph";
+import { buildGraph, clusteredTechs, neighbours } from "@/lib/graph";
+import ClusterGraph from "./ClusterGraph";
 import { Tile } from "../desk/Bento";
 
 const G = buildGraph(work);
 const byId = new Map(G.nodes.map((n) => [n.id, n]));
-const COL = { tech: 22, project: 50, platform: 80 } as const; // x anchor (%) per column
-const PROJ_HALF = 10.5; // project pill half-width (%) for edge anchoring
-const ROW = 30; // px per tech row; the graph is as tall as its longest column
-
-function edgePath(a: GNode, b: GNode, h: number) {
-  const x1 = a.kind === "tech" ? COL.tech : COL.project + PROJ_HALF;
-  const x2 = b.kind === "platform" ? COL.platform : COL.project - PROJ_HALF;
-  const y1 = a.y * h;
-  const y2 = b.y * h;
-  const mx = (x1 + x2) / 2;
-  return `M ${x1 * 10} ${y1} C ${mx * 10} ${y1}, ${mx * 10} ${y2}, ${x2 * 10} ${y2}`;
+const CL = clusteredTechs(work);
+const clusterOf = (id: string) => CL.find((c) => `c:${c.id}` === id);
+function litFor(id: string) {
+  const c = clusterOf(id);
+  if (!c) return neighbours(id, G.edges);
+  const s = new Set<string>([id]);
+  c.techs.forEach((t) => neighbours(`t:${t}`, G.edges).forEach((x) => s.add(x)));
+  return s;
 }
 
 const SIZE = (_i: number, featured?: boolean, kind?: string) => (featured ? "2x2" : kind === "Product" ? "2x1" : "1x1") as "2x2" | "2x1" | "1x1";
@@ -28,8 +26,7 @@ export default function WorkExplorer() {
   const [hover, setHover] = useState<string | null>(null);
   const [pinned, setPinned] = useState<string | null>(null);
   const active = hover ?? pinned;
-  const lit = useMemo(() => (active ? neighbours(active, G.edges) : null), [active]);
-  const h = Math.max(G.techCount, 11) * ROW;
+  const lit = useMemo(() => (active ? litFor(active) : null), [active]);
 
   useEffect(() => {
     const k = (e: KeyboardEvent) => e.key === "Escape" && (setPinned(null), setHover(null));
@@ -37,7 +34,8 @@ export default function WorkExplorer() {
     return () => window.removeEventListener("keydown", k);
   }, []);
 
-  const node = active ? byId.get(active) : null;
+  const cl = active ? clusterOf(active) : undefined;
+  const node = active ? (cl ? { id: active, kind: "tech" as const, label: cl.label } : byId.get(active)) : null;
   const proj = node?.kind === "project" ? work.find((w) => `p:${w.slug}` === node.id) : null;
   const users = node && node.kind !== "project" ? work.filter((w) => lit?.has(`p:${w.slug}`)) : [];
   const matches = (slug: string) => !lit || lit.has(`p:${slug}`);
@@ -66,43 +64,11 @@ export default function WorkExplorer() {
         </div>
 
         <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_20rem]">
-          <div className="tile !col-auto !transform-none relative hidden overflow-hidden p-4 md:block" role="img" aria-describedby="graph-desc">
-            <div className="mb-3 grid grid-cols-3 font-mono text-[0.65rem] uppercase tracking-[0.18em] text-fg-3">
-              <span className="text-right pr-[28%]">Tech · {G.techCount}</span><span className="text-center">Projects · {work.length}</span><span className="pl-[30%]">Platforms · {G.platCount}</span>
+          <div className="tile !col-auto !transform-none relative hidden overflow-hidden p-5 md:block" role="img" aria-describedby="graph-desc">
+            <div className="mb-4 grid grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)_minmax(0,0.6fr)] gap-x-[clamp(3rem,7vw,7rem)] font-mono text-[0.62rem] uppercase tracking-[0.18em] text-fg-3">
+              <span>Stack · {G.techCount} tools in {CL.length} groups</span><span>Projects · {work.length}</span><span />
             </div>
-            <div className={`relative ${lit ? "dim" : ""}`} style={{ height: h }}>
-              <svg className="absolute inset-0 h-full w-full overflow-visible" viewBox={`0 0 1000 ${h}`} preserveAspectRatio="none" aria-hidden>
-                <defs>
-                  <linearGradient id="edge-grad" x1="0" x2="1">
-                    <stop offset="0" stopColor="#5ee0c1" /><stop offset="0.5" stopColor="#ffb547" /><stop offset="1" stopColor="#9b8cff" />
-                  </linearGradient>
-                </defs>
-                {G.edges.map((e) => {
-                  const on = !!active && (e.from === active || e.to === active);
-                  return <path key={e.from + e.to} d={edgePath(byId.get(e.from)!, byId.get(e.to)!, h)} className={`edge ${on ? "on" : ""}`} vectorEffect="non-scaling-stroke" />;
-                })}
-              </svg>
-              {G.nodes.map((n) => {
-                const on = !!lit?.has(n.id);
-                const style: React.CSSProperties = { top: `${n.y * 100}%` };
-                if (n.kind === "tech") return (
-                  <button key={n.id} type="button" {...bind(n.id)} style={{ ...style, right: `${100 - COL.tech}%` }} className={`gnode absolute -translate-y-1/2 whitespace-nowrap rounded-full border px-2.5 py-[3px] font-mono text-[0.68rem] transition-colors ${on ? "on border-[#5ee0c1]/70 bg-[#5ee0c1]/15 text-white" : "border-white/10 bg-[#11141a] text-fg-2 hover:text-white"}`}>
-                    {n.label}<span className="ml-1.5 text-fg-3">{n.count}</span>
-                  </button>
-                );
-                if (n.kind === "platform") return (
-                  <button key={n.id} type="button" {...bind(n.id)} style={{ ...style, left: `${COL.platform}%` }} className={`gnode absolute -translate-y-1/2 whitespace-nowrap rounded-full border px-3 py-1 font-mono text-[0.72rem] transition-colors ${on ? "on border-[#9b8cff]/70 bg-[#9b8cff]/15 text-white" : "border-white/10 bg-[#11141a] text-fg-2 hover:text-white"}`}>
-                    ▣ {n.label}<span className="ml-1.5 text-fg-3">{n.count}</span>
-                  </button>
-                );
-                return (
-                  <button key={n.id} type="button" {...bind(n.id)} style={{ ...style, left: `${COL.project - PROJ_HALF}%`, width: `${PROJ_HALF * 2}%` }} className={`gnode absolute flex -translate-y-1/2 items-center gap-2 overflow-hidden rounded-xl border px-3 py-1.5 text-left text-[0.82rem] font-semibold transition-all ${on ? "on scale-[1.04] border-[#ffb547]/70 bg-[#ffb547]/12 text-white shadow-[0_0_30px_-6px_rgb(255_181_71/0.6)]" : "border-white/12 bg-[#151820] text-fg hover:border-white/30"}`}>
-                    <i className="size-2 shrink-0 rounded-full" style={{ background: `hsl(${n.hue} 70% 60%)` }} />
-                    <span className="truncate">{n.label}</span>
-                  </button>
-                );
-              })}
-            </div>
+            <ClusterGraph edges={G.edges} lit={lit} active={active} bind={bind} />
             <p id="graph-desc" className="sr-only">
               {work.map((w) => `${w.name} runs on ${[...w.stack, ...w.platforms].join(", ") || "its platforms"}.`).join(" ")}
             </p>
@@ -128,7 +94,7 @@ export default function WorkExplorer() {
               </div>
             ) : node ? (
               <div key={node.id} className="animate-[fadeUp_.35s_ease_both]">
-                <p className="t-kicker">{node.kind === "tech" ? "Technology" : "Platform"}</p>
+                <p className="t-kicker">{cl ? "Stack group" : node.kind === "tech" ? "Technology" : "Platform"}</p>
                 <p className="mt-2 font-display text-2xl font-bold tracking-[-0.03em]">{node.label}</p>
                 <p className="mt-1 text-sm text-fg-2">Used by {users.length} {users.length === 1 ? "project" : "projects"}</p>
                 <ul className="mt-4 space-y-1.5">
@@ -154,7 +120,7 @@ export default function WorkExplorer() {
 
         {/* mobile: graph collapses to filter chips */}
         <div className="flex gap-2 overflow-x-auto pb-2 md:hidden" aria-label="Filter projects by technology or platform">
-          {G.nodes.filter((n) => n.kind !== "project" && n.count > 1).map((n) => (
+          {[...CL.map((c) => ({ id: `c:${c.id}`, label: c.label, count: c.techs.length })), ...G.nodes.filter((n) => n.kind === "platform")].map((n) => (
             <button key={n.id} type="button" onClick={() => setPinned((p) => (p === n.id ? null : n.id))} aria-pressed={pinned === n.id} className={`shrink-0 rounded-full border px-3 py-1.5 font-mono text-xs ${pinned === n.id ? "border-[#ffb547] bg-[#ffb547]/15 text-white" : "border-white/15 text-fg-2"}`}>
               {n.label} <span className="text-fg-3">{n.count}</span>
             </button>

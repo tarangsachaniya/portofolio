@@ -73,7 +73,15 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
               {w.shots[0] ? <Device shot={w.shots[0]} domain={w.domain} priority /> : <NoShot name={w.name} hue={w.hue} what={w.what} />}
             </Tile>
             <Tile size="3x1">
-              <div className="p-5"><p className="t-kicker">Role</p><p className="mt-2 font-medium leading-snug">{w.role}</p></div>
+              <div className="flex h-full flex-col p-5">
+                <p className="t-kicker">Role</p>
+                <p className="mt-2 font-display text-lg font-semibold leading-snug tracking-tight">{w.role}</p>
+                <div className="mt-auto flex flex-wrap gap-2 pt-4">
+                  {w.href && <a href={w.href} target="_blank" rel="noreferrer" className="btn btn-primary !px-4 !py-2 text-sm">Visit ↗</a>}
+                  {w.repo && <a href={w.repo} target="_blank" rel="noreferrer" className="btn btn-ghost !px-4 !py-2 text-sm">Source ↗</a>}
+                  <a href="/contact/" className="btn btn-ghost !px-4 !py-2 text-sm">Build one like it</a>
+                </div>
+              </div>
             </Tile>
             <Tile size="3x1">
               <div className="p-5">

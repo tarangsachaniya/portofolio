@@ -11,6 +11,25 @@ const products = work.filter((w) => w.kind === "Product");
 const platforms = new Set(work.flatMap((w) => w.platforms));
 const stack = Array.from(new Set([...uses.groups.flatMap((g) => g.items).filter((s) => s.length < 22), ...work.flatMap((w) => w.stack)]));
 
+const mins = (t: string) => { const [h, m] = t.split(":").map(Number); return Number.isFinite(h) ? h * 60 + (m || 0) : 12 * 60; };
+const dayPart = (t: string) => { const h = mins(t) / 60; return h < 5 ? "probably asleep" : h < 12 ? "morning" : h < 17 ? "afternoon" : h < 21 ? "evening" : "late night"; };
+
+/** 24-hour ring: the arc is how much of Tarang's day has gone, the dot is the sun (or moon). */
+function DayRing({ time }: { time: string }) {
+  const k = mins(time) / 1440;
+  const r = 26, c = 2 * Math.PI * r;
+  const a = k * 2 * Math.PI - Math.PI / 2;
+  const night = k < 6 / 24 || k > 19 / 24;
+  return (
+    <svg viewBox="0 0 64 64" className="size-16 shrink-0" aria-hidden>
+      <circle cx="32" cy="32" r={r} fill="none" stroke="rgb(255 255 255 / 0.08)" strokeWidth="4" />
+      <circle cx="32" cy="32" r={r} fill="none" stroke="url(#ring)" strokeWidth="4" strokeLinecap="round" strokeDasharray={`${c * k} ${c}`} transform="rotate(-90 32 32)" />
+      <defs><linearGradient id="ring" x1="0" x2="1"><stop offset="0" stopColor="#9b8cff" /><stop offset="1" stopColor="#ffb547" /></linearGradient></defs>
+      <circle cx={32 + Math.cos(a) * r} cy={32 + Math.sin(a) * r} r="4.5" fill={night ? "#e9ecf5" : "#ffe3a3"} style={{ filter: `drop-shadow(0 0 4px ${night ? "#b9c4ff" : "#ffb547"})` }} />
+    </svg>
+  );
+}
+
 /** After hours: everything else about Tarang, as one pointer-lit bento grid. */
 export default function AfterHours({ faq }: { faq: { q: string; a: string }[] }) {
   const time = useClock();
@@ -49,10 +68,13 @@ export default function AfterHours({ faq }: { faq: { q: string; a: string }[] })
         {/* clock */}
         <Tile size="1x1">
           <div className="flex h-full flex-col justify-between p-5">
-            <p className="t-kicker">Local time</p>
+            <div className="flex items-start justify-between gap-3">
+              <p className="t-kicker">Local time</p>
+              <DayRing time={time} />
+            </div>
             <div>
               <p className="font-mono text-[2.6rem] font-medium leading-none tabular-nums tracking-tight">{time}</p>
-              <p className="mt-2 flex items-center gap-2 text-sm text-fg-2"><span className="live-dot" /> {person.city}, IST</p>
+              <p className="mt-2 flex items-center gap-2 text-sm text-fg-2"><span className="live-dot" /> {person.city}, IST · {dayPart(time)}</p>
             </div>
           </div>
         </Tile>
@@ -162,7 +184,10 @@ export default function AfterHours({ faq }: { faq: { q: string; a: string }[] })
           <Tile key={n.slug} size="2x1" href={`/notes/${n.slug}/`}>
             <div className="flex h-full flex-col justify-between p-5 sm:p-6">
               <p className="t-kicker">Note · {n.date}</p>
-              <p className="mt-3 font-display text-[1.35rem] font-semibold leading-tight tracking-[-0.02em]">{n.title}</p>
+              <div>
+                <p className="mt-3 font-display text-[1.35rem] font-semibold leading-tight tracking-[-0.02em]">{n.title}</p>
+                <p className="mt-2 line-clamp-2 text-[0.88rem] leading-snug text-fg-3">{n.summary}</p>
+              </div>
             </div>
           </Tile>
         ))}

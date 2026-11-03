@@ -39,3 +39,24 @@ export function neighbours(id: string, edges: GEdge[]) {
   }
   return s;
 }
+
+/** Tech grouped by domain, so the graph reads as a stack rather than a list. */
+export const CLUSTERS: { id: string; label: string; hue: string; techs: string[] }[] = [
+  { id: "frontend", label: "Frontend", hue: "#7cc4ff", techs: ["Next.js", "React", "TypeScript"] },
+  { id: "runtime", label: "Runtime & API", hue: "#ffb547", techs: ["Bun", "Hono", "Node.js", "WebSockets"] },
+  { id: "data", label: "Data", hue: "#5ee0c1", techs: ["PostgreSQL", "Drizzle", "Redis", "MongoDB"] },
+  { id: "ops", label: "Cloud & ops", hue: "#9b8cff", techs: ["Nginx", "Cloudflare R2", "Cloudinary", "npm"] },
+  { id: "comms", label: "Payments & messaging", hue: "#ff8a5c", techs: ["Razorpay", "FCM", "Resend"] },
+  { id: "ds", label: "Data science", hue: "#e7a6ff", techs: ["Python", "Pandas", "Matplotlib", "scikit-learn"] },
+  { id: "hw", label: "Hardware", hue: "#c9e265", techs: ["OpenCV", "IoT", "NFC"] },
+];
+
+/** Clusters with only the techs actually used, plus any unclustered tech under "Other". */
+export function clusteredTechs(list: Work[] = work) {
+  const used = new Set(list.flatMap((w) => w.stack));
+  const known = new Set(CLUSTERS.flatMap((c) => c.techs));
+  const out = CLUSTERS.map((c) => ({ ...c, techs: c.techs.filter((t) => used.has(t)) })).filter((c) => c.techs.length);
+  const other = [...used].filter((t) => !known.has(t));
+  if (other.length) out.push({ id: "other", label: "Other", hue: "#b9bfcb", techs: other });
+  return out;
+}

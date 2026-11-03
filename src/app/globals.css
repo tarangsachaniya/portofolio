@@ -519,3 +519,9 @@ a.tile:hover, button.tile:hover { border-color: rgb(255 181 71 / 0.35); }
 @keyframes steam { 0% { opacity: 0; transform: translateY(0) scaleY(0.6); } 30% { opacity: 0.6; } 100% { opacity: 0; transform: translateY(-140%) scaleY(1.2) translateX(6px); } }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+/* desk: time-of-day slider */
+.desk-range { -webkit-appearance: none; appearance: none; height: 6px; border-radius: 99px; background: linear-gradient(90deg, #f6cf9a, #3b82d9 30%, #ff9a52 60%, #3a2c6a 75%, #03050d); outline: none; }
+.desk-range::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #ffb547; box-shadow: 0 0 0 4px rgb(255 181 71 / 0.25), 0 4px 14px rgb(0 0 0 / 0.5); cursor: grab; }
+.desk-range::-moz-range-thumb { width: 22px; height: 22px; border: 0; border-radius: 50%; background: #ffb547; box-shadow: 0 0 0 4px rgb(255 181 71 / 0.25); }
+.desk-screen { user-select: text; }
