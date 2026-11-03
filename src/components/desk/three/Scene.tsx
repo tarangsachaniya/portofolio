@@ -51,7 +51,7 @@ function CameraRig({ mode, progress }: Pick<DeskWorldProps, "mode" | "progress">
       const a = 0.35 + Math.sin(s.clock.elapsedTime * 0.16) * 0.45;
       const r = portrait ? 4.9 : 2.3;
       tmpP.set(Math.sin(a) * r, portrait ? 1.75 : 1.05, Math.cos(a) * r);
-      tmpT.set(0, portrait ? -0.62 : 0.3, -0.2);
+      tmpT.set(0, portrait ? -0.46 : 0.3, -0.2);
     } else {
       const p = progress?.get() ?? 0;
       // fit the monitor between the rail and the right edge, under the nav
