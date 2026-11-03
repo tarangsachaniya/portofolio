@@ -14,10 +14,15 @@ export default function App() {
       <LazyMotion features={domAnimation} strict>
         <SmoothScroll />
         <Boot />
-        <Switch>
-          <Route path="/" component={Home} />
-          <Route component={NotFound} />
-        </Switch>
+        {/* Relative-base builds (static previews) can't know their path: always Home. */}
+        {import.meta.env.BASE_URL === "/" ? (
+          <Switch>
+            <Route path="/" component={Home} />
+            <Route component={NotFound} />
+          </Switch>
+        ) : (
+          <Home />
+        )}
       </LazyMotion>
     </MotionConfig>
   );

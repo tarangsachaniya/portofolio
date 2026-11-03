@@ -1,6 +1,7 @@
 import { profile, readme } from "@/lib/data";
 import { SectionHead } from "./SectionHead";
 import { Reveal } from "./Reveal";
+import { asset } from "@/lib/utils";
 
 export default function Readme() {
   return (
@@ -13,9 +14,9 @@ export default function Readme() {
             <figure>
               <div className="relative aspect-[4/5] overflow-hidden bg-paper-2">
                 <picture>
-                  <source srcSet="/img/hero-760.avif" type="image/avif" />
+                  <source srcSet={asset("img/hero-760.avif")} type="image/avif" />
                   <img
-                    src="/img/hero-760.webp"
+                    src={asset("img/hero-760.webp")}
                     alt="Tarang Sachaniya standing outdoors, arms crossed, smiling"
                     width={760}
                     height={950}

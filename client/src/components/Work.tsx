@@ -4,7 +4,7 @@ import { featured, work, workKinds, type Work as WorkItem, type WorkStatus } fro
 import { SectionHead } from "./SectionHead";
 import { Reveal } from "./Reveal";
 import { ease } from "@/lib/motion";
-import { cn } from "@/lib/utils";
+import { asset, cn } from "@/lib/utils";
 
 function StatusTag({ status }: { status: WorkStatus }) {
   const live = status === "Live";
@@ -44,7 +44,7 @@ function Frame({ src, domain, alt }: { src: string; domain: string; alt: string 
       <div className="overflow-hidden">
         <m.img
           style={{ scale }}
-          src={src}
+          src={asset(src)}
           alt={alt}
           width={1280}
           height={800}
@@ -208,7 +208,7 @@ function Row({
               <div className="md:col-span-1">
                 {item.image && (
                   <img
-                    src={item.image}
+                    src={asset(item.image)}
                     alt={`${item.name} homepage`}
                     width={1280}
                     height={800}
@@ -329,7 +329,7 @@ export default function Work() {
                   exit={{ opacity: 0, scale: 0.92 }}
                   transition={{ duration: 0.25, ease: ease.out }}
                 >
-                  <img src={preview} alt="" className="aspect-[16/10] w-full border border-line-strong object-cover object-top shadow-[0_24px_60px_-20px_rgb(0_0_0/0.35)]" />
+                  <img src={asset(preview)} alt="" className="aspect-[16/10] w-full border border-line-strong object-cover object-top shadow-[0_24px_60px_-20px_rgb(0_0_0/0.35)]" />
                 </m.div>
               )}
             </AnimatePresence>
