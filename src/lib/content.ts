@@ -628,7 +628,7 @@ export const now = {
     "Designing auto-assignment for print orders across 30–50 partner printers.",
     "Building an NFC verification terminal on an ESP32.",
     "Taking on a few freelance builds.",
-    "Rebuilding this site as a theme multiverse.",
+    "Rebuilt this site as a day at the desk: boot → commit → build → review → deploy → ship.",
   ],
   learning: ["Kubernetes", "Terraform", "ESP32 and NFC", "AI agents", "React Native"],
 };

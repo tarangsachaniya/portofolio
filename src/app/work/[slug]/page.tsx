@@ -5,6 +5,9 @@ import { breadcrumbs, faqNode, graph, meta, workNode } from "@/lib/seo";
 import Page, { Facts, Faq, SectionTitle } from "@/components/ui/Page";
 import Device, { NoShot } from "@/components/ui/Device";
 import JsonLd from "@/components/ui/JsonLd";
+import PipelineStages from "@/components/work/PipelineStages";
+import { Tile } from "@/components/desk/Bento";
+import { hash } from "@/components/desk/timeline";
 
 export const dynamicParams = false;
 export function generateStaticParams() {
@@ -63,6 +66,36 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
           </section>
         )}
 
+        {/* ── desk world: bento header + the case study as a CI pipeline ── */}
+        <div className="only only-desk">
+          <div className="bento mt-10">
+            <Tile size="4x2" tilt={false} className="p-3 sm:p-4">
+              {w.shots[0] ? <Device shot={w.shots[0]} domain={w.domain} priority /> : <NoShot name={w.name} hue={w.hue} what={w.what} />}
+            </Tile>
+            <Tile size="3x1">
+              <div className="p-5"><p className="t-kicker">Role</p><p className="mt-2 font-medium leading-snug">{w.role}</p></div>
+            </Tile>
+            <Tile size="3x1">
+              <div className="p-5">
+                <p className="t-kicker">Stack · {w.stack.length || "tbd"}</p>
+                <ul className="mt-3 flex flex-wrap gap-1.5">{(w.stack.length ? w.stack : w.platforms).map((x) => <li key={x} className="tag">{x}</li>)}</ul>
+              </div>
+            </Tile>
+            {w.facts.map((f) => (
+              <Tile key={f.k} size="1x1">
+                <div className="flex h-full flex-col justify-between p-5"><p className="t-kicker">{f.k}</p><p className="mt-3 font-display text-lg font-semibold leading-snug tracking-tight">{f.v}</p></div>
+              </Tile>
+            ))}
+            {w.shots.slice(1).map((sh) => (
+              <Tile key={sh.src} size="4x2" tilt={false} className="p-3 sm:p-4"><Device shot={sh} domain={w.domain} /></Tile>
+            ))}
+          </div>
+          <div className="section">
+            <PipelineStages run={hash(w.slug, 6)} stages={BEATS.map((b) => ({ key: b.key, label: b.label, body: w[b.key] }))} />
+          </div>
+        </div>
+
+        <div className="hide-desk">
         <div className="mt-12 grid gap-5">
           {w.shots.length ? w.shots.map((s, k) => <Device key={s.src} shot={s} domain={w.domain} priority={k === 0} />) : <NoShot name={w.name} hue={w.hue} what={w.what} />}
         </div>
@@ -100,6 +133,8 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
               );
             })}
           </div>
+        </div>
+
         </div>
 
         {w.faq.length > 0 && (

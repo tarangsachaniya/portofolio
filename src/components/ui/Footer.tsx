@@ -29,7 +29,7 @@ export default function Footer() {
       </div>
       <div className="wrap flex flex-wrap justify-between gap-3 border-t border-line py-5 t-meta text-fg-3">
         <span>© {new Date().getFullYear()} {person.name}</span>
-        <span>Hand-built in Ahmedabad · five worlds, one story</span>
+        <span>Hand-built in Ahmedabad · one day at the desk, five more worlds</span>
         <span><a className="ulink" href="/resume.txt">resume.txt</a> · <a className="ulink" href="/llms.txt">llms.txt</a></span>
       </div>
     </footer>

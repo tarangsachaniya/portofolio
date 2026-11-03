@@ -128,7 +128,7 @@ export default function VSCodeChrome() {
         </Folder>
         <div className="mt-4 border-t border-[#2b2b2b] px-5 py-3 text-[0.72rem] leading-relaxed text-[#9d9d9d]">
           <p className="uppercase tracking-wider text-[#bbbbbb]">Outline</p>
-          <p className="mt-1">Tip: <kbd className="font-mono">⌘K</kbd> searches everything. <kbd className="font-mono">Alt+1–5</kbd> switches worlds.</p>
+          <p className="mt-1">Tip: <kbd className="font-mono">⌘K</kbd> searches everything. <kbd className="font-mono">Alt+0–5</kbd> switches worlds.</p>
         </div>
       </aside>
 

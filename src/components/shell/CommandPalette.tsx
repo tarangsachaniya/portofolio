@@ -18,6 +18,17 @@ type Item = {
 /** Miniature of each world, drawn in CSS — doubles as the preview in the picker. */
 function Mini({ id }: { id: ThemeId }) {
   const base = "relative h-full w-full overflow-hidden rounded-md";
+  if (id === "desk")
+    return (
+      <div className={base} style={{ background: "linear-gradient(180deg,#1a1f3a,#0b0d11 70%)" }}>
+        <div className="absolute right-3 top-2 size-3 rounded-full" style={{ background: "#ffe3a3", boxShadow: "0 0 12px #ffb547" }} />
+        <div className="absolute left-1/2 top-[22%] h-[46%] w-[62%] -translate-x-1/2 rounded-[4px] border border-white/15 bg-[#0e1116] p-1 font-mono text-[0.42rem] leading-tight text-[#5ee0c1]">
+          <div>$ git log</div><div className="text-white/50">boot→ship</div><div className="text-[#ffb547]">✓ deploy</div>
+        </div>
+        <div className="absolute bottom-2 left-1/2 h-2 w-[70%] -translate-x-1/2 rounded-sm bg-white/10" />
+        <div className="absolute bottom-1 left-2 size-6 rounded-full" style={{ background: "radial-gradient(#ffb54766,transparent 70%)" }} />
+      </div>
+    );
   if (id === "paper")
     return (
       <div className={base} style={{ background: "#f3f0e8", color: "#121211" }}>
@@ -164,8 +175,8 @@ export default function CommandPalette() {
               <p className="font-mono text-xs uppercase tracking-widest text-white/60">Choose a world</p>
               <button onClick={closePalette} className="font-mono text-xs text-white/60 hover:text-white">esc</button>
             </div>
-            <p className="mt-2 text-sm text-white/70">Same story, five places a developer lives. Alt+1–5 anywhere.</p>
-            <ul className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5">
+            <p className="mt-2 text-sm text-white/70">One day at the desk, plus five places a developer lives. Alt+0–5 anywhere.</p>
+            <ul className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-3">
               {THEMES.map((t, idx) => (
                 <li key={t.id}>
                   <button
