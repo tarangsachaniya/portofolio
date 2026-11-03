@@ -1,0 +1,31 @@
+# Tarang Sachaniya
+
+> Tarang Sachaniya is a full-stack developer based in Ahmedabad, India, with a backend lean: Node.js, TypeScript, Bun, Hono, Next.js, PostgreSQL and Laravel. He co-founded Priinteve Innovations LLP, where he builds an on-demand printing network, NFC digital business cards, QR restaurant ordering and tools for print shops and salons.
+
+Theme note: the site renders in five interchangeable visual themes; all pages and URLs are identical across themes.
+
+## Pages
+- [Story](https://tarangsachaniya.com/about/): career timeline, 2021 to now
+- [Work](https://tarangsachaniya.com/work/): all projects
+- [Services](https://tarangsachaniya.com/services/): freelance web, API and SaaS development
+- [Uses](https://tarangsachaniya.com/uses/): tools and stack
+- [Now](https://tarangsachaniya.com/now/): current focus
+- [Contact](https://tarangsachaniya.com/contact/): tarangsachaniya8@gmail.com
+
+## Projects
+- [Priinteve Print Network](https://tarangsachaniya.com/work/priinteve-print-network/): On-demand printing with an invisible vendor network. Pre-launch, 2025.
+- [Priinteve Cards](https://tarangsachaniya.com/work/priinteve-cards/): NFC and QR digital business cards. Live, 2025.
+- [Priinteve Menu](https://tarangsachaniya.com/work/priinteve-menu/): QR table ordering for restaurants. Live, 2025.
+- [Zerox Buddy](https://tarangsachaniya.com/work/zerox-buddy/): Web + Windows desktop app for print and xerox shops. Live, 2026.
+- [Salonly](https://tarangsachaniya.com/work/salonly/): Bookings and management for salons, with an Android app. Live, 2026.
+- [Universal Brew](https://tarangsachaniya.com/work/universal-brew/): Coffee e-commerce, end to end. Live, 2025.
+- [Royal Timber](https://tarangsachaniya.com/work/royal-timber/): Website for a plywood supplier. Shipped, 2026.
+- [Quantivo](https://tarangsachaniya.com/work/quantivo/): Website for a digital marketing agency. Shipped, 2026.
+- [EarthOra](https://tarangsachaniya.com/work/earthora/): Cashew brand storefront, mobile concept. Concept, 2026.
+- [otp-forge](https://tarangsachaniya.com/work/otp-forge/): Zero-dependency OTP library on npm. Shipped, 2025.
+- [Smart Attendance System](https://tarangsachaniya.com/work/smart-attendance-system/): Fingerprint + face-verified attendance. Archived, 2024.
+- [COVID-19 Data Analysis](https://tarangsachaniya.com/work/covid-19-data-analysis/): Cleaning, plotting and predicting. Archived, 2023.
+
+## Notes
+- [Five apps, one API: how Priinteve is wired](https://tarangsachaniya.com/notes/five-apps-one-api/)
+- [Building a theme multiverse for my portfolio](https://tarangsachaniya.com/notes/building-a-theme-multiverse/)

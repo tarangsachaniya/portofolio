@@ -1,0 +1,51 @@
+TARANG SACHANIYA
+Full-stack developer · Co-founder, Priinteve Innovations
+Ahmedabad, India · tarangsachaniya8@gmail.com · https://tarangsachaniya.com
+
+SUMMARY
+Tarang Sachaniya is a full-stack developer based in Ahmedabad, India, with a backend lean: Node.js, TypeScript, Bun, Hono, Next.js, PostgreSQL and Laravel. He co-founded Priinteve Innovations LLP, where he builds an on-demand printing network, NFC digital business cards, QR restaurant ordering and tools for print shops and salons.
+
+SERVICES
+- Web apps and SaaS: Dashboards, booking systems, ordering flows and admin panels, built on Next.js with a real backend.
+- APIs and backends: REST APIs, auth, queues, payments and third-party integrations that hold up under real traffic.
+- E-commerce: Stores with Razorpay checkout, order management and fast mobile product pages.
+- Rescue and performance: Slow queries, broken deploys, a codebase nobody wants to touch. I find the bottleneck and fix it.
+
+TIMELINE
+2021  Hello, world.  (LJ University · B.E. Computer Science)
+      Started computer engineering and wrote my first web pages, mostly by breaking them. Outside class I ran LFA Magazine, first as marketing head and then as president, and learned that shipping on a deadline isn't only a code problem.
+
+2023  Data, sensors and a first job.  (Prime Apps Infotech · Intern)
+      Python pulled me in through data: a COVID-19 analysis that taught me cleaning data is most of the job. Then hardware, an attendance system that checked a fingerprint and a face. In July I joined Prime Apps Infotech as an intern, and my code started having users.
+
+2024  Production is a different teacher.  (Prime Apps Infotech · Backend Developer)
+      Six months in, I moved to a full-time backend role. Real traffic, real third parties. I integrated Sportradar feeds, built REST APIs in Laravel and Node, and cut MySQL query times by more than 40%. At college I co-ran Hackovate, a 36-hour AI hackathon with 200+ participants.
+
+2025  Starting something.  (Priinteve Innovations LLP · Co-founder)
+      Graduated, and with a co-founder started Priinteve Innovations to fix how small businesses order printing, and then to build the software they kept asking for. Shipped Universal Brew for a client and published my first npm package.
+
+2026  Systems, not pages.  (Priinteve · full-time)
+      Wrapped up at Prime Apps in July and went full-time on Priinteve. The work is systems now: five apps on one Bun API, an allocation algorithm that balances profit, fairness and delivery time across printers, desktop and Android apps, and an NFC terminal on an ESP32.
+
+SELECTED WORK
+- Priinteve Print Network (2025, Pre-launch): On-demand printing with an invisible vendor network · https://priinteve.com
+- Priinteve Cards (2025, Live): NFC and QR digital business cards · https://cards.priinteve.com
+- Priinteve Menu (2025, Live): QR table ordering for restaurants · https://menu.priinteve.com
+- Zerox Buddy (2026, Live): Web + Windows desktop app for print and xerox shops · https://zerox.priinteve.com
+- Salonly (2026, Live): Bookings and management for salons, with an Android app · https://salon.priinteve.com
+- Universal Brew (2025, Live): Coffee e-commerce, end to end · https://universalbrew.shop
+- Royal Timber (2026, Shipped): Website for a plywood supplier
+- Quantivo (2026, Shipped): Website for a digital marketing agency
+- EarthOra (2026, Concept): Cashew brand storefront, mobile concept
+- otp-forge (2025, Shipped): Zero-dependency OTP library on npm · https://www.npmjs.com/package/otp-forge
+- Smart Attendance System (2024, Archived): Fingerprint + face-verified attendance
+- COVID-19 Data Analysis (2023, Archived): Cleaning, plotting and predicting
+
+SKILLS
+Node.js, TypeScript, Bun, Hono, Next.js, React, PostgreSQL, Drizzle ORM, Laravel, PHP, MongoDB, Redis, REST API design, Payment integration (Razorpay), NFC, Linux server administration
+
+LINKS
+https://github.com/tarangsachaniya
+https://www.linkedin.com/in/tarang-sachaniya/
+https://instagram.com/tarangsachaniya
+https://www.npmjs.com/package/otp-forge
