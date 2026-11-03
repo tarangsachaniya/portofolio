@@ -187,7 +187,14 @@ function MobileDay() {
   return (
     <section aria-labelledby="day-title" className="-mt-[5.5rem]">
       <div ref={box} className="relative h-[100svh] min-h-[38rem] overflow-hidden bg-[#0b0d11]">
-        <div className="absolute inset-0"><DeskWorld mode="mini" hour={hour} step={step} lampOn={hour >= 18} active={visible} /></div>
+        <div className="absolute inset-0"><DeskWorld mode="mini" hour={hour} step={step} lampOn={hour >= 18} active={visible} screen={
+          <div className="grid h-full place-items-center" style={{ background: "radial-gradient(60% 70% at 30% 30%, rgb(255 181 71 / 0.3), transparent 60%), radial-gradient(50% 60% at 75% 70%, rgb(155 140 255 / 0.35), transparent 60%), #0e1116" }}>
+            <div className="text-center">
+              <p className="font-display text-[11rem] font-semibold leading-none tracking-[-0.04em] text-white/90">{fmtHour(hour)}</p>
+              <p className="mt-4 font-mono text-[2rem] text-white/60">{STEPS[step].time} · {STEPS[step].label.toLowerCase()}</p>
+            </div>
+          </div>
+        } /></div>
         <div className="pointer-events-none absolute inset-x-0 bottom-0 h-[62%] bg-gradient-to-t from-[#0b0d11] via-[#0b0d11]/85 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 px-5 pb-6">
           <Intro size="sm" />
