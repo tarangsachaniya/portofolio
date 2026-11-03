@@ -29,7 +29,7 @@ export function Reveal({
 
 /**
  * Masked line reveal for display type: each line slides up from behind
- * its own overflow mask. The trigger lives on the (unclipped) parent —
+ * its own overflow mask. The trigger lives on the (unclipped) parent -
  * observing the translated child would read as 0% visible.
  */
 export function Lines({

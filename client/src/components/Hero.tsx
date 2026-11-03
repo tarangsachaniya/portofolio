@@ -65,7 +65,7 @@ export default function Hero() {
         {/* name */}
         <div className="relative mt-[clamp(2.5rem,7vh,5rem)]">
           <h1 id="hero-title" className="sr-only">
-            {profile.name} — {profile.role} who learns by making things
+            {profile.name}, {profile.role} who learns by making things
           </h1>
           <div aria-hidden className="text-display select-none">
             <m.div style={{ y: yTop, x: xTop }}>
@@ -90,7 +90,7 @@ export default function Hero() {
         <m.div style={{ opacity: fadeOut }} className="mt-10 grid gap-8 md:mt-14 md:grid-cols-12 md:items-end">
           <m.p {...fade(0.55)} className="text-lead text-ink-2 md:col-span-6 lg:col-span-5">
             I'm a <span className="text-ink">full-stack developer</span> with a backend lean. This site is the
-            changelog — from a first web page in a college lab to{" "}
+            changelog: from a first web page in a college lab to{" "}
             <span className="text-ink">a printing network running five apps on one API.</span>
           </m.p>
           <m.div {...fade(0.7)} className="flex flex-wrap gap-3 md:col-span-6 md:justify-end lg:col-span-7">
@@ -110,7 +110,7 @@ export default function Hero() {
           </m.div>
         </m.div>
 
-        {/* build timeline — real chapters, doubles as wayfinding */}
+        {/* build timeline: real chapters, doubles as wayfinding */}
         <m.nav {...fade(0.85)} aria-label="Story chapters" className="mt-auto pb-8 pt-16">
           <div className="mb-3 flex justify-between text-meta text-ink-3">
             <span>git log --story</span>

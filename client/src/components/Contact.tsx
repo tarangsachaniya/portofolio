@@ -57,7 +57,7 @@ export default function Contact() {
       setCopied(true);
       setTimeout(() => setCopied(false), 1800);
     } catch {
-      /* clipboard blocked — the mailto link still works */
+      /* clipboard blocked: the mailto link still works */
     }
   };
 
@@ -82,7 +82,7 @@ export default function Contact() {
         <div className="mt-14 grid gap-10 md:grid-cols-12 md:items-end">
           <div className="md:col-span-7">
             <p className="max-w-[46ch] text-lead text-ink-2">
-              Freelance builds, product collaborations, or a backend problem you want a second brain on. I reply within a day — WhatsApp is fastest.
+              Freelance builds, product collaborations, or a backend problem you want a second brain on. I reply within a day. WhatsApp is fastest.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <Magnetic

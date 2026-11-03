@@ -38,7 +38,7 @@ export const profile = {
 
 export const readme = {
   intro:
-    "I'm a full-stack developer from Ahmedabad with a backend lean. I didn't learn this from a syllabus — I learned it by shipping things that had to work on Monday morning.",
+    "I'm a full-stack developer from Ahmedabad with a backend lean. I didn't learn this from a syllabus. I learned it by shipping things that had to work on Monday morning.",
   body: [
     "Three years as a backend developer taught me APIs, queues and the quiet art of making MySQL fast. Starting Priinteve taught me everything else: pricing, printers, NFC chips, and what happens when real customers find the edge case you skipped.",
     "Today I design the architecture, write most of the code, and still read the logs myself.",
@@ -82,7 +82,7 @@ export const chapters: Chapter[] = [
     title: "Hello, world.",
     where: "LJ University · B.E. Computer Science",
     story:
-      "Started computer engineering and wrote my first web pages — mostly by breaking them. Outside class I ran LFA Magazine — first as marketing head, then president — and learned that [[shipping on a deadline]] isn't only a code problem.",
+      "Started computer engineering and wrote my first web pages, mostly by breaking them. Outside class I ran LFA Magazine, first as marketing head and then as president, and learned that [[shipping on a deadline]] isn't only a code problem.",
     learned: ["HTML, CSS, JavaScript", "Programming fundamentals", "Leading a team of volunteers"],
     made: ["Class projects", "Two years of magazine issues", "Carpe Diem sports meet (led twice)"],
   },
@@ -92,7 +92,7 @@ export const chapters: Chapter[] = [
     title: "Data, sensors, and a first job.",
     where: "Prime Apps Infotech · Intern",
     story:
-      "Python pulled me in through data — a COVID-19 analysis that taught me cleaning data is 80% of the job. Then hardware: an attendance system that checked a fingerprint and a face. In July I joined Prime Apps Infotech as an intern, and [[my code started having users]].",
+      "Python pulled me in through data: a COVID-19 analysis that taught me cleaning data is 80% of the job. Then hardware: an attendance system that checked a fingerprint and a face. In July I joined Prime Apps Infotech as an intern, and [[my code started having users]].",
     learned: ["Python, Pandas, scikit-learn", "OpenCV & sensor wiring", "Laravel, Git, code review"],
     made: ["COVID-19 data analysis", "Smart Attendance System (2024)"],
   },
@@ -103,7 +103,7 @@ export const chapters: Chapter[] = [
     where: "Prime Apps Infotech · Backend Developer",
     story:
       // TODO(tarang): confirm Hackovate year
-      "Six months in, I moved to a full-time backend role. Real traffic, real third parties, real pagers. I integrated Sportradar feeds, built REST APIs in Laravel and Node, and [[cut MySQL query times by 40%+]]. At college I co-ran Hackovate — a 36-hour AI hackathon with 200+ participants.",
+      "Six months in, I moved to a full-time backend role. Real traffic, real third parties, real pagers. I integrated Sportradar feeds, built REST APIs in Laravel and Node, and [[cut MySQL query times by 40%+]]. At college I co-ran Hackovate, a 36-hour AI hackathon with 200+ participants.",
     learned: ["API design & versioning", "Query plans and indexes", "MERN end-to-end"],
     made: ["Production REST APIs", "Sportradar integrations", "Hackovate LJ (tech lead)"],
   },
@@ -114,7 +114,7 @@ export const chapters: Chapter[] = [
     title: "Starting something.",
     where: "Priinteve Innovations LLP · Co-founder",
     story:
-      "Graduated, and with a co-founder started Priinteve Innovations — first to fix how small businesses in Ahmedabad order printing, then to build the software they kept asking for. Shipped Universal Brew for a client and published [[my first npm package]].",
+      "Graduated, and with a co-founder started Priinteve Innovations to fix how small businesses in Ahmedabad order printing, and then to build the software they kept asking for. Shipped Universal Brew for a client and published [[my first npm package]].",
     learned: ["Pricing & unit economics", "Next.js App Router, ISR", "Razorpay, Resend, Cloudinary"],
     made: ["Universal Brew", "otp-forge (npm)", "Priinteve Cards"],
   },
@@ -125,7 +125,7 @@ export const chapters: Chapter[] = [
     where: "Priinteve · full-time",
     story:
       // TODO(tarang): confirm framing of the Prime Apps exit
-      "Wrapped up at Prime Apps in July and went full-time on Priinteve. Now the work is systems: five apps on one Bun API, an order-allocation algorithm that balances profit, fairness and delivery time across printers, desktop apps, Android apps, and [[an NFC terminal on an ESP32]]. Still learning — just with bigger consequences.",
+      "Wrapped up at Prime Apps in July and went full-time on Priinteve. Now the work is systems: five apps on one Bun API, an order-allocation algorithm that balances profit, fairness and delivery time across printers, desktop apps, Android apps, and [[an NFC terminal on an ESP32]]. Still learning, just with bigger consequences.",
     learned: ["Bun, Hono, Drizzle", "Linux, Nginx, Docker on VPS", "Allocation algorithms", "ESP32 + NFC"],
     made: ["Priinteve print network", "Priinteve Menu", "Zerox Buddy", "Salonly", "Client sites"],
   },
@@ -139,9 +139,9 @@ export type WorkStatus = "Live" | "Pre-launch" | "Shipped" | "Concept" | "Archiv
 export interface Work {
   id: string;
   name: string;
-  /** one line — what it is */
+  /** one line: what it is */
   what: string;
-  /** 1–2 sentences — what was hard / what I did */
+  /** 1–2 sentences: what was hard / what I did */
   detail: string;
   kind: WorkKind;
   status: WorkStatus;
@@ -150,7 +150,7 @@ export interface Work {
   stack: string[];
   href?: string;
   domain?: string;
-  /** /public/<path> — 16:10 */
+  /** /public/<path>: 16:10 */
   image?: string;
 }
 
@@ -162,7 +162,7 @@ export const featured = {
     "An on-demand printing platform with an invisible vendor network: customers see one brand, orders quietly route to the right local printer.",
   role: "Co-founder · architecture, backend, most of the frontend",
   status: "Pre-launch" as WorkStatus,
-  year: "2025 — now",
+  year: "2025 to now",
   href: "https://priinteve.com",
   domain: "priinteve.com",
   image: "/products/priinteve-web.avif",
@@ -181,7 +181,7 @@ export const featured = {
     { label: "Delivery distance", weight: 20 },
   ],
   notes: [
-    "Printers see an order ID and an area — never the customer's name or address.",
+    "Printers see an order ID and an area, never the customer's name or address.",
     "Allocation is a greedy weighted score, min-max normalised across eligible printers, with a no-loss delivery guard and a cold-start rule.",
     "Orders run 25–1,000 pieces; quantity feeds the allocation matrix.",
   ],
@@ -193,7 +193,7 @@ export const work: Work[] = [
     name: "Priinteve Cards",
     what: "NFC + QR digital business cards",
     detail:
-      "Tap a card, get a live profile — no app for the recipient. Field library with drag-to-reorder, four gallery layouts, device-aware Save Contact, referral wallet, 2-hour ISR on public pages.",
+      "Tap a card, get a live profile, no app for the recipient. Field library with drag-to-reorder, four gallery layouts, device-aware Save Contact, referral wallet, 2-hour ISR on public pages.",
     kind: "Product",
     status: "Live",
     year: "2025",
@@ -224,7 +224,7 @@ export const work: Work[] = [
     // TODO(tarang): one-line description to confirm
     what: "Web + desktop app for print & xerox shops",
     detail:
-      "A web dashboard paired with a Windows desktop client that sits next to the shop's printer — part of Priinteve's printer-side tooling.",
+      "A web dashboard paired with a Windows desktop client that sits next to the shop's printer, part of Priinteve's printer-side tooling.",
     kind: "Product",
     status: "Live",
     year: "2026",
@@ -252,7 +252,7 @@ export const work: Work[] = [
     name: "Universal Brew",
     what: "Coffee e-commerce, end to end",
     detail:
-      "Product discovery, Razorpay checkout, order management and a mobile-first storefront — built to stay fast on a cheap Android phone.",
+      "Product discovery, Razorpay checkout, order management and a mobile-first storefront, built to stay fast on a cheap Android phone.",
     kind: "Client",
     status: "Live",
     year: "2025",
@@ -287,7 +287,7 @@ export const work: Work[] = [
   {
     id: "earthora",
     name: "EarthOra",
-    what: "Cashew brand storefront — mobile concept",
+    what: "Cashew brand storefront, mobile concept",
     detail: "A mobile-first visual concept where the hero is a packet you tear open on scroll, shipped as an isolated route so the live store stayed untouched.",
     kind: "Client",
     status: "Concept",
@@ -325,7 +325,7 @@ export const work: Work[] = [
     id: "covid",
     name: "COVID-19 Data Analysis",
     what: "Cleaning, plotting and predicting",
-    detail: "My first real data project — most of it was cleaning, the rest was learning why a model lies.",
+    detail: "My first real data project. Most of it was cleaning, the rest was learning why a model lies.",
     kind: "Learning",
     status: "Archived",
     year: "2023",

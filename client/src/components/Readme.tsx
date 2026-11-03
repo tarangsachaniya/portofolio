@@ -6,7 +6,7 @@ export default function Readme() {
   return (
     <section id="readme" className="section-y" aria-labelledby="readme-title">
       <div className="wrap">
-        <SectionHead id="readme" index="01" path="cat README.md" title={["Hi. I'm Tarang —", "I build to learn."]} />
+        <SectionHead id="readme" index="01" path="cat README.md" title={["Hi. I'm Tarang.", "I build to learn."]} />
 
         <div className="grid gap-12 md:grid-cols-12">
           <Reveal className="md:col-span-5 lg:col-span-4">

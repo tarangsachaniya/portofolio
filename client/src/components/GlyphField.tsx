@@ -94,7 +94,7 @@ export default function GlyphField() {
 
       if (mouse.active) excite(mouse.x, mouse.y, 150, 1);
       else {
-        // idle sweep — a slow lissajous so touch users still see it breathe
+        // idle sweep: a slow lissajous so touch users still see it breathe
         const sx = w * (0.5 + 0.42 * Math.sin(t * 0.35));
         const sy = h * (0.5 + 0.38 * Math.sin(t * 0.52 + 1.2));
         excite(sx, sy, 120, fine ? 0.55 : 0.42);

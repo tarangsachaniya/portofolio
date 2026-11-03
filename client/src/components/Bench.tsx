@@ -33,7 +33,7 @@ export default function Bench() {
                   {...(b.href ? { href: b.href, target: "_blank", rel: "noreferrer" } : {})}
                   className="group relative flex h-full min-h-[17rem] flex-col justify-between overflow-hidden p-6 md:p-8"
                 >
-                  {/* hover wash — scales from bottom, transform only */}
+                  {/* hover wash: scales from bottom, transform only */}
                   <span aria-hidden className="absolute inset-0 origin-bottom scale-y-0 bg-signal transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-y-100" />
                   <div className="relative flex items-start justify-between gap-4">
                     <span className="font-mono text-xs text-[var(--ink-3)] transition-colors group-hover:text-on-signal">

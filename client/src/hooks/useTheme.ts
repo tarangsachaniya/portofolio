@@ -20,7 +20,7 @@ export function useTheme() {
     try {
       localStorage.setItem(STORAGE_KEY, next);
     } catch {
-      /* storage disabled — class still applies */
+      /* storage disabled: class still applies */
     }
     setTheme(next);
   }, []);

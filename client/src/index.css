@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /*
- * "Build Log" identity — ink on paper, one signal colour.
+ * "Build Log" identity - ink on paper, one signal colour.
  *
  * Light ("paper") is the default. `.dark` on <html> opts into "night shift".
  * Every colour below is a semantic role; components never use raw hex.
@@ -76,7 +76,7 @@
   }
 }
 
-/* ── type scale (fluid, 9 steps — nothing outside it) ───────────── */
+/* ── type scale (fluid, 9 steps - nothing outside it) ───────────── */
 @utility text-meta {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -153,7 +153,7 @@
   a, button { -webkit-tap-highlight-color: transparent; }
 }
 
-/* Paper grain — one fixed layer, 3% opacity, no repaint on scroll. */
+/* Paper grain - one fixed layer, 3% opacity, no repaint on scroll. */
 .grain::before {
   content: "";
   position: fixed;
@@ -165,7 +165,7 @@
 }
 .dark .grain::before { opacity: 0.05; }
 
-/* Link underline that draws from left — transform only. */
+/* Link underline that draws from left - transform only. */
 .ulink {
   background-image: linear-gradient(currentColor, currentColor);
   background-size: 0% 1px;

@@ -53,7 +53,7 @@ export default function Story() {
         />
 
         <div className="grid gap-10 md:grid-cols-12">
-          {/* sticky year rail — desktop */}
+          {/* sticky year rail: desktop */}
           <div className="hidden md:col-span-4 md:block lg:col-span-5">
             <div className="sticky top-28 flex gap-6">
               <div className="relative w-px self-stretch bg-line-strong" aria-hidden>

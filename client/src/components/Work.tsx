@@ -264,7 +264,7 @@ export default function Work() {
           id="work"
           index="03"
           path="ls ~/work --sort=recent"
-          title={["Selected work,", "2023 — now."]}
+          title={["Selected work,", "2023 to now."]}
           aside="Products I run, sites I've built for clients, and the early projects that taught me the basics."
         />
 
@@ -317,7 +317,7 @@ export default function Work() {
               Showing {list.length} of {work.length}
             </p>
 
-            {/* cursor-following preview — fine pointers only, decorative */}
+            {/* cursor-following preview: fine pointers only, decorative */}
             <AnimatePresence>
               {preview && !open && (
                 <m.div

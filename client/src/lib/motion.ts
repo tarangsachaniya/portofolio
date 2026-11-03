@@ -5,17 +5,17 @@ import type { Transition, Variants } from "framer-motion";
  * instead of hand-writing initial/whileInView/viewport/transition on every node.
  *
  * Stagger rule: a staggered child declares `variants` and MUST NOT declare
- * initial/animate/whileInView — any explicit prop severs variant propagation
+ * initial/animate/whileInView: any explicit prop severs variant propagation
  * from the parent and silently breaks the stagger.
  */
 
 /* ── easing ─────────────────────────────────────────────── */
 export const ease = {
-  /** expo-out — default for entrances */
+  /** expo-out: default for entrances */
   out: [0.16, 1, 0.3, 1],
-  /** symmetric — wipes, beams, draws */
+  /** symmetric: wipes, beams, draws */
   inOut: [0.65, 0, 0.35, 1],
-  /** slight overshoot — badges, pills, carets */
+  /** slight overshoot: badges, pills, carets */
   back: [0.34, 1.4, 0.64, 1],
 } as const;
 
@@ -34,7 +34,7 @@ export const spring = {
   soft: { type: "spring", stiffness: 120, damping: 20, mass: 0.6 },
   /** buttons, cursor, magnetic */
   snappy: { type: "spring", stiffness: 380, damping: 30, mass: 0.5 },
-  /** 3D tilt — must settle fast or it feels rubbery */
+  /** 3D tilt: must settle fast or it feels rubbery */
   tilt: { type: "spring", stiffness: 220, damping: 22, mass: 0.4 },
   /** scroll-linked smoothing */
   beam: { type: "spring", stiffness: 120, damping: 30, restDelta: 0.001 },
@@ -95,7 +95,7 @@ export const slideInRight: Variants = {
   show: { opacity: 1, x: 0, transition: t() },
 };
 
-/** signature Terminal reveal — a horizontal wipe */
+/** signature Terminal reveal: a horizontal wipe */
 export const wipeIn: Variants = {
   hidden: { clipPath: "inset(0 100% 0 0)" },
   show: {
@@ -104,7 +104,7 @@ export const wipeIn: Variants = {
   },
 };
 
-/** rule/underline draw — scaleX is composited; never animate `width` */
+/** rule/underline draw: scaleX is composited; never animate `width` */
 export const drawX: Variants = {
   hidden: { scaleX: 0 },
   show: {
@@ -113,7 +113,7 @@ export const drawX: Variants = {
   },
 };
 
-/** blur is paint-heavy — use on display type only, never many nodes at once */
+/** blur is paint-heavy: use on display type only, never many nodes at once */
 export const blurIn: Variants = {
   hidden: { opacity: 0, filter: "blur(10px)", y: 12 },
   show: {
@@ -125,7 +125,7 @@ export const blurIn: Variants = {
 };
 
 /* ── stagger containers ─────────────────────────────────── */
-/** `hidden: {}` is required — without it children never inherit the label. */
+/** `hidden: {}` is required: without it children never inherit the label. */
 export const stagger = (each = 0.08, delayChildren = 0): Variants => ({
   hidden: {},
   show: { transition: { staggerChildren: each, delayChildren } },
@@ -146,7 +146,7 @@ export const reveal = {
 
 /**
  * Budget: children * each <= ~0.5s. A 20+ item grid wants each ≈ 0.02,
- * not 0.08 — otherwise the last item lands nearly two seconds late.
+ * not 0.08: otherwise the last item lands nearly two seconds late.
  */
 export const revealGroup = (each = 0.08) => ({
   variants: stagger(each),

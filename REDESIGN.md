@@ -1,4 +1,4 @@
-# Redesign — "Build Log" (v5.0, Nov 2026)
+# Redesign - "Build Log" (v5.0, Nov 2026)
 
 The site is now told as a changelog: five chapters of *what I was learning* and
 *what I made while learning it*, followed by the work, the unfinished bench,
@@ -38,9 +38,9 @@ Everything respects `prefers-reduced-motion` (canvas, Lenis, boot and
 scroll-linked transforms are disabled; content is fully visible).
 
 ## Content TODOs
-Search `TODO(tarang)` in `client/src/lib/data.ts` — title (Founder & CEO vs
+Search `TODO(tarang)` in `client/src/lib/data.ts` - title (Founder & CEO vs
 Co-founder), WhatsApp/phone numbers, Priinteve founding year, Hackovate year,
 Zerox Buddy / Salonly one-liners and stacks, Royal Timber / Quantivo URLs.
 
 Screenshots: drop 16:10 AVIFs in `client/public/projects/` and set `image`
-in `data.ts` — rows with an image get a hover preview automatically.
+in `data.ts` - rows with an image get a hover preview automatically.

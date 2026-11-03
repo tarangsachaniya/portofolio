@@ -49,7 +49,7 @@ export default function Nav() {
         )}
       >
         <nav className="wrap flex h-16 items-center justify-between gap-6" aria-label="Primary">
-          <a href="#top" className="font-mono text-sm font-semibold tracking-tight" aria-label="Tarang Sachaniya — home">
+          <a href="#top" className="font-mono text-sm font-semibold tracking-tight" aria-label="Tarang Sachaniya, home">
             {profile.handle}
             <span className="animate-blink text-signal" aria-hidden>
               _
