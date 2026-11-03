@@ -4,7 +4,7 @@ import Page, { SectionTitle } from "@/components/ui/Page";
 import WorkCard from "@/components/ui/WorkCard";
 import JsonLd from "@/components/ui/JsonLd";
 
-const summary = `Tarang Sachaniya's work: ${work.filter((w) => w.kind === "Product").length} Priinteve products (print network, NFC cards, QR restaurant ordering, a print-shop desktop app and a salon app), client websites like Universal Brew, the otp-forge npm package, and the early projects where he learned the basics.`;
+const summary = `Tarang Sachaniya's work: ${work.filter((w) => w.kind === "Product").length} Priinteve products (print network, NFC cards, QR restaurant ordering, a print-shop desktop app and a salon app), client websites, the otp-forge npm package, and the early projects where he learned the basics.`;
 
 export const metadata = meta({ title: "Work", description: summary, path: "/work/" });
 

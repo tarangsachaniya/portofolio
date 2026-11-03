@@ -47,6 +47,22 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
           <span className="flex flex-wrap gap-1.5">{w.platforms.map((p) => <span key={p} className="tag">{p}</span>)}</span>
         </div>
 
+        {w.downloads && (
+          <section aria-labelledby="apps" className="mt-10">
+            <h2 id="apps" className="t-meta text-fg-3">Get the apps</h2>
+            <ul className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+              {w.downloads.map((d) => (
+                <li key={d.label}>
+                  <a href={d.href} target="_blank" rel="noreferrer" className="card flex items-center gap-3 p-4">
+                    <span aria-hidden className="grid size-9 shrink-0 place-items-center rounded-md bg-fg font-mono text-xs text-bg">{d.platform === "Windows" ? "⊞" : d.platform === "macOS" ? "⌘" : d.platform === "Android TV" ? "▭" : "▲"}</span>
+                    <span><span className="block text-sm font-semibold">{d.label}</span><span className="block text-xs text-fg-3">Download ↗</span></span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         <div className="mt-12 grid gap-5">
           {w.shots.length ? w.shots.map((s, k) => <Device key={s.src} shot={s} domain={w.domain} priority={k === 0} />) : <NoShot name={w.name} hue={w.hue} what={w.what} />}
         </div>

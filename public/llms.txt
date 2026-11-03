@@ -14,11 +14,10 @@ Theme note: the site renders in five interchangeable visual themes; all pages an
 
 ## Projects
 - [Priinteve Print Network](https://tarangsachaniya.com/work/priinteve-print-network/): On-demand printing with an invisible vendor network. Pre-launch, 2025.
-- [Priinteve Cards](https://tarangsachaniya.com/work/priinteve-cards/): NFC and QR digital business cards. Live, 2025.
-- [Priinteve Menu](https://tarangsachaniya.com/work/priinteve-menu/): QR table ordering for restaurants. Live, 2025.
-- [Zerox Buddy](https://tarangsachaniya.com/work/zerox-buddy/): Web + Windows desktop app for print and xerox shops. Live, 2026.
-- [Salonly](https://tarangsachaniya.com/work/salonly/): Bookings and management for salons, with an Android app. Live, 2026.
-- [Universal Brew](https://tarangsachaniya.com/work/universal-brew/): Coffee e-commerce, end to end. Live, 2025.
+- [Nectcard](https://tarangsachaniya.com/work/nectcard/): NFC and QR digital business cards. Live, 2025.
+- [VentaDot](https://tarangsachaniya.com/work/ventadot/): QR table ordering for restaurants, on every screen. Live, 2025.
+- [Zerox Buddy](https://tarangsachaniya.com/work/zerox-buddy/): QR printing for xerox, print and cyber café shops. Live, 2026.
+- [Salonly](https://tarangsachaniya.com/work/salonly/): Salon bookings with no sign-up. Live, 2026.
 - [Royal Timber](https://tarangsachaniya.com/work/royal-timber/): Website for a plywood supplier. Shipped, 2026.
 - [Quantivo](https://tarangsachaniya.com/work/quantivo/): Website for a digital marketing agency. Shipped, 2026.
 - [EarthOra](https://tarangsachaniya.com/work/earthora/): Cashew brand storefront, mobile concept. Concept, 2026.

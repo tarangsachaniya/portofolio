@@ -66,7 +66,7 @@ export function faqNode(faq: { q: string; a: string }[]) {
   };
 }
 
-const OS: Record<string, string> = { Web: "Web browser", Android: "Android", iOS: "iOS", Windows: "Windows" };
+const OS: Record<string, string> = { Web: "Web browser", Android: "Android", "Android TV": "Android TV", iOS: "iOS", Windows: "Windows", macOS: "macOS" };
 
 export function workNode(w: Work) {
   const url = `${site.url}/work/${w.slug}/`;
@@ -88,6 +88,7 @@ export function workNode(w: Work) {
     author: { "@id": ids.person },
     publisher: { "@id": ids.org },
     ...(w.shots[0] ? { screenshot: site.url + w.shots[0].src } : {}),
+    ...(w.downloads ? { downloadUrl: w.downloads[0].href } : {}),
   };
 }
 

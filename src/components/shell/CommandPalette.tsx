@@ -201,6 +201,7 @@ export default function CommandPalette() {
               <input
                 id="cmdk"
                 ref={input}
+                autoFocus
                 value={q}
                 onChange={(e) => { setQ(e.target.value); setI(0); playKey(); }}
                 placeholder="Search pages, projects, worlds…"

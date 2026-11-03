@@ -16,7 +16,7 @@ export const metadata = meta({
 
 const homeFaq = [
   { q: "Who is Tarang Sachaniya?", a: person.summary },
-  { q: "What has Tarang Sachaniya built?", a: "Priinteve's on-demand printing network (five apps on one Bun and Hono API), Priinteve Cards (NFC digital business cards), Priinteve Menu (QR restaurant ordering), Zerox Buddy (web and Windows app for print shops), Salonly (salon bookings with an Android app), client sites like Universal Brew, and the otp-forge npm package." },
+  { q: "What has Tarang Sachaniya built?", a: "Priinteve's on-demand printing network (five apps on one Bun and Hono API), Priinteve Cards (NFC digital business cards), Priinteve Menu (QR restaurant ordering), Zerox Buddy (web and Windows app for print shops), Salonly (salon bookings with an Android app), client websites, and the otp-forge npm package." },
   { q: "Where is Tarang Sachaniya based?", a: "Ahmedabad, Gujarat, India. He works with clients remotely and in person around Ahmedabad." },
   { q: "Is Tarang available for freelance projects?", a: services.faq[0].a },
 ];
@@ -31,7 +31,7 @@ export default function Home() {
         <div className="pointer-events-none absolute inset-0"><HeroBackdrop /></div>
         <div className="wrap relative grid gap-10 pb-16 pt-10 md:pt-16 keyboard:pt-6 lg:grid-cols-12 lg:items-center">
           {/* text column */}
-          <div className="lg:col-span-12 vscode:lg:col-span-5 terminal:lg:col-span-12 keyboard:lg:col-span-12 keyboard:order-2 keyboard:text-center chat:lg:col-span-12 chat:order-2">
+          <div className="min-w-0 lg:col-span-12 vscode:lg:col-span-5 terminal:lg:col-span-12 keyboard:lg:col-span-12 keyboard:order-2 keyboard:text-center chat:lg:col-span-12 chat:order-2">
             <p className="t-meta text-fg-3 keyboard:mx-auto">
               <span className="mr-2 inline-block size-2 animate-pulse-dot rounded-full bg-accent align-middle" aria-hidden />
               {person.status}
@@ -52,7 +52,7 @@ export default function Home() {
             </div>
           </div>
           {/* world-specific stage */}
-          <div className="hide-paper lg:col-span-7 vscode:lg:col-span-7 terminal:order-first terminal:lg:col-span-12 keyboard:order-1 keyboard:lg:col-span-12 chat:order-1 chat:lg:col-span-12">
+          <div className="hide-paper min-w-0 lg:col-span-7 vscode:lg:col-span-7 terminal:order-first terminal:lg:col-span-12 keyboard:order-1 keyboard:lg:col-span-12 chat:order-1 chat:lg:col-span-12">
             <HeroStage />
           </div>
         </div>

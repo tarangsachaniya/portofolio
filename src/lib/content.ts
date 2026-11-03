@@ -117,9 +117,9 @@ export const chapters: Chapter[] = [
     where: "Priinteve Innovations LLP · Co-founder",
     commit: "feat: priinteve innovations llp",
     story:
-      "Graduated, and with a co-founder started Priinteve Innovations to fix how small businesses order printing, and then to build the software they kept asking for. Shipped Universal Brew for a client and published my first npm package.",
+      "Graduated, and with a co-founder started Priinteve Innovations to fix how small businesses order printing, and then to build the software they kept asking for. Published my first npm package, and started taking client builds.",
     learned: ["Pricing and unit economics", "Next.js App Router and ISR", "Razorpay, Resend, Cloudinary"],
-    made: ["Universal Brew", "otp-forge on npm", "Priinteve Cards"],
+    made: ["Priinteve Innovations LLP", "otp-forge on npm", "Nectcard"],
   },
   {
     n: "05",
@@ -131,7 +131,7 @@ export const chapters: Chapter[] = [
     story:
       "Wrapped up at Prime Apps in July and went full-time on Priinteve. The work is systems now: five apps on one Bun API, an allocation algorithm that balances profit, fairness and delivery time across printers, desktop and Android apps, and an NFC terminal on an ESP32.",
     learned: ["Bun, Hono, Drizzle", "Linux, Nginx, Docker on VPS", "Allocation algorithms", "ESP32 and NFC"],
-    made: ["Priinteve print network", "Priinteve Menu", "Zerox Buddy", "Salonly", "Client websites"],
+    made: ["Priinteve print network", "VentaDot", "Zerox Buddy", "Salonly", "Client websites"],
   },
 ];
 
@@ -139,7 +139,7 @@ export const chapters: Chapter[] = [
 
 export type Kind = "Product" | "Client" | "Open source" | "Early work";
 export type Status = "Live" | "Pre-launch" | "Shipped" | "Concept" | "Archived";
-export type Platform = "Web" | "Android" | "iOS" | "Windows" | "npm" | "Hardware";
+export type Platform = "Web" | "Android" | "Android TV" | "iOS" | "Windows" | "macOS" | "npm" | "Hardware";
 
 export interface Shot {
   src: string;
@@ -166,6 +166,8 @@ export interface Work {
   href?: string;
   domain?: string;
   repo?: string;
+  /** official download pages for native apps */
+  downloads?: { platform: Platform; label: string; href: string }[];
   shots: Shot[];
   /** the four beats */
   problem: string;
@@ -182,7 +184,7 @@ export interface Work {
   hue: number;
 }
 
-const s = (src: string, alt: string, frame: Shot["frame"] = "browser", w = 1568, h = 731): Shot => ({ src, alt, frame, w, h });
+const s = (src: string, alt: string, frame: Shot["frame"] = "browser", w = 1552, h = 777): Shot => ({ src, alt, frame, w, h });
 
 export const work: Work[] = [
   {
@@ -200,7 +202,7 @@ export const work: Work[] = [
     href: "https://priinteve.com",
     domain: "priinteve.com",
     shots: [
-      s("/shots/priinteve-home.jpg", "Priinteve homepage: Premium prints, made for your brand"),
+      s("/shots/priinteve-home.webp", "Priinteve homepage: Premium prints, made for your brand", "browser", 1568, 731),
       s("/shots/priinteve-web.avif", "Priinteve product catalogue", "browser", 1280, 800),
     ],
     problem:
@@ -240,22 +242,22 @@ export const work: Work[] = [
     hue: 140,
   },
   {
-    slug: "priinteve-cards",
-    name: "Priinteve Cards",
+    slug: "nectcard",
+    name: "Nectcard",
     kind: "Product",
     status: "Live",
     year: "2025",
     role: "Product, full-stack",
     what: "NFC and QR digital business cards",
     summary:
-      "Priinteve Cards is an NFC and QR digital business card platform. Tap a physical card or scan its QR and the recipient gets a live profile with contact details, socials and a gallery, with no app to install. Tarang built the platform, from the setup wizard to the public card pages.",
+      "Nectcard is an NFC and QR digital business card from Priinteve. Tap the card on any phone and the owner's contact, WhatsApp and website open instantly, with no app needed. Cards come in plastic, wood and metal, shipped free across India. Tarang built the platform, from the setup wizard to the live profile pages.",
     platforms: ["Web"],
     stack: ["Next.js", "MongoDB", "Cloudinary", "Razorpay", "Resend", "NFC"],
     href: "https://cards.priinteve.com",
     domain: "cards.priinteve.com",
-    shots: [s("/shots/priinteve-cards.avif", "Priinteve Cards homepage", "browser", 1280, 800)],
+    shots: [s("/shots/nectcard-home.webp", "Nectcard homepage: One card. Every way to connect.")],
     problem:
-      "Paper business cards go out of date the day you change a number, and most digital-card apps make the recipient install something.",
+      "Most business cards from an event end up in a drawer. Typing in a number and searching for a website is just enough effort that people never follow up.",
     constraints: [
       "The recipient must need nothing: no app, no account.",
       "The physical NFC card is printed and encoded by Priinteve, so the URL on the chip can never change.",
@@ -274,92 +276,130 @@ export const work: Work[] = [
     ],
     facts: [
       { k: "Access", v: "NFC tap, QR scan or link" },
-      { k: "Card materials", v: "Plastic, wood, metal" },
+      { k: "Materials", v: "Plastic, wood, metal" },
+      { k: "Price", v: "From ₹299 (per site)" },
+      { k: "Shipping", v: "Free across India" },
       { k: "Recipient needs", v: "Nothing to install" },
-      { k: "Status", v: "Live" },
     ],
     faq: [
-      { q: "What is Priinteve Cards?", a: "A digital business card you share by tapping an NFC card or scanning a QR code; the recipient sees a live profile in their browser." },
-      { q: "Does the person receiving the card need an app?", a: "No. Any phone with NFC or a camera opens the profile in the browser." },
+      { q: "What is Nectcard?", a: "An NFC business card from Priinteve Innovations: tap it on a phone and the owner's contact details, WhatsApp and website open instantly in the browser." },
+      { q: "Does the person receiving a Nectcard need an app?", a: "No. Any phone with NFC or a camera opens the profile in the browser." },
+      { q: "Who built Nectcard?", a: "Tarang Sachaniya built the Nectcard platform as co-founder of Priinteve Innovations LLP in Ahmedabad." },
     ],
     schema: "WebApplication",
     appCategory: "BusinessApplication",
     featured: true,
-    hue: 190,
+    hue: 90,
   },
+
   {
-    slug: "priinteve-menu",
-    name: "Priinteve Menu",
+    slug: "ventadot",
+    name: "VentaDot",
     kind: "Product",
     status: "Live",
     year: "2025",
-    role: "Product, full-stack",
-    what: "QR table ordering for restaurants",
+    role: "Product, full-stack, desktop and Android",
+    what: "QR table ordering for restaurants, on every screen",
     summary:
-      "Priinteve Menu is a QR table-ordering system for restaurants. Diners scan the code on their table, order from their own phone and pay how they like, while the kitchen follows one live board from placed to preparing to ready. Tarang built the ordering flow and the real-time kitchen board.",
-    platforms: ["Web"],
-    stack: ["Next.js", "Node.js", "PostgreSQL", "Socket.IO"],
+      "VentaDot is a QR table-ordering platform for Indian restaurants with zero commission. Guests scan, order and pay from their phone; orders land live on the kitchen board. It ships as a web console plus owner apps for Windows, macOS and Android, and kitchen and pickup boards for Android tablets and Android TV. Tarang built the platform and its apps.",
+    platforms: ["Web", "Windows", "macOS", "Android", "Android TV"],
+    stack: ["Next.js", "Node.js", "PostgreSQL", "WebSockets"],
     href: "https://menu.priinteve.com",
     domain: "menu.priinteve.com",
-    shots: [s("/shots/priinteve-menu.avif", "Priinteve Menu homepage: table-side ordering", "browser", 1280, 800)],
+    downloads: [
+      { platform: "Windows", label: "Owner Desktop · Windows", href: "https://menu.priinteve.com/downloads" },
+      { platform: "macOS", label: "Owner Desktop · macOS", href: "https://menu.priinteve.com/downloads" },
+      { platform: "Android", label: "Owner App · Android", href: "https://menu.priinteve.com/downloads" },
+      { platform: "Android TV", label: "Kitchen & Pickup · Android TV", href: "https://menu.priinteve.com/downloads" },
+    ],
+    shots: [
+      s("/shots/ventadot-home.webp", "VentaDot homepage: Scan. Order. Pay. Zero commission."),
+      s("/shots/ventadot-downloads.webp", "VentaDot downloads page with Windows, macOS, Android and Android TV apps"),
+    ],
     problem:
-      "At peak hours, waiters become the bottleneck: orders wait to be taken, then wait again to reach the kitchen.",
+      "At peak hours waiters become the bottleneck: orders wait to be taken, then wait again to reach the kitchen. Aggregator apps fix ordering but take a cut of every bill.",
     constraints: [
-      "Diners won't install an app to order one meal.",
-      "The kitchen needs one screen it can trust under pressure.",
-      "Invoices have to carry GST and FSSAI details.",
+      "Guests won't install an app to order one meal.",
+      "Kitchens run on whatever screen is on the counter: a PC, a tablet or a TV.",
+      "Invoices must be GST-ready, and the restaurant keeps 100% of the order value.",
     ],
     build: [
-      "A printable QR per table that opens the menu for that table.",
-      "A live kitchen board over WebSockets: placed → preparing → ready.",
-      "Menu, stock and prices update live on save; peak-hour demotions push slow dishes down.",
+      "A printable QR per table that opens the menu for that table; orders and payment from the guest's own phone.",
+      "A live kitchen and pickup board, moved from polling to instant WebSocket push.",
+      "Owner Desktop for Windows and macOS, an Owner App for Android, and locked-down kitchen and pickup apps for Android tablets and Android TV.",
+      "Franchise HQ in the apps: inventory, warehouse, recipes, outlets, supply invoices, reports, audit and team.",
     ],
     learned: [
       "Real-time UIs need a clear source of truth before they need sockets.",
+      "Shipping APKs directly means you own updates; build the updater on day one.",
       "Restaurant staff judge software in the first rush hour, not the demo.",
     ],
     facts: [
-      { k: "Per-order fees", v: "0%" },
-      { k: "Kitchen states", v: "Placed → Preparing → Ready" },
-      { k: "Status", v: "Live" },
+      { k: "Commission", v: "0%" },
+      { k: "Owner apps", v: "Windows v0.7.0 · macOS v0.3.1 · Android v1.9.0" },
+      { k: "Kitchen boards", v: "Android v1.4.4 · Android TV v1.4.2" },
+      { k: "Invoices", v: "GST-ready" },
+      { k: "Setup", v: "In a day, no app for guests" },
     ],
     faq: [
-      { q: "What is Priinteve Menu?", a: "QR code table ordering for restaurants, with a live kitchen board and GST-ready invoices." },
+      { q: "What is VentaDot?", a: "QR table ordering for Indian restaurants with zero commission: guests scan, order and pay from their phone, and orders appear live on the kitchen board with GST invoices built in." },
+      { q: "Which devices does VentaDot run on?", a: "The web, plus owner apps for Windows, macOS and Android, and kitchen and pickup boards for Android tablets and Android TV." },
+      { q: "Who built VentaDot?", a: "Tarang Sachaniya built VentaDot and its apps at Priinteve Innovations LLP." },
     ],
-    schema: "WebApplication",
+    schema: "SoftwareApplication",
     appCategory: "BusinessApplication",
     featured: true,
-    hue: 32,
+    hue: 75,
   },
+
   {
     slug: "zerox-buddy",
     name: "Zerox Buddy",
     kind: "Product",
     status: "Live",
     year: "2026",
-    role: "Product, full-stack, desktop",
-    // TODO(tarang): confirm description, stack and Windows download link
-    what: "Web + Windows desktop app for print and xerox shops",
+    role: "Product, full-stack, Windows app",
+    what: "QR printing for xerox, print and cyber café shops",
     summary:
-      "Zerox Buddy is a web dashboard paired with a Windows desktop app for neighbourhood print and xerox shops. The desktop client sits next to the shop's printer, connecting online orders to the machine on the counter. Tarang built both the web app and the desktop client as part of Priinteve's printer-side tooling.",
+      "Zerox Buddy lets xerox, print and cyber café shops take print orders by QR. Customers scan a code on the counter and send files from their phone, with settings and price arriving ready, so the shop just presses print. It runs on the web with a Windows app at the counter. Tarang built it at Priinteve.",
     platforms: ["Web", "Windows"],
-    stack: [],
+    stack: [], // TODO(tarang): add stack
     href: "https://zerox.priinteve.com",
     domain: "zerox.priinteve.com",
-    shots: [],
-    problem: "Print shops run on a PC wired to a printer. A web dashboard alone can't reach the printer on the counter.",
-    constraints: ["Must run on the shop's existing Windows PC.", "Shop owners aren't technical; setup has to be one installer."],
-    build: ["A web dashboard for jobs and settings.", "A Windows desktop client that talks to the local printer."],
-    learned: ["Desktop apps bring back problems the web solved: updates, drivers, installers."],
-    facts: [
-      { k: "Platforms", v: "Web, Windows desktop" },
-      { k: "Status", v: "Live" },
+    shots: [s("/shots/zeroxbuddy-home.webp", "Zerox Buddy homepage: Customers scan, you print.")],
+    problem:
+      "Print shops take files over WhatsApp: a queue of chats, wrong page ranges, unclear prices and customers' documents left sitting on the shop PC.",
+    constraints: [
+      "Customers won't install an app at a counter.",
+      "Shop owners need it in Hindi and Gujarati as much as English.",
+      "Privacy: files must not stay on the shop's computer.",
     ],
-    faq: [{ q: "What is Zerox Buddy?", a: "A web and Windows desktop tool for print and xerox shops, connecting online jobs to the shop's printer." }],
+    build: [
+      "A counter QR that opens an upload page: B&W or colour, A4 or A3, both sides, page ranges and copies, priced before it reaches the shop.",
+      "Jobs routed to the right printer from a Windows app, with specimen numbers so every order is matched to its customer.",
+      "Passport-photo sheets, sales tracking, pay at the counter, and files deleted after printing.",
+    ],
+    learned: [
+      "Replacing a habit like WhatsApp needs one obviously better step, not ten features.",
+      "Local language on the counter matters more than any onboarding flow.",
+    ],
+    facts: [
+      { k: "For", v: "Xerox, print and cyber café shops" },
+      { k: "Formats", v: "PDF, JPG, PNG · B&W, colour · A4, A3" },
+      { k: "Privacy", v: "Files deleted after printing" },
+      { k: "Trial", v: "7 days, every feature" },
+      { k: "Languages", v: "English, हिन्दी, ગુજરાતી" },
+    ],
+    faq: [
+      { q: "What is Zerox Buddy?", a: "A QR printing system for xerox and print shops: customers scan a counter QR, upload files from their phone with print settings and price, and the shop prints from its Windows app." },
+      { q: "Do customers need an app for Zerox Buddy?", a: "No. They scan the QR and upload from the phone's browser." },
+    ],
     schema: "SoftwareApplication",
     appCategory: "BusinessApplication",
-    hue: 220,
+    featured: true,
+    hue: 40,
   },
+
   {
     slug: "salonly",
     name: "Salonly",
@@ -367,59 +407,35 @@ export const work: Work[] = [
     status: "Live",
     year: "2026",
     role: "Product, full-stack, Android",
-    // TODO(tarang): confirm description, stack and Play Store link
-    what: "Bookings and management for salons, with an Android app",
+    what: "Salon bookings with no sign-up",
     summary:
-      "Salonly is a salon booking and management platform from Priinteve, available on the web and as an Android app. Salon owners manage appointments and services; customers book without calling. Tarang built the web platform and the Android companion app.",
+      "Salonly gives every salon an online shop page, effortless booking and a back office that runs itself. Customers find a salon, pick a stylist and a free slot, and pay at the salon, with no sign-up and no card. Tarang built the platform and its Android app at Priinteve.",
+    // TODO(tarang): confirm Android app is public + add Play Store / APK link
     platforms: ["Web", "Android"],
-    stack: [],
+    stack: [], // TODO(tarang): add stack
     href: "https://salon.priinteve.com",
     domain: "salon.priinteve.com",
-    shots: [],
-    problem: "Most small salons still take bookings by phone and keep them in a notebook.",
-    constraints: ["Owners run the business from their phone.", "Customers should book in under a minute."],
-    build: ["Web platform for bookings and services.", "Android app for owners on the go."],
-    learned: ["Mobile-first means designing for one thumb, not a smaller screen."],
-    facts: [
-      { k: "Platforms", v: "Web, Android" },
-      { k: "Status", v: "Live" },
-    ],
-    faq: [{ q: "What is Salonly?", a: "A salon booking and management platform with a web app and an Android app." }],
-    schema: "MobileApplication",
-    appCategory: "LifestyleApplication",
-    hue: 320,
-  },
-  {
-    slug: "universal-brew",
-    name: "Universal Brew",
-    kind: "Client",
-    status: "Live",
-    year: "2025",
-    role: "Full-stack",
-    what: "Coffee e-commerce, end to end",
-    summary:
-      "Universal Brew is a coffee e-commerce store built end to end by Tarang Sachaniya: product discovery, Razorpay checkout, order management and a mobile-first storefront on Next.js, TypeScript and PostgreSQL.",
-    platforms: ["Web"],
-    stack: ["Next.js", "React", "TypeScript", "Tailwind CSS", "shadcn/ui", "PostgreSQL", "Razorpay"],
-    href: "https://universalbrew.shop",
-    domain: "universalbrew.shop",
-    shots: [s("/shots/universal-brew.avif", "Universal Brew homepage", "browser", 1280, 800)],
-    problem: "A coffee brand needed to sell online directly, with payments and orders it could manage itself.",
-    constraints: ["Most buyers arrive on mid-range Android phones.", "The owner manages orders without a developer."],
+    shots: [s("/shots/salonly-home.webp", "Salonly homepage: Book your good hair day.", "browser", 1552, 731)],
+    problem: "Most small salons still take bookings by phone and keep them in a notebook, so slots double-book and customers wait.",
+    constraints: ["Customers book without creating an account or adding a card.", "Owners run the business from their phone.", "Availability must be genuinely free, per stylist."],
     build: [
-      "Next.js storefront with server-rendered product pages.",
-      "Razorpay checkout and an order-management back office on PostgreSQL.",
+      "A public page per salon with its menu, team and real reviews.",
+      "Booking by service, stylist (or anyone free) and time, paid at the salon.",
+      "A back office and Android app for owners.",
     ],
-    learned: ["E-commerce is mostly edge cases: failed payments, partial stock, address typos."],
+    learned: ["Every field you remove from a booking form is a booking you keep."],
     facts: [
-      { k: "Payments", v: "Razorpay" },
-      { k: "Status", v: "Live" },
+      { k: "Customer sign-up", v: "None" },
+      { k: "Payment", v: "At the salon" },
+      { k: "Platforms", v: "Web, Android" },
     ],
-    faq: [{ q: "Who built Universal Brew?", a: "Tarang Sachaniya built the store end to end as a client project." }],
-    schema: "CreativeWork",
-    featured: true,
-    hue: 25,
+    faq: [{ q: "What is Salonly?", a: "A salon booking platform from Priinteve: customers book a stylist and slot online with no sign-up and pay at the salon; owners get a shop page and back office." }],
+    schema: "SoftwareApplication",
+    appCategory: "LifestyleApplication",
+    hue: 330,
   },
+
+
   {
     slug: "royal-timber",
     name: "Royal Timber",

@@ -22,18 +22,17 @@ TIMELINE
       Six months in, I moved to a full-time backend role. Real traffic, real third parties. I integrated Sportradar feeds, built REST APIs in Laravel and Node, and cut MySQL query times by more than 40%. At college I co-ran Hackovate, a 36-hour AI hackathon with 200+ participants.
 
 2025  Starting something.  (Priinteve Innovations LLP · Co-founder)
-      Graduated, and with a co-founder started Priinteve Innovations to fix how small businesses order printing, and then to build the software they kept asking for. Shipped Universal Brew for a client and published my first npm package.
+      Graduated, and with a co-founder started Priinteve Innovations to fix how small businesses order printing, and then to build the software they kept asking for. Published my first npm package, and started taking client builds.
 
 2026  Systems, not pages.  (Priinteve · full-time)
       Wrapped up at Prime Apps in July and went full-time on Priinteve. The work is systems now: five apps on one Bun API, an allocation algorithm that balances profit, fairness and delivery time across printers, desktop and Android apps, and an NFC terminal on an ESP32.
 
 SELECTED WORK
 - Priinteve Print Network (2025, Pre-launch): On-demand printing with an invisible vendor network · https://priinteve.com
-- Priinteve Cards (2025, Live): NFC and QR digital business cards · https://cards.priinteve.com
-- Priinteve Menu (2025, Live): QR table ordering for restaurants · https://menu.priinteve.com
-- Zerox Buddy (2026, Live): Web + Windows desktop app for print and xerox shops · https://zerox.priinteve.com
-- Salonly (2026, Live): Bookings and management for salons, with an Android app · https://salon.priinteve.com
-- Universal Brew (2025, Live): Coffee e-commerce, end to end · https://universalbrew.shop
+- Nectcard (2025, Live): NFC and QR digital business cards · https://cards.priinteve.com
+- VentaDot (2025, Live): QR table ordering for restaurants, on every screen · https://menu.priinteve.com
+- Zerox Buddy (2026, Live): QR printing for xerox, print and cyber café shops · https://zerox.priinteve.com
+- Salonly (2026, Live): Salon bookings with no sign-up · https://salon.priinteve.com
 - Royal Timber (2026, Shipped): Website for a plywood supplier
 - Quantivo (2026, Shipped): Website for a digital marketing agency
 - EarthOra (2026, Concept): Cashew brand storefront, mobile concept
