@@ -3,6 +3,7 @@ import { breadcrumbs, graph, meta } from "@/lib/seo";
 import Page, { SectionTitle } from "@/components/ui/Page";
 import WorkCard from "@/components/ui/WorkCard";
 import JsonLd from "@/components/ui/JsonLd";
+import WorkExplorer from "@/components/work/WorkExplorer";
 
 const summary = `Tarang Sachaniya's work: ${work.filter((w) => w.kind === "Product").length} Priinteve products (print network, NFC cards, QR restaurant ordering, a print-shop desktop app and a salon app), client websites, the otp-forge npm package, and the early projects where he learned the basics.`;
 
@@ -11,7 +12,8 @@ export const metadata = meta({ title: "Work", description: summary, path: "/work
 export default function WorkIndex() {
   return (
     <Page cmd="ls -la ./work" prompt="What has he built?" file="work/index.tsx" eyebrow={`${work.length} projects · 2023 to now`} title="Things I've built, and what they taught me." summary={summary}>
-      <div className="wrap">
+      <div className="only only-desk"><WorkExplorer /></div>
+      <div className="wrap hide-desk">
         <nav aria-label="Jump to" className="mt-10 flex flex-wrap gap-2">
           {kinds.map((k) => <a key={k} href={`#${k.toLowerCase().replace(/\s/g, "-")}`} className="tag hover:border-fg">{k}</a>)}
         </nav>

@@ -7,6 +7,8 @@ import WorkCard from "@/components/ui/WorkCard";
 import { Faq, SectionTitle } from "@/components/ui/Page";
 import JsonLd from "@/components/ui/JsonLd";
 import { Spark } from "@/components/chrome/ChatChrome";
+import DeskScene from "@/components/desk/DeskScene";
+import AfterHours from "@/components/desk/AfterHours";
 
 export const metadata = meta({
   title: `${person.name} | Full-stack developer in Ahmedabad`,
@@ -26,8 +28,14 @@ export default function Home() {
   const products = work.filter((w) => w.kind === "Product" && !w.featured);
   return (
     <>
+      {/* ── DESK (default world): the pinned day + the after-hours bento ── */}
+      <div className="only only-desk">
+        <DeskScene />
+        <AfterHours faq={homeFaq} />
+      </div>
+
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden" aria-labelledby="hero-title">
+      <section className="hide-desk relative overflow-hidden" aria-labelledby="hero-title">
         <div className="pointer-events-none absolute inset-0"><HeroBackdrop /></div>
         <div className="wrap relative grid gap-10 pb-16 pt-10 md:pt-16 keyboard:pt-6 lg:grid-cols-12 lg:items-center">
           {/* text column */}
@@ -59,19 +67,19 @@ export default function Home() {
       </section>
 
       {/* ── WORLDS ── */}
-      <section className="section border-y border-line bg-bg-2 keyboard:bg-transparent" aria-labelledby="worlds-title">
+      <section className="hide-desk section border-y border-line bg-bg-2 keyboard:bg-transparent" aria-labelledby="worlds-title">
         <div className="wrap grid gap-8 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-4">
-            <p className="t-meta text-accent-ink">Five worlds, one story</p>
+            <p className="t-meta text-accent-ink">Six worlds, one story</p>
             <h2 id="worlds-title" className="mt-3 t-h3 h-pre">This site lives where I do.</h2>
-            <p className="mt-3 text-fg-2">The editor, the terminal, the keyboard, the AI chat and the printed page. Same facts, different worlds. Switch any time with <kbd className="font-mono">⌘K</kbd> or <kbd className="font-mono">Alt+1–5</kbd>.</p>
+            <p className="mt-3 text-fg-2">The editor, the terminal, the keyboard, the AI chat and the printed page. Same facts, different worlds. Switch any time with <kbd className="font-mono">⌘K</kbd> or <kbd className="font-mono">Alt+0–5</kbd>.</p>
           </div>
           <div className="lg:col-span-8"><Worlds /></div>
         </div>
       </section>
 
       {/* ── FEATURED WORK ── */}
-      <section className="section" aria-labelledby="work-title">
+      <section className="hide-desk section" aria-labelledby="work-title">
         <div className="wrap">
           <SectionTitle kicker="ls ./work --featured" id="work-title">Selected work</SectionTitle>
           <div className="grid gap-5 md:grid-cols-2">
@@ -93,7 +101,7 @@ export default function Home() {
       </section>
 
       {/* ── STORY ── */}
-      <section className="section bg-bg-2 keyboard:bg-transparent" aria-labelledby="story-title">
+      <section className="hide-desk section bg-bg-2 keyboard:bg-transparent" aria-labelledby="story-title">
         <div className="wrap">
           <SectionTitle kicker="git log --oneline --reverse" id="story-title">How I got here</SectionTitle>
           <ol className="grid gap-px overflow-hidden border border-line bg-line md:grid-cols-5">
@@ -110,7 +118,7 @@ export default function Home() {
       </section>
 
       {/* ── SERVICES + FAQ ── */}
-      <section className="section" aria-labelledby="faq-title">
+      <section className="hide-desk section" aria-labelledby="faq-title">
         <div className="wrap grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
             <SectionTitle kicker="man services">What I can build for you</SectionTitle>

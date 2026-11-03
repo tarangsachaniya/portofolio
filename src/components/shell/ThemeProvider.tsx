@@ -81,7 +81,7 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
     if (next) playKey("enter");
   }, []);
 
-  // Global shortcuts: ⌘K / Ctrl+K palette, Alt+1..5 worlds, Alt+T cycle.
+  // Global shortcuts: ⌘K / Ctrl+K palette, Alt+0..5 worlds, Alt+T cycle.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       const typing = (e.target as HTMLElement)?.closest?.("input, textarea, [contenteditable]");
@@ -91,9 +91,10 @@ export default function ThemeProvider({ children }: { children: ReactNode }) {
         return;
       }
       if (typing) return;
-      if (e.altKey && /^[1-5]$/.test(e.key)) {
+      if (e.altKey && /^[0-5]$/.test(e.key)) {
         e.preventDefault();
-        setTheme(THEMES[Number(e.key) - 1].id);
+        const t = THEMES.find((x) => x.key === e.key);
+        if (t) setTheme(t.id);
       } else if (e.altKey && e.key.toLowerCase() === "t") {
         e.preventDefault();
         cycle(1);

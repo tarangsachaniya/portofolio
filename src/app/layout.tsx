@@ -14,6 +14,7 @@ import VSCodeChrome from "@/components/chrome/VSCodeChrome";
 import TerminalChrome from "@/components/chrome/TerminalChrome";
 import KeyboardChrome from "@/components/chrome/KeyboardChrome";
 import ChatChrome from "@/components/chrome/ChatChrome";
+import DeskChrome from "@/components/chrome/DeskChrome";
 import Footer from "@/components/ui/Footer";
 import JsonLd from "@/components/ui/JsonLd";
 import { graph, orgNode, personNode, websiteNode } from "@/lib/seo";
@@ -32,20 +33,21 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f3f0e8" },
-    { media: "(prefers-color-scheme: dark)", color: "#1b1d21" },
+    { media: "(prefers-color-scheme: light)", color: "#0b0d11" },
+    { media: "(prefers-color-scheme: dark)", color: "#0b0d11" },
   ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="paper" suppressHydrationWarning>
+    <html lang="en" data-theme="desk" suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
       </head>
       <body>
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:bg-fg focus:px-4 focus:py-2 focus:text-bg">Skip to content</a>
         <ThemeProvider>
+          <DeskChrome />
           <PaperChrome />
           <VSCodeChrome />
           <TerminalChrome />

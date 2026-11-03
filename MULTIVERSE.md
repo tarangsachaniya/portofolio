@@ -1,10 +1,11 @@
-# tarang.dev v6: Theme Multiverse
+# tarang.dev v7: A day at the desk (+ the Theme Multiverse)
 
-One story, five worlds. Every page is static HTML rendered from `src/lib/content.ts`;
+One story, six worlds. **Desk** is the default; the other five are an optional switcher. Every page is static HTML rendered from `src/lib/content.ts`;
 themes are skins on top (`data-theme` on `<html>`, set before first paint).
 
 | World | Shortcut | Chrome | Hero |
 | --- | --- | --- | --- |
+| Desk (default) | Alt+0 | Floating glass dock | Pinned scroll scene: one working day, 09:00 → 23:59 |
 | Paper | Alt+1 | Editorial nav | Cursor-reactive glyph field |
 | VS Code | Alt+2 | Activity bar, explorer = sitemap, tabs, status bar | `tarang.ts` typing + terminal run |
 | Terminal | Alt+3 | CRT overlay, live prompt (`help`, `ls`, `theme vscode`, `sudo hire tarang`) | Boot log + ASCII banner |
@@ -12,6 +13,18 @@ themes are skins on top (`data-theme` on `<html>`, set before first paint).
 | Chat | Alt+5 | Conversations sidebar, scripted composer | Streaming greeting |
 
 ⌘K / Ctrl+K opens the command palette everywhere. Theme switches run a View Transition portal from the click point.
+
+## Desk world (`src/components/desk/`)
+The home page is a ~720svh pinned scene (`DeskScene.tsx`) scrolled like one working day:
+- **Day**: the window sky, sun, moon, stars, city lights and wall clock follow `hourAt(progress)` (`timeline.ts`); the desk lamp switches on at 18:00 (click it to toggle).
+- **Zoom**: one camera transform goes from the wide desk to the monitor, then down to the keyboard.
+- **Pipeline**: `boot → commit → build → review → deploy → ship`, each a monitor screen in `steps/`, with a clickable rail.
+  Commit = `git log` of `chapters`; Build = VS Code over the products; Review = Q&A that streams as you scroll; Deploy = bento deploy board; Ship = a real email/WhatsApp composer wired to the keyboard.
+- Phones (<900px) and reduced motion get `CompactDay`: the same six screens stacked as cards, no pinning.
+- After the day: `AfterHours.tsx`, a bento grid (`Bento.tsx`: cursor spotlight, lit border, 3D tilt, counters, marquee, aurora).
+- `/work/` → `components/work/WorkExplorer.tsx`: dependency graph (projects ↔ tech ↔ platforms, `lib/graph.ts`) plus a filterable bento list.
+- `/work/<slug>/` → `PipelineStages.tsx`: problem → constraints → build → learned as CI stages that tick off while you read.
+- Desk-only markup sits in `.only-desk`; the original markup gets `.hide-desk`, so every world still ships complete static HTML.
 
 ## Pages
 `/`, `/about/`, `/work/` + one case study per project (problem → constraints → build → learned),

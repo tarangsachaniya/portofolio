@@ -7,7 +7,7 @@ import { useTheme } from "../shell/ThemeProvider";
 export default function Worlds() {
   const { theme, setTheme } = useTheme();
   return (
-    <ul className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+    <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
       {THEMES.map((t) => (
         <li key={t.id}>
           <button
