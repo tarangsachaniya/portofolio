@@ -1,5 +1,6 @@
 "use client";
 import { chapters, workBySlug } from "@/lib/content";
+import { hash } from "../timeline";
 
 const venta = workBySlug("ventadot")!;
 const prime = chapters[2];
@@ -10,7 +11,7 @@ const FIXES = [
     id: "mysql",
     where: `${prime.where} · ${prime.year}`,
     title: "Slow MySQL queries under real traffic",
-    symptom: "API responses dragged as data grew; the hot paths were scanning far more rows than they returned.",
+    symptom: "Production API responses slowed down as real traffic and third-party data grew.",
     file: "api/reports.sql",
     diff: [
       [" ", "-- read path behind the busiest endpoints"],
@@ -21,6 +22,9 @@ const FIXES = [
       ["+", "CREATE INDEX idx_events_created ON events (created_at);"],
     ],
     result: "Query times cut by more than 40%.",
+    before: "The busiest endpoints ran on slow query plans as the data grew.",
+    after: "Queries reworked around indexes and their plans; the same endpoints, much faster.",
+    commit: "perf: mysql queries 40%+ faster",
     lesson: prime.learned.find((l) => /quer/i.test(l)) ?? prime.learned[0],
   },
   {
@@ -38,6 +42,9 @@ const FIXES = [
       ["+", "store.subscribe(render);   // one source of truth"],
     ],
     result: venta.build.find((b) => /WebSocket/i.test(b)) ?? "Moved to WebSocket push.",
+    before: "Every board polled the server on a timer; new orders waited for the next tick.",
+    after: "The server pushes each new order and status change the moment it happens.",
+    commit: "feat(kitchen): websocket push instead of polling",
     lesson: venta.learned[0],
   },
 ];
@@ -81,6 +88,36 @@ export default function Debug({ t, pick, onPick }: { t: number; pick?: number | 
           </div>
           <p className="mt-5 text-white/45">$ npm test && npm run bench</p>
           {solved && <p className="mt-1 animate-[fadeUp_.3s_ease_both] text-[#7ee7a0]">✓ {f.result}</p>}
+
+          {/* before / after */}
+          <div className="mt-5 grid grid-cols-2 gap-3 font-body">
+            <div className="rounded-xl border border-[#ff5f57]/25 bg-[#ff5f57]/[0.06] p-4">
+              <p className="font-mono text-[0.68rem] uppercase tracking-widest text-[#ff9d96]">before</p>
+              <p className="mt-1.5 text-[0.9rem] leading-snug text-white/75">{f.before}</p>
+            </div>
+            <div className={`rounded-xl border p-4 transition-all duration-500 ${solved ? "border-[#28c840]/30 bg-[#28c840]/[0.07]" : "border-white/10 opacity-40"}`}>
+              <p className="font-mono text-[0.68rem] uppercase tracking-widest text-[#7ee7a0]">after</p>
+              <p className="mt-1.5 text-[0.9rem] leading-snug text-white/75">{f.after}</p>
+            </div>
+          </div>
+
+          {/* investigation steps */}
+          <ol className="mt-5 grid grid-cols-5 gap-2 text-[0.72rem]">
+            {["reproduce", "measure", "isolate", "fix", "verify"].map((st, k) => {
+              const done = lt > (k + 1) / 6;
+              return (
+                <li key={st} className={`rounded-lg border px-2 py-2 text-center transition-colors duration-500 ${done ? "border-[#7ee7a0]/30 text-[#b6f5c0]" : "border-white/10 text-white/35"}`}>
+                  <span className="block text-[0.9rem]">{done ? "✓" : "○"}</span>{st}
+                </li>
+              );
+            })}
+          </ol>
+
+          {solved && (
+            <p className="mt-5 animate-[fadeUp_.3s_ease_both] truncate rounded-lg bg-white/[0.04] px-3 py-2 text-[0.78rem] text-white/60">
+              <span className="text-[#ffc46b]">commit {hash(f.commit)}</span> · {f.commit}
+            </p>
+          )}
         </div>
       </div>
       <div className="flex items-center justify-between border-t border-white/10 bg-[#0b0d10] px-5 py-2 text-[0.72rem] text-white/45">

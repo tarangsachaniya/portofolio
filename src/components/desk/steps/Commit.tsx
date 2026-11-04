@@ -1,5 +1,5 @@
 "use client";
-import { chapters } from "@/lib/content";
+import { chapters, work } from "@/lib/content";
 import { hash } from "../timeline";
 
 const BRANCH = ["#ffb547", "#5ee0c1", "#9b8cff", "#ff8a5c", "#7cc4ff"];
@@ -48,9 +48,33 @@ export default function Commit({ t, pick, onPick }: { t: number; pick?: number |
         <div key={head} className="hidden min-h-0 animate-[fadeUp_.45s_ease_both] flex-col border-l border-white/10 bg-white/[0.02] p-7 @[46rem]:flex">
           <p className="text-white/40">$ git show {hash(c.commit)}</p>
           <p className="mt-1 text-[0.72rem] text-white/35">Author: Tarang Sachaniya · {c.year}</p>
-          <p className="mt-5 font-display text-[2.3rem] font-bold leading-[1.02] tracking-[-0.035em] text-white">{c.title}</p>
+          <p className="mt-4 font-display text-[2.3rem] font-bold leading-[1.02] tracking-[-0.035em] text-white">{c.title}</p>
           <p className="mt-2 text-[#b9aeff]">{c.where}</p>
           <p className="mt-4 font-body text-[1.02rem] leading-relaxed text-white/75">{c.story}</p>
+          {/* where this commit sits in the story */}
+          <div className="mt-5">
+            <div className="relative h-1 rounded-full bg-white/10">
+              <div className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#ffb547] via-[#5ee0c1] to-[#9b8cff] transition-[width] duration-700" style={{ width: `${(head / (chapters.length - 1)) * 100}%` }} />
+              {chapters.map((ch, i) => <i key={ch.n} className="absolute top-1/2 size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#0f1115]" style={{ left: `${(i / (chapters.length - 1)) * 100}%`, background: i <= head ? BRANCH[i] : "#3a3d45" }} />)}
+            </div>
+            <div className="mt-2 flex justify-between text-[0.66rem] text-white/40">{chapters.map((ch) => <span key={ch.n}>{ch.year}</span>)}</div>
+          </div>
+          {/* what shipped in this chapter */}
+          <div className="mt-5">
+            <p className="text-[0.7rem] uppercase tracking-widest text-white/40">shipped in this commit</p>
+            <ul className="mt-2 grid grid-cols-2 gap-2">
+              {(() => {
+                const proj = work.filter((w) => c.made.some((m) => m.toLowerCase().includes(w.name.toLowerCase().split(" ")[0].toLowerCase())) || (w.year === c.year && w.kind !== "Client"));
+                const items = proj.length ? proj.slice(0, 4).map((w) => ({ k: w.slug, t: w.name, s: w.what, tag: w.status })) : c.made.slice(0, 4).map((m) => ({ k: m, t: m, s: c.where, tag: c.year }));
+                return items.map((x) => (
+                  <li key={x.k} className="rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2">
+                    <span className="flex items-center justify-between gap-2"><span className="truncate font-body text-[0.86rem] font-semibold text-white">{x.t}</span><span className="shrink-0 text-[0.6rem] text-[#5ee0c1]">{x.tag}</span></span>
+                    <span className="block truncate font-body text-[0.74rem] text-white/50">{x.s}</span>
+                  </li>
+                ));
+              })()}
+            </ul>
+          </div>
           <div className="mt-auto rounded-xl border border-white/10 bg-black/25 p-4">
             <p className="text-[0.7rem] uppercase tracking-widest text-white/40">files changed</p>
             <ul className="mt-2 grid grid-cols-2 gap-x-6 gap-y-1.5 text-[0.78rem]">

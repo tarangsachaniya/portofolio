@@ -35,18 +35,29 @@ export default function Review({ t, pick, onPick }: { t: number; pick?: number |
       <div className="grid min-h-0 @[52rem]:grid-cols-[minmax(0,1fr)_17rem]">
         {/* chat */}
         <div className="grid min-h-0 grid-rows-[minmax(0,1fr)_auto]">
-          <div className="flex min-h-0 flex-col justify-end gap-5 overflow-hidden px-5 py-6 @[52rem]:px-10">
-            {(pick == null ? QA.slice(Math.max(0, i - 1), i) : []).map((x) => (
-              <div key={x.q} className="opacity-45">
-                <p className="ml-auto w-fit rounded-2xl rounded-br-md bg-white/[0.06] px-4 py-2 text-white">{x.q}</p>
-                <p className="mt-3 line-clamp-2 max-w-[60ch] font-serif text-[1.05rem] text-white/80">{x.a}</p>
+          <div className="flex min-h-0 flex-col justify-end gap-5 overflow-hidden px-5 py-6 @[52rem]:px-10 [mask-image:linear-gradient(to_bottom,transparent,#000_14%)]">
+            {/* opening message, then the whole conversation so far; older turns scroll off the top */}
+            <div className="flex gap-3">
+              <span className="mt-1 grid size-8 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#ff8a5c] to-[#9b8cff]"><Spark className="size-4 text-white" /></span>
+              <p className="max-w-[56ch] font-serif text-[1.15rem] leading-[1.45] text-white/80">Hi. I answer from this site&apos;s own pages: who Tarang is, what he&apos;s built, his stack and how to hire him. Pick a question below.</p>
+            </div>
+            {(pick == null ? QA.slice(0, i) : []).map((x) => (
+              <div key={x.q} className="space-y-3">
+                <p className="ml-auto w-fit max-w-[80%] rounded-2xl rounded-br-md bg-white/[0.07] px-4 py-2 text-white/85">{x.q}</p>
+                <div className="flex gap-3">
+                  <span className="mt-1 grid size-8 shrink-0 place-items-center rounded-full bg-white/10"><Spark className="size-4 text-white/70" /></span>
+                  <div>
+                    <p className="max-w-[56ch] font-serif text-[1.12rem] leading-[1.45] text-white/75">{x.a}</p>
+                    <p className="mt-1.5 font-mono text-[0.66rem] text-white/35">source · {x.src[0]}</p>
+                  </div>
+                </div>
               </div>
             ))}
             <p className="ml-auto w-fit max-w-[80%] rounded-2xl rounded-br-md bg-white/10 px-4 py-2.5 text-[1rem] text-white">{QA[i].q}</p>
             <div className="flex gap-3">
               <span className="mt-1 grid size-8 shrink-0 place-items-center rounded-full bg-gradient-to-br from-[#ff8a5c] to-[#9b8cff]"><Spark className="size-4 text-white" /></span>
               <div>
-                <p className="max-w-[56ch] font-serif text-[clamp(1.15rem,2.6cqw,1.6rem)] leading-[1.45] text-white/92">
+                <p className="max-w-[56ch] font-serif text-[clamp(1.15rem,2.4cqw,1.45rem)] leading-[1.45] text-white/92">
                   {text}
                   {typing && <span className="ml-0.5 inline-block h-[1em] w-[0.5em] translate-y-[0.15em] animate-blink bg-[#ff8a5c]" />}
                 </p>
@@ -69,10 +80,10 @@ export default function Review({ t, pick, onPick }: { t: number; pick?: number |
           </div>
         </div>
         {/* context panel */}
-        <aside className="hidden min-h-0 flex-col border-l border-white/10 bg-white/[0.02] p-5 @[52rem]:flex">
+        <aside className="hidden min-h-0 flex-col overflow-hidden border-l border-white/10 bg-white/[0.02] p-5 @[52rem]:flex">
           <p className="font-mono text-[0.66rem] uppercase tracking-widest text-white/40">Context</p>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/img/about-560.webp" alt="" className="mt-3 aspect-[4/3] w-full rounded-xl object-cover object-top" loading="lazy" />
+          <img src="/img/about-560.webp" alt="" className="mt-3 aspect-[16/10] w-full rounded-xl object-cover object-top" loading="lazy" />
           <p className="mt-3 font-semibold text-white">{person.name}</p>
           <p className="text-[0.82rem] text-white/55">{person.jobTitle} · {person.city}</p>
           <p className="mt-3 flex items-center gap-2 text-[0.78rem] text-[#5ee0c1]"><span className="live-dot" /> open to freelance builds</p>
@@ -81,6 +92,10 @@ export default function Review({ t, pick, onPick }: { t: number; pick?: number |
             <div className="flex justify-between"><dt className="text-white/40">projects</dt><dd className="text-white/80">{work.length}</dd></div>
             <div className="flex justify-between"><dt className="text-white/40">timezone</dt><dd className="text-white/80">IST +05:30</dd></div>
           </dl>
+          <p className="mt-5 font-mono text-[0.66rem] uppercase tracking-widest text-white/40">Right now</p>
+          <ul className="mt-2 space-y-1.5 text-[0.78rem] leading-snug text-white/70">{now.items.slice(0, 2).map((x) => <li key={x} className="flex gap-2"><span className="text-[#ffc46b]">›</span>{x}</li>)}</ul>
+          <p className="mt-4 font-mono text-[0.66rem] uppercase tracking-widest text-white/40">Asked so far</p>
+          <p className="mt-1 font-mono text-[0.78rem] text-white/70">{i + 1} of {QA.length} questions</p>
           <div className="mt-auto flex flex-wrap gap-1.5">{person.socials.map((s) => <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="rounded-full border border-white/12 px-2.5 py-1 text-[0.72rem] text-white/70 hover:text-white">{s.label}</a>)}</div>
         </aside>
       </div>

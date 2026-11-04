@@ -1,5 +1,6 @@
 "use client";
 import { chapters, now } from "@/lib/content";
+import { STEPS } from "../timeline";
 
 const COLS = [
   { id: "doing", label: "Doing", dot: "#ffb547", items: now.items.slice(0, 2) },
@@ -13,7 +14,7 @@ export default function Plan({ t }: { t: number }) {
   let k = 0;
   const shown = Math.max(1, Math.ceil(total * Math.min(1, t * 1.4 + 0.1)));
   return (
-    <div className="@container grid h-full grid-rows-[auto_minmax(0,1fr)] overflow-hidden bg-[#111317] text-[0.95rem]">
+    <div className="@container grid h-full grid-rows-[auto_minmax(0,1fr)_auto] overflow-hidden bg-[#111317] text-[0.95rem]">
       <div className="flex items-center gap-3 border-b border-white/10 px-6 py-3.5">
         <span className="grid size-8 place-items-center rounded-lg bg-gradient-to-br from-[#ffb547] to-[#9b8cff] font-mono text-xs font-bold text-[#14100a]">TS</span>
         <span>
@@ -47,6 +48,17 @@ export default function Plan({ t }: { t: number }) {
           </ul>
           <p className="mt-auto font-mono text-[0.72rem] leading-relaxed text-white/45">blockers: none<br />next sync: 18:00 deploy</p>
         </section>
+      </div>
+      {/* today's agenda: the rest of the day, as the site will scroll it */}
+      <div className="border-t border-white/10 px-5 py-3">
+        <p className="mb-2 font-mono text-[0.68rem] uppercase tracking-widest text-white/40">Today&apos;s agenda</p>
+        <ol className="grid grid-cols-3 gap-1.5 @[44rem]:grid-cols-9">
+          {STEPS.map((st, i) => (
+            <li key={st.id} className={`rounded-lg px-2 py-1.5 font-mono text-[0.7rem] ring-1 ${i === 1 ? "bg-[#9b8cff]/20 text-white ring-[#9b8cff]/50" : i === 0 ? "text-white/35 ring-white/5 line-through" : "text-white/60 ring-white/10"}`}>
+              <span className="block text-white/40">{st.time}</span>{st.label.toLowerCase()}
+            </li>
+          ))}
+        </ol>
       </div>
     </div>
   );

@@ -36,7 +36,7 @@ export interface DeskWorldProps {
 /* ───────────── camera ───────────── */
 const v = (x: number, y: number, z: number) => new Vector3(x, y, z);
 const WIDE = { pos: v(1.62, 1.02, 1.78), tgt: v(-0.52, 0.56, -0.35) };
-const SHIP = { pos: v(0.0, 1.32, 1.72), tgt: v(0, 0.33, -0.1) };
+const SHIP = { pos: v(0.0, 1.42, 2.02), tgt: v(0, 0.4, -0.12) };
 const ease = (x: number) => (x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2);
 const seg = (p: number, a: number, b: number) => ease(Math.min(1, Math.max(0, (p - a) / (b - a))));
 
