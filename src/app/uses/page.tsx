@@ -7,7 +7,7 @@ export const metadata = meta({ title: "Uses", description: uses.summary, path: "
 
 export default function Uses() {
   return (
-    <Page cmd="cat uses.json | jq" prompt="What does he use?" file="uses.json" eyebrow="/uses" title="My desk, my editor, my stack." summary={uses.summary}>
+    <Page eyebrow="/uses" title="My desk, my editor, my stack." summary={uses.summary}>
       <div className="wrap section grid gap-5 md:grid-cols-2">
         {uses.groups.map((g) => (
           <section key={g.label} className="card p-6" aria-label={g.label}>

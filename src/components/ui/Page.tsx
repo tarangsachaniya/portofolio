@@ -1,25 +1,17 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Spark } from "../chrome/ChatChrome";
 
 /**
- * Every page opens the same way in every world:
- *  - world-specific framing (terminal command, chat question, editor front-matter)
+ * Every page opens the same way:
  *  - an h1 and an answer-first summary that crawlers and answer engines can lift.
  */
 export default function Page({
-  cmd,
-  prompt,
-  file,
   eyebrow,
   title,
   summary,
   crumbs,
   children,
 }: {
-  cmd: string;
-  prompt: string;
-  file: string;
   eyebrow?: string;
   title: ReactNode;
   summary: string;
@@ -41,15 +33,6 @@ export default function Page({
             </ol>
           </nav>
         )}
-
-        <p className="only only-terminal mb-4 font-mono text-sm text-fg-2"><span className="text-fg">tarang@ahmedabad:~$</span> {cmd}</p>
-        <div className="only only-vscode mb-5 font-mono text-[0.8rem] leading-relaxed text-fg-3">
-          <span style={{ color: "var(--syn-com)" }}>{"// "}{file}</span>
-        </div>
-        <div className="only only-chat mb-6">
-          <p className="ml-auto w-fit max-w-[85%] rounded-2xl rounded-br-md bg-bg-3 px-4 py-2.5 text-[0.95rem]">{prompt}</p>
-          <p className="mt-6 flex items-center gap-2 text-sm text-fg-3"><Spark className="size-4 text-accent" /> tarang-5</p>
-        </div>
 
         {eyebrow && <p className="t-meta text-accent-ink">{eyebrow}</p>}
         <h1 className="mt-3 t-h2 h-pre max-w-[18ch]">{title}</h1>

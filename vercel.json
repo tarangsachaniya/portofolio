@@ -2,5 +2,17 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "buildCommand": "npm run build",
-  "outputDirectory": ".next"
+  "outputDirectory": ".next",
+  "redirects": [
+    {
+      "source": "/notes/building-a-theme-multiverse/",
+      "destination": "/notes/building-a-day-at-the-desk/",
+      "permanent": true
+    },
+    {
+      "source": "/notes/building-a-theme-multiverse",
+      "destination": "/notes/building-a-day-at-the-desk/",
+      "permanent": true
+    }
+  ]
 }

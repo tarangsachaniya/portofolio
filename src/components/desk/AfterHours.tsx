@@ -1,9 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { chapters, notes, now, person, services, uses, work } from "@/lib/content";
+import { notes, now, person, uses, work } from "@/lib/content";
 import { Faq } from "../ui/Page";
-import Worlds from "../ui/Worlds";
 import { useClock } from "../shell/useClock";
 import { Bento, Counter, Tile } from "./Bento";
 
@@ -148,34 +147,18 @@ export default function AfterHours({ faq }: { faq: { q: string; a: string }[] })
           </div>
         </Tile>
 
-        {/* services */}
-        <Tile size="3x2" href="/services/">
+        {/* toolbox */}
+        <Tile size="3x2" href="/uses/">
           <div className="flex h-full flex-col p-5 sm:p-6">
-            <p className="t-kicker">What I build for you</p>
-            <ul className="mt-4 flex-1 space-y-4">
-              {services.offers.map((o, i) => (
-                <li key={o.title} className="flex gap-3">
-                  <span className="font-mono text-[0.72rem] text-[#ffc46b]">0{i + 1}</span>
-                  <span><span className="block font-semibold">{o.title}</span><span className="block text-[0.85rem] leading-snug text-fg-3">{o.body}</span></span>
-                </li>
+            <p className="t-kicker">Toolbox · cat uses.json</p>
+            <dl className="mt-4 flex-1 space-y-3">
+              {uses.groups.slice(0, 4).map((g) => (
+                <div key={g.label}>
+                  <dt className="font-mono text-[0.66rem] uppercase tracking-widest text-fg-3">{g.label}</dt>
+                  <dd className="mt-1 text-[0.9rem] leading-snug text-fg-2">{g.items.slice(0, 5).join(" · ")}</dd>
+                </div>
               ))}
-            </ul>
-          </div>
-        </Tile>
-
-        {/* story */}
-        <Tile size="3x2" href="/about/">
-          <div className="flex h-full flex-col p-5 sm:p-6">
-            <p className="t-kicker">git log --oneline</p>
-            <ol className="relative mt-4 flex-1 space-y-3 border-l border-white/10 pl-4">
-              {chapters.map((c) => (
-                <li key={c.n} className="relative">
-                  <i className="absolute -left-[1.32rem] top-1.5 size-2 rounded-full bg-gradient-to-br from-[#ffb547] to-[#9b8cff]" />
-                  <p className="font-mono text-[0.7rem] text-fg-3">{c.year}</p>
-                  <p className="font-semibold leading-tight">{c.title}</p>
-                </li>
-              ))}
-            </ol>
+            </dl>
           </div>
         </Tile>
 
@@ -218,14 +201,14 @@ export default function AfterHours({ faq }: { faq: { q: string; a: string }[] })
           </div>
         </Tile>
 
-        {/* worlds */}
+        {/* search */}
         <Tile size="4x1" tilt={false} className="lg:!col-span-12">
-          <div className="grid h-full gap-5 p-5 sm:p-6 lg:grid-cols-[16rem_1fr] lg:items-center">
+          <div className="flex h-full flex-wrap items-center justify-between gap-5 p-5 sm:p-6">
             <div>
-              <p className="t-kicker">Five more worlds</p>
-              <p className="mt-2 text-fg-2">Same story as an editor, a terminal, a keyboard, a chat or a printed page. <kbd className="font-mono text-fg">Alt+0–5</kbd></p>
+              <p className="t-kicker">Looking for something?</p>
+              <p className="mt-2 text-fg-2">Every page, project and action is one search away.</p>
             </div>
-            <Worlds />
+            <p className="flex items-center gap-2 font-mono text-sm text-fg-2"><kbd className="rounded-lg border border-white/15 bg-white/5 px-2.5 py-1.5 text-fg">⌘</kbd><kbd className="rounded-lg border border-white/15 bg-white/5 px-2.5 py-1.5 text-fg">K</kbd> anywhere on the site</p>
           </div>
         </Tile>
       </Bento>

@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 import { chapters, person } from "@/lib/content";
-import { useTheme } from "../shell/ThemeProvider";
 import { STEPS, fmtHour, hourAt, localAt, stepAt } from "./timeline";
 import { useMedia, useReducedMotion } from "./hooks";
 import Rail from "./Rail";
@@ -15,6 +14,9 @@ import Build from "./steps/Build";
 import Review from "./steps/Review";
 import Deploy from "./steps/Deploy";
 import Ship from "./steps/Ship";
+import Plan from "./steps/Plan";
+import Learn from "./steps/Learn";
+import Debug from "./steps/Debug";
 
 const DeskWorld = dynamic(() => import("./three/Scene"), { ssr: false });
 
@@ -23,7 +25,10 @@ type Pick = { step: number; i: number; at: number } | null;
 function Screen({ step, t, pick, onPick }: { step: number; t: number; pick: number | null; onPick: (i: number) => void }) {
   const id = STEPS[step].id;
   if (id === "boot") return <Boot t={t} />;
+  if (id === "plan") return <Plan t={t} />;
   if (id === "commit") return <Commit t={t} pick={pick} onPick={onPick} />;
+  if (id === "learn") return <Learn t={t} pick={pick} onPick={onPick} />;
+  if (id === "debug") return <Debug t={t} pick={pick} onPick={onPick} />;
   if (id === "build") return <Build t={t} pick={pick} onPick={onPick} />;
   if (id === "review") return <Review t={t} pick={pick} onPick={onPick} />;
   if (id === "deploy") return <Deploy t={t} />;
@@ -67,10 +72,9 @@ export default function DeskScene() {
 /* ═══════════════ desktop: the pinned day ═══════════════ */
 function PinnedDay() {
   const ref = useRef<HTMLElement>(null);
-  const { theme } = useTheme();
   const visible = useInView(ref, { margin: "200px" });
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
-  const p = useSpring(scrollYProgress, { stiffness: 160, damping: 32, mass: 0.35 });
+  const p = useSpring(scrollYProgress, { stiffness: 90, damping: 28, mass: 0.5 });
 
   const [state, setState] = useState({ step: 0, t: 0, time: "09:00" });
   const [pick, setPick] = useState<Pick>(null);
@@ -84,7 +88,7 @@ function PinnedDay() {
   });
   useEffect(() => { if (pick && (pick.step !== state.step || Math.abs(state.t - pick.at) > 0.2)) setPick(null); }, [state.step, state.t, pick]);
   useEffect(() => setLampOverride(null), [state.step]);
-  const lampOn = lampOverride ?? state.step >= 4;
+  const lampOn = lampOverride ?? STEPS[state.step].h >= 18;
 
   const introO = useTransform(p, [0, 0.025, 0.06], [1, 1, 0]);
   const introY = useTransform(p, [0, 0.06], [0, -30]);
@@ -96,36 +100,31 @@ function PinnedDay() {
     if (!el) return 0;
     const top = el.getBoundingClientRect().top + window.scrollY;
     const span = el.offsetHeight - window.innerHeight;
-    const at = i === 0 ? 0 : i === 1 ? 0.15 : STEPS[i].at + 0.04;
+    const at = i === 0 ? 0 : STEPS[i].at + 0.025;
     return top + span * at;
   }, []);
 
-  // Lenis smooth scroll + soft snapping to each step: one flick = one step.
+  // Lenis smooth scroll for the pinned day.
   useEffect(() => {
-    if (theme !== "desk") return;
     let lenis: { raf: (t: number) => void; destroy: () => void } | null = null;
-    let snap: { destroy: () => void; add: (v: number) => () => void } | null = null;
     let id = 0;
     let dead = false;
-    Promise.all([import("lenis"), import("lenis/snap")]).then(([{ default: Lenis }, { default: Snap }]) => {
+    import("lenis").then(({ default: Lenis }) => {
       if (dead) return;
-      const l = new Lenis({ lerp: 0.12, smoothWheel: true, anchors: true });
+      // Slow, weighty scrolling: each stop of the day gets room to breathe. No snapping.
+      const l = new Lenis({ lerp: 0.07, wheelMultiplier: 0.75, touchMultiplier: 1, smoothWheel: true, anchors: true });
       lenis = l;
       (window as unknown as { __lenis?: unknown }).__lenis = l;
-      const s = new Snap(l, { type: "proximity", distanceThreshold: "35%", duration: 0.9, debounce: 220 });
-      snap = s;
-      const add = () => STEPS.forEach((_, i) => s.add(anchor(i)));
-      add();
       const raf = (t: number) => { l.raf(t); id = requestAnimationFrame(raf); };
       id = requestAnimationFrame(raf);
     });
-    return () => { dead = true; cancelAnimationFrame(id); snap?.destroy(); lenis?.destroy(); delete (window as unknown as { __lenis?: unknown }).__lenis; };
-  }, [theme, anchor]);
+    return () => { dead = true; cancelAnimationFrame(id); lenis?.destroy(); delete (window as unknown as { __lenis?: unknown }).__lenis; };
+  }, [anchor]);
 
   const jump = useCallback((i: number) => {
     const target = anchor(i);
     const l = (window as unknown as { __lenis?: { scrollTo: (y: number, o?: object) => void } }).__lenis;
-    if (l) l.scrollTo(target, { duration: 1.2 });
+    if (l) l.scrollTo(target, { duration: 2 });
     else window.scrollTo({ top: target, behavior: "smooth" });
   }, [anchor]);
 
@@ -138,7 +137,7 @@ function PinnedDay() {
   );
 
   return (
-    <section ref={ref} aria-labelledby="day-heading" className="relative -mt-[5.5rem]" style={{ height: "500svh" }}>
+    <section ref={ref} aria-labelledby="day-heading" className="relative -mt-[5.5rem]" style={{ height: "1700svh" }}>
       <div className="sticky top-0 h-svh overflow-hidden bg-[#0b0d11]">
         <div className="absolute inset-0 z-0">
           <DeskWorld mode="pinned" progress={p} step={state.step} lampOn={lampOn} onLamp={() => setLampOverride(!lampOn)} screen={screen} listenKeys={state.step === 5} active={visible} />
@@ -155,10 +154,10 @@ function PinnedDay() {
 
         {/* rail */}
         <motion.div className="absolute left-[clamp(0.75rem,1.4vw,1.5rem)] top-1/2 z-30 -translate-y-1/2" style={{ opacity: railO }}>
-          <div className="w-[clamp(9.5rem,11vw,11.5rem)] rounded-[22px] bg-[#0b0d11]/55 p-4 ring-1 ring-white/10 backdrop-blur-xl">
+          <div className="w-[8.75rem] rounded-[22px] bg-[#0b0d11]/55 p-4 ring-1 ring-white/10 backdrop-blur-xl">
             <Rail step={state.step} progress={scrollYProgress} time={state.time} onJump={jump} />
             <h2 id="day-heading" className="mt-4 border-t border-white/10 pt-3 text-[0.82rem] font-medium leading-snug text-white/85">
-              <span className="block font-mono text-[0.6rem] uppercase tracking-[0.18em] text-white/40">step {state.step + 1}/6</span>
+              <span className="block font-mono text-[0.6rem] uppercase tracking-[0.18em] text-white/40">step {state.step + 1}/{STEPS.length}</span>
               {STEPS[state.step].verb}
             </h2>
             <a href="#after-hours" className="mt-2 inline-block font-mono text-[0.64rem] text-white/45 underline-offset-4 hover:text-white hover:underline">skip the day ↓</a>
@@ -214,7 +213,7 @@ function MobileDay() {
 function SwipeDay() {
   const track = useRef<HTMLOListElement>(null);
   const [cur, setCur] = useState(0);
-  const [picks, setPicks] = useState<Record<number, number | null>>({ 1: chapters.length - 1, 3: 0 });
+  const [picks, setPicks] = useState<Record<number, number | null>>({ [STEPS.findIndex((s) => s.id === "commit")]: chapters.length - 1, [STEPS.findIndex((s) => s.id === "review")]: 0 });
   const onScroll = () => {
     const el = track.current;
     if (!el) return;
@@ -228,7 +227,7 @@ function SwipeDay() {
   return (
     <div className="pt-10">
       <h2 id="day-title" className="px-5 font-display text-[2rem] font-bold leading-none tracking-[-0.04em]">A day at the desk</h2>
-      <p className="mt-2 px-5 text-sm text-fg-3">Swipe through it: six stops from boot to ship.</p>
+      <p className="mt-2 px-5 text-sm text-fg-3">Swipe through it: nine stops from boot to ship.</p>
       <div className="sticky top-[4.6rem] z-10 mt-5 flex gap-1.5 overflow-x-auto px-5 py-2 [scrollbar-width:none]">
         {STEPS.map((s, i) => (
           <button key={s.id} onClick={() => go(i)} aria-current={cur === i ? "step" : undefined} className={`shrink-0 rounded-full px-3 py-1.5 font-mono text-[0.72rem] transition-colors ${cur === i ? "bg-[#ffb547] text-[#14100a]" : "bg-white/[0.06] text-white/60"}`}>
@@ -241,7 +240,7 @@ function SwipeDay() {
           <li key={s.id} className="w-[86vw] max-w-[30rem] shrink-0 snap-start overflow-hidden rounded-[24px] border border-white/10 bg-[#0e1116] shadow-[0_30px_60px_-30px_rgb(0_0_0/0.9)]">
             <p className="flex items-baseline justify-between gap-3 border-b border-white/10 px-4 py-3 font-mono text-[0.7rem]">
               <span className="text-white"><span className="text-[#ffc46b]">{s.time}</span> · {s.label.toLowerCase()}</span>
-              <span className="text-white/45">{i + 1}/6</span>
+              <span className="text-white/45">{i + 1}/{STEPS.length}</span>
             </p>
             <div className={s.id === "deploy" ? "max-h-[34rem] overflow-y-auto" : s.id === "build" ? "h-[30rem]" : s.id === "boot" ? "h-[20rem]" : "h-[28rem]"}>
               <Screen step={i} t={1} pick={picks[i] ?? null} onPick={(k) => setPicks((p) => ({ ...p, [i]: k }))} />
@@ -270,7 +269,7 @@ function StackedDay() {
               <span className="text-white/45">{s.verb}</span>
             </p>
             <div className={s.id === "deploy" ? "" : s.id === "build" ? "h-[32rem]" : s.id === "boot" ? "h-[22rem]" : "h-[30rem]"}>
-              <Screen step={i} t={1} pick={i === 3 ? 0 : i === 1 ? chapters.length - 1 : null} onPick={() => {}} />
+              <Screen step={i} t={1} pick={s.id === "review" ? 0 : s.id === "commit" ? chapters.length - 1 : null} onPick={() => {}} />
             </div>
           </li>
         ))}

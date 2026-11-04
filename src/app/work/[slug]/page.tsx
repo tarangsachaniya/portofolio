@@ -2,7 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { work, workBySlug } from "@/lib/content";
 import { breadcrumbs, faqNode, graph, meta, workNode } from "@/lib/seo";
-import Page, { Facts, Faq, SectionTitle } from "@/components/ui/Page";
+import Page, { Faq, SectionTitle } from "@/components/ui/Page";
 import Device, { NoShot } from "@/components/ui/Device";
 import JsonLd from "@/components/ui/JsonLd";
 import PipelineStages from "@/components/work/PipelineStages";
@@ -35,9 +35,6 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
 
   return (
     <Page
-      cmd={`cat ./work/${w.slug}/README.md`}
-      prompt={`Tell me about ${w.name}`}
-      file={`work/${w.slug}.tsx`}
       eyebrow={`${w.kind} · ${w.year} · ${w.status}`}
       title={w.name}
       summary={w.summary}
@@ -66,8 +63,8 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
           </section>
         )}
 
-        {/* ── desk world: bento header + the case study as a CI pipeline ── */}
-        <div className="only only-desk">
+        {/* bento header + the case study as a CI pipeline */}
+        <div>
           <div className="bento mt-10">
             <Tile size="4x2" tilt={false} className="p-3 sm:p-4">
               {w.shots[0] ? <Device shot={w.shots[0]} domain={w.domain} priority /> : <NoShot name={w.name} hue={w.hue} what={w.what} />}
@@ -101,48 +98,6 @@ export default async function CaseStudy({ params }: { params: Promise<{ slug: st
           <div className="section">
             <PipelineStages run={hash(w.slug, 6)} stages={BEATS.map((b) => ({ key: b.key, label: b.label, body: w[b.key] }))} />
           </div>
-        </div>
-
-        <div className="hide-desk">
-        <div className="mt-12 grid gap-5">
-          {w.shots.length ? w.shots.map((s, k) => <Device key={s.src} shot={s} domain={w.domain} priority={k === 0} />) : <NoShot name={w.name} hue={w.hue} what={w.what} />}
-        </div>
-
-        <div className="section grid gap-12 lg:grid-cols-12">
-          <aside className="lg:col-span-4">
-            <div className="lg:sticky lg:top-28 space-y-6">
-              <div>
-                <h2 className="t-meta text-fg-3">Key facts</h2>
-                <div className="mt-3"><Facts items={[{ k: "Role", v: w.role }, ...w.facts]} /></div>
-              </div>
-              {w.stack.length > 0 && (
-                <div>
-                  <h2 className="t-meta text-fg-3">Stack</h2>
-                  <ul className="mt-3 flex flex-wrap gap-1.5">{w.stack.map((s) => <li key={s} className="tag">{s}</li>)}</ul>
-                </div>
-              )}
-            </div>
-          </aside>
-          <div className="lg:col-span-8">
-            {BEATS.map((b) => {
-              const v = w[b.key];
-              return (
-                <section key={b.key} className="border-t border-line-2 py-8 first:border-t-0 first:pt-0" aria-labelledby={`b-${b.key}`}>
-                  <p className="t-meta text-accent-ink">{b.cmd}</p>
-                  <h2 id={`b-${b.key}`} className="mt-2 t-h3 h-pre">{b.label}</h2>
-                  {typeof v === "string" ? (
-                    <p className="mt-4 max-w-[62ch] t-body text-fg-2">{v}</p>
-                  ) : (
-                    <ul className="mt-4 max-w-[64ch] space-y-3">
-                      {v.map((x) => <li key={x} className="flex gap-3 t-body text-fg-2"><span aria-hidden className="font-mono text-accent-ink">{b.key === "learned" ? "~" : "→"}</span>{x}</li>)}
-                    </ul>
-                  )}
-                </section>
-              );
-            })}
-          </div>
-        </div>
-
         </div>
 
         {w.faq.length > 0 && (

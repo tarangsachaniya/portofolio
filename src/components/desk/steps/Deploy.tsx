@@ -8,7 +8,7 @@ const SIZE = ["@[46rem]:col-span-4 @[46rem]:row-span-2", "@[46rem]:col-span-2", 
 /** 18:00: the lamp is on, the deploy board fills in. One bento tile per live product. */
 export default function Deploy({ t }: { t: number }) {
   return (
-    <div className="@container grid h-full grid-rows-[auto_auto_minmax(0,1fr)] overflow-hidden bg-[#0d0f13] font-mono">
+    <div className="@container grid h-full grid-rows-[auto_auto_minmax(0,1fr)_auto] overflow-hidden bg-[#0d0f13] font-mono">
       <div className="flex flex-wrap items-center gap-x-4 gap-y-1 border-b border-white/10 px-5 py-3 text-[0.72rem] text-white/50">
         <span className="font-body text-[0.95rem] font-semibold text-white">Deployments</span>
         <span>production · bom1</span>
@@ -57,6 +57,14 @@ export default function Deploy({ t }: { t: number }) {
           </a>
         </li>
       </ul>
+      <div className="hidden items-center gap-2 overflow-hidden border-t border-white/10 px-4 py-2.5 text-[0.72rem] @[46rem]:flex">
+        <span className="shrink-0 text-white/40">artifacts</span>
+        {LIVE.flatMap((w) => (w.downloads ?? []).map((d) => ({ ...d, app: w.name }))).map((d) => (
+          <a key={d.label} href={d.href} target="_blank" rel="noreferrer" className="flex shrink-0 items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-2.5 py-1 text-white/70 hover:border-[#ffb547]/50 hover:text-white">
+            <span className="text-[#ffc46b]">{d.platform === "Windows" ? "⊞" : d.platform === "macOS" ? "⌘" : d.platform === "Android TV" ? "▭" : "▲"}</span>{d.app} · {d.platform}
+          </a>
+        ))}
+      </div>
     </div>
   );
 }

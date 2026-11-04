@@ -1,11 +1,14 @@
 /** The working day the home page scrolls through. Bands are fractions of the pinned scroll. */
 export const STEPS = [
-  { id: "boot", label: "Boot", time: "09:00", h: 9, at: 0, verb: "Monitor wakes up" },
-  { id: "commit", label: "Commit", time: "10:30", h: 10.5, at: 0.14, verb: "The story, as git log" },
-  { id: "build", label: "Build", time: "12:30", h: 12.5, at: 0.31, verb: "Projects in the editor" },
-  { id: "review", label: "Review", time: "15:00", h: 15, at: 0.48, verb: "Ask about Tarang" },
-  { id: "deploy", label: "Deploy", time: "18:00", h: 18, at: 0.65, verb: "What's live in production" },
-  { id: "ship", label: "Ship", time: "21:30", h: 21.5, at: 0.82, verb: "Say hello" },
+  { id: "boot", label: "Boot", time: "09:00", h: 9, at: 0, verb: "The monitor wakes up" },
+  { id: "plan", label: "Plan", time: "09:30", h: 9.5, at: 0.09, verb: "Standup: what I'm on today" },
+  { id: "commit", label: "Commit", time: "10:30", h: 10.5, at: 0.19, verb: "The story, as git log" },
+  { id: "build", label: "Build", time: "12:30", h: 12.5, at: 0.31, verb: "Every project, in the editor" },
+  { id: "learn", label: "Learn", time: "13:30", h: 13.5, at: 0.45, verb: "Lunch: what I'm learning" },
+  { id: "review", label: "Review", time: "15:00", h: 15, at: 0.55, verb: "Ask anything about me" },
+  { id: "debug", label: "Debug", time: "16:30", h: 16.5, at: 0.66, verb: "Two real fixes" },
+  { id: "deploy", label: "Deploy", time: "18:00", h: 18, at: 0.76, verb: "What's live in production" },
+  { id: "ship", label: "Ship", time: "21:30", h: 21.5, at: 0.88, verb: "Say hello" },
 ] as const;
 export type StepId = (typeof STEPS)[number]["id"];
 

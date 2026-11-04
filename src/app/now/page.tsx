@@ -8,7 +8,7 @@ export const metadata = meta({ title: "Now", description: summary, path: "/now/"
 
 export default function Now() {
   return (
-    <Page cmd="tail -f now.log" prompt="What is he doing now?" file="now.log" eyebrow={`Updated ${now.updated}`} title="What I'm doing now." summary={summary}>
+    <Page eyebrow={`Updated ${now.updated}`} title="What I'm doing now." summary={summary}>
       <div className="wrap section grid gap-12 md:grid-cols-12">
         <ol className="md:col-span-7 space-y-4">
           {now.items.map((it, i) => (

@@ -17,7 +17,7 @@ export default async function Note({ params }: { params: Promise<{ slug: string 
   const n = notes.find((x) => x.slug === slug);
   if (!n) notFound();
   return (
-    <Page cmd={`less ./notes/${n.slug}.md`} prompt={n.title} file={`notes/${n.slug}.md`} eyebrow={n.date} title={n.title} summary={n.summary}
+    <Page eyebrow={n.date} title={n.title} summary={n.summary}
       crumbs={[{ name: "Home", href: "/" }, { name: "Notes", href: "/notes/" }, { name: n.title, href: `/notes/${n.slug}/` }]}>
       <div className="wrap section">
         <div className="max-w-[66ch] space-y-6">

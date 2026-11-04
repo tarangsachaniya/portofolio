@@ -10,12 +10,12 @@ export const metadata = meta({ title: "Story", description: summary, path: "/abo
 
 export default function About() {
   return (
-    <Page cmd="cat story.md" prompt="Tell me his story" file="story.md" eyebrow="git log --story --reverse" title="A developer who learns by making things." summary={summary}>
+    <Page eyebrow="git log --story --reverse" title="A developer who learns by making things." summary={summary}>
       <div className="wrap section grid gap-12 lg:grid-cols-12">
         <figure className="lg:col-span-4">
           <div className="lg:sticky lg:top-28">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/img/hero-760.webp" alt="Tarang Sachaniya standing outdoors, arms crossed, smiling" width={760} height={950} className="w-full border border-line-2 [border-radius:var(--card-radius)] terminal:grayscale terminal:contrast-125 terminal:sepia terminal:hue-rotate-[70deg]" />
+            <img src="/img/hero-760.webp" alt="Tarang Sachaniya standing outdoors, arms crossed, smiling" width={760} height={950} className="w-full border border-line-2 [border-radius:var(--card-radius)]" />
             <figcaption className="mt-3 flex justify-between t-meta text-fg-3"><span>{person.name}</span><span>{person.city}, {person.country}</span></figcaption>
           </div>
         </figure>

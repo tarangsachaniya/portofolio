@@ -4,13 +4,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { nav, person } from "@/lib/content";
-import { useTheme } from "../shell/ThemeProvider";
+import { useShell } from "../shell/ShellProvider";
 import { useClock } from "../shell/useClock";
 
 /** Desk world chrome: a floating glass dock. The page scrolls under it. */
 export default function DeskChrome() {
   const path = usePathname();
-  const { openPalette } = useTheme();
+  const { openPalette, sound, toggleSound } = useShell();
   const time = useClock();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
@@ -25,7 +25,7 @@ export default function DeskChrome() {
 
   const links = nav.slice(1, 7);
   return (
-    <header data-chrome="desk" className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:pt-4">
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:pt-4">
       <nav
         aria-label="Primary"
         className={`pointer-events-auto mx-auto flex h-14 max-w-5xl items-center justify-between gap-3 rounded-full border px-2 pl-4 transition-all duration-500 ${
@@ -59,13 +59,13 @@ export default function DeskChrome() {
             <span className="live-dot" aria-hidden />
             AMD <span className="tabular-nums text-fg-2">{time}</span>
           </span>
-          <button onClick={() => openPalette("worlds")} className="hidden rounded-full border border-white/10 px-3 py-2 font-mono text-[0.72rem] text-fg-2 transition-colors hover:border-white/30 hover:text-fg sm:inline-flex">
-            Worlds ◐
+          <button onClick={toggleSound} aria-pressed={sound} className="hidden rounded-full border border-white/10 px-3 py-2 font-mono text-[0.72rem] text-fg-2 transition-colors hover:border-white/30 hover:text-fg sm:inline-flex" title="Keyboard sounds">
+            {sound ? "♪ on" : "♪ off"}
           </button>
           <Link href="/contact/" className="hidden rounded-full bg-[#ffb547] px-4 py-2 text-sm font-semibold text-[#14100a] shadow-[0_0_30px_-8px_rgb(255_181_71/0.8)] transition-transform hover:-translate-y-px md:inline-flex">
             Hire me
           </Link>
-          <button onClick={() => openPalette("all")} className="rounded-full border border-white/10 px-3 py-2 font-mono text-[0.72rem] text-fg-2 hover:text-fg" aria-label={`Open command menu (${person.first}'s site)`}>
+          <button onClick={openPalette} className="rounded-full border border-white/10 px-3 py-2 font-mono text-[0.72rem] text-fg-2 hover:text-fg" aria-label={`Open command menu (${person.first}'s site)`}>
             ⌘K
           </button>
           <button onClick={() => setOpen((o) => !o)} className="grid size-9 place-items-center rounded-full border border-white/10 lg:hidden" aria-expanded={open} aria-controls="desk-menu" aria-label="Menu">
@@ -88,7 +88,7 @@ export default function DeskChrome() {
               </li>
             ))}
           </ul>
-          <button onClick={() => openPalette("worlds")} className="mt-2 w-full rounded-2xl border border-white/10 py-3 font-mono text-xs text-fg-2">Switch world ◐</button>
+          <button onClick={openPalette} className="mt-2 w-full rounded-2xl border border-white/10 py-3 font-mono text-xs text-fg-2">Search everything ⌘K</button>
         </div>
       )}
     </header>

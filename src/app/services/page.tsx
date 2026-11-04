@@ -8,7 +8,7 @@ export const metadata = meta({ title: "Hire a full-stack developer in Ahmedabad"
 
 export default function Services() {
   return (
-    <Page cmd="man services" prompt="Can I hire him?" file="services.md" eyebrow="Freelance · remote or Ahmedabad" title="Hire a full-stack developer who ships." summary={services.summary}>
+    <Page eyebrow="Freelance · remote or Ahmedabad" title="Hire a full-stack developer who ships." summary={services.summary}>
       <div className="wrap">
         <section className="section" aria-labelledby="offers">
           <SectionTitle kicker="what" id="offers">What I build</SectionTitle>
@@ -26,7 +26,7 @@ export default function Services() {
           <SectionTitle kicker="how" id="process">How a project runs</SectionTitle>
           <ol className="grid gap-px overflow-hidden border border-line bg-line md:grid-cols-4">
             {services.process.map((s) => (
-              <li key={s.n} className="bg-bg p-6 keyboard:bg-bg-2">
+              <li key={s.n} className="bg-bg p-6">
                 <p className="font-mono text-xs text-accent-ink">{s.n}</p>
                 <h3 className="mt-3 text-xl font-semibold">{s.t}</h3>
                 <p className="mt-2 text-fg-2">{s.b}</p>

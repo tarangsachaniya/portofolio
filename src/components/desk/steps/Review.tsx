@@ -1,11 +1,14 @@
 "use client";
-import { person, services, work } from "@/lib/content";
+import { now, person, services, work } from "@/lib/content";
 import { reveal } from "../timeline";
 
 export const QA = [
   { q: "Who is Tarang?", a: "A full-stack developer in Ahmedabad with a backend lean: Node.js, TypeScript, Bun, Hono, Next.js, PostgreSQL and Laravel. He co-founded Priinteve Innovations, where he builds an on-demand printing network, NFC business cards, QR restaurant ordering and tools for print shops and salons.", src: ["Story", "/about/"] },
   { q: "What has he shipped?", a: `${work.filter((w) => w.kind === "Product").length} Priinteve products: a print network on one Bun + Hono API, Nectcard NFC business cards, VentaDot QR ordering with desktop, Android and TV apps, Zerox Buddy for print shops, and Salonly for salon bookings. Plus client sites and the otp-forge npm package.`, src: ["Work", "/work/"] },
   { q: "What's his stack?", a: services.faq[2].a, src: ["Uses", "/uses/"] },
+  { q: "Where is he based?", a: "Ahmedabad, Gujarat, India. He works with clients anywhere, mostly remotely, and meets in person around Ahmedabad and Gujarat.", src: ["Contact", "/contact/"] },
+  { q: "How does a project start?", a: services.faq[3].a, src: ["Services", "/services/"] },
+  { q: "What is he working on now?", a: now.items.slice(0, 3).join(" "), src: ["Now", "/now/"] },
   { q: "Can I hire him?", a: `${services.faq[0].a} Email ${person.email}.`, src: ["Services", "/services/"] },
 ];
 

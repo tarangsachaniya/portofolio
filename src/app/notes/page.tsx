@@ -9,7 +9,7 @@ export const metadata = meta({ title: "Notes", description: summary, path: "/not
 
 export default function Notes() {
   return (
-    <Page cmd="ls -t ./notes" prompt="Has he written anything?" file="notes/index.md" eyebrow="Devlog" title="Notes from the workbench." summary={summary}>
+    <Page eyebrow="Devlog" title="Notes from the workbench." summary={summary}>
       <ul className="wrap section space-y-4">
         {notes.map((n) => (
           <li key={n.slug}>

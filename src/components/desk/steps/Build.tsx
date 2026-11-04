@@ -1,7 +1,7 @@
 "use client";
 import { work } from "@/lib/content";
 
-const PROJECTS = work.filter((w) => w.kind === "Product" || w.kind === "Open source");
+const PROJECTS = work;
 const C = { key: "#c586c0", str: "#ce9178", fn: "#dcdcaa", type: "#4ec9b0", var: "#9cdcfe", com: "#6a9955", num: "#b5cea8", dim: "#808080" };
 const camel = (s: string) => s.replace(/[^a-zA-Z0-9]+(.)/g, (_, c: string) => c.toUpperCase()).replace(/^./, (c) => c.toLowerCase());
 const cut = (s: string, n: number) => (s.length > n ? s.slice(0, n - 1).trimEnd() + "…" : s);

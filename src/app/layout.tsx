@@ -6,14 +6,8 @@ import "@fontsource/jetbrains-mono/latin-400.css";
 import "@fontsource/jetbrains-mono/latin-500.css";
 import "./globals.css";
 import { person, site } from "@/lib/content";
-import { themeBootScript } from "@/lib/themes";
-import ThemeProvider from "@/components/shell/ThemeProvider";
+import ShellProvider, { soundBootScript } from "@/components/shell/ShellProvider";
 import CommandPalette from "@/components/shell/CommandPalette";
-import PaperChrome from "@/components/chrome/PaperChrome";
-import VSCodeChrome from "@/components/chrome/VSCodeChrome";
-import TerminalChrome from "@/components/chrome/TerminalChrome";
-import KeyboardChrome from "@/components/chrome/KeyboardChrome";
-import ChatChrome from "@/components/chrome/ChatChrome";
 import DeskChrome from "@/components/chrome/DeskChrome";
 import Footer from "@/components/ui/Footer";
 import JsonLd from "@/components/ui/JsonLd";
@@ -42,23 +36,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" data-theme="desk" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: themeBootScript }} />
+        <script dangerouslySetInnerHTML={{ __html: soundBootScript }} />
       </head>
       <body>
         <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:bg-fg focus:px-4 focus:py-2 focus:text-bg">Skip to content</a>
-        <ThemeProvider>
+        <ShellProvider>
           <DeskChrome />
-          <PaperChrome />
-          <VSCodeChrome />
-          <TerminalChrome />
-          <KeyboardChrome />
-          <ChatChrome />
           <div className="frame">
             <main id="main">{children}</main>
             <Footer />
           </div>
           <CommandPalette />
-        </ThemeProvider>
+        </ShellProvider>
         <JsonLd data={graph(personNode(), orgNode(), websiteNode())} />
       </body>
     </html>

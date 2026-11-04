@@ -628,7 +628,7 @@ export const now = {
     "Designing auto-assignment for print orders across 30–50 partner printers.",
     "Building an NFC verification terminal on an ESP32.",
     "Taking on a few freelance builds.",
-    "Rebuilt this site as a day at the desk: boot → commit → build → review → deploy → ship.",
+    "Rebuilt this site as one working day at a 3D desk, from 09:00 to 23:59.",
   ],
   learning: ["Kubernetes", "Terraform", "ESP32 and NFC", "AI agents", "React Native"],
 };
@@ -659,16 +659,16 @@ export const notes: Note[] = [
     ],
   },
   {
-    slug: "building-a-theme-multiverse",
-    title: "Building a theme multiverse for my portfolio",
-    date: "2026-11-03",
+    slug: "building-a-day-at-the-desk",
+    title: "Building a day at the desk for my portfolio",
+    date: "2026-11-04",
     summary:
-      "How this site serves one set of content through five themes (Paper, VS Code, Terminal, Keyboard and Chat) without hurting SEO: static HTML first, skins on top, theme as a preference rather than a URL.",
+      "How this site turns a portfolio into one working day: a WebGL desk you scroll from 09:00 to 23:59, with each stop (plan, commit, build, learn, review, debug, deploy, ship) shown as a live screen on the monitor, while every fact stays in static HTML for search and screen readers.",
     body: [
-      { p: "Most themed portfolios pick one metaphor and commit. I wanted all of the places I actually work: the editor, the terminal, the keyboard and the AI chat window." },
-      { h: "Content first, skins second", p: "Every page is written once as plain data and rendered to static HTML. Themes only change presentation. A crawler, a screen reader and a recruiter on a slow phone all get the same facts." },
-      { h: "Theme is a preference, not a URL", p: "Switching themes never changes the address, so there are no duplicate pages to canonicalise. The choice is stored locally and applied before first paint." },
-      { h: "Every command has a button", p: "The terminal accepts typed commands, but every command is also a clickable chip. Novelty should never be a gate." },
+      { p: "I spend most days at one desk, so the site is that desk. Scroll and the day moves: the light through the window changes, the lamp comes on in the evening, and the monitor shows what I'd be doing at that hour." },
+      { h: "Real 3D, no downloads", p: "The room is built in code with React Three Fiber: the desk, monitor, keyboard, lamp and plant are procedural geometry with generated textures. There are no model files to fetch, and weak GPUs get a lighter tier automatically." },
+      { h: "Screens are real pages", p: "Each stop on the monitor is ordinary HTML mapped onto the 3D screen, so the text is crisp, selectable and clickable. The editor, the git log, the deploy board and the message composer all read from the same content file as the rest of the site." },
+      { h: "Content first, scene second", p: "Every page is still static HTML with an answer-first summary and structured data. Phones get a smaller scene and swipeable cards; reduced-motion users get the same content with no scroll effects." },
     ],
   },
 ];

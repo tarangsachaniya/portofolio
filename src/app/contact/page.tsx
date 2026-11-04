@@ -8,7 +8,7 @@ export const metadata = meta({ title: "Contact", description: summary, path: "/c
 
 export default function Contact() {
   return (
-    <Page cmd="./contact.sh --now" prompt="How do I reach him?" file="contact.sh" eyebrow="Replies within a day" title="Let's build something." summary={summary}>
+    <Page eyebrow="Replies within a day" title="Let's build something." summary={summary}>
       <div className="wrap section grid gap-5 md:grid-cols-3">
         <a href={`https://wa.me/${person.whatsapp}`} target="_blank" rel="noreferrer" className="card p-6">
           <p className="t-meta text-fg-3">WhatsApp · fastest</p>

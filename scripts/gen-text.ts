@@ -6,7 +6,6 @@ const llms = `# ${person.name}
 
 > ${person.summary}
 
-Theme note: the site renders in five interchangeable visual themes; all pages and URLs are identical across themes.
 
 ## Pages
 - [Story](${site.url}/about/): career timeline, 2021 to now
