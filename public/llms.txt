@@ -2,7 +2,6 @@
 
 > Tarang Sachaniya is a full-stack developer based in Ahmedabad, India, with a backend lean: Node.js, TypeScript, Bun, Hono, Next.js, PostgreSQL and Laravel. He co-founded Priinteve Innovations LLP, where he builds an on-demand printing network, NFC digital business cards, QR restaurant ordering and tools for print shops and salons.
 
-Theme note: the site renders in five interchangeable visual themes; all pages and URLs are identical across themes.
 
 ## Pages
 - [Story](https://tarangsachaniya.com/about/): career timeline, 2021 to now
@@ -27,4 +26,4 @@ Theme note: the site renders in five interchangeable visual themes; all pages an
 
 ## Notes
 - [Five apps, one API: how Priinteve is wired](https://tarangsachaniya.com/notes/five-apps-one-api/)
-- [Building a theme multiverse for my portfolio](https://tarangsachaniya.com/notes/building-a-theme-multiverse/)
+- [Building a day at the desk for my portfolio](https://tarangsachaniya.com/notes/building-a-day-at-the-desk/)
