@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { Component, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { AnimatePresence, motion, useInView, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 import { chapters, person } from "@/lib/content";
 import { STEPS, fmtHour, hourAt, localAt, stepAt } from "./timeline";
@@ -60,13 +60,21 @@ function hasWebGL() {
   try { const c = document.createElement("canvas"); return !!(c.getContext("webgl2") || c.getContext("webgl")); } catch { return false; }
 }
 
+/** If WebGL fails at runtime (driver, extension, library bug), show the stacked day instead of a broken page. */
+class SceneBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  componentDidCatch(e: unknown) { console.warn("Desk scene failed, falling back to the stacked day.", e); }
+  render() { return this.state.failed ? <StackedDay /> : this.props.children; }
+}
+
 export default function DeskScene() {
   const small = useMedia("(max-width: 899px)");
   const reduce = useReducedMotion();
   const [gl, setGl] = useState(true);
   useEffect(() => setGl(hasWebGL()), []);
   if (reduce || !gl) return <StackedDay />;
-  return small ? <MobileDay /> : <PinnedDay />;
+  return <SceneBoundary>{small ? <MobileDay /> : <PinnedDay />}</SceneBoundary>;
 }
 
 /* ═══════════════ desktop: the pinned day ═══════════════ */

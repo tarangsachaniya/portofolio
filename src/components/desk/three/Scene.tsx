@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode, type RefObject } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Html, Lightformer, Environment, Sparkles, PerformanceMonitor, ContactShadows, RoundedBox } from "@react-three/drei";
-import { EffectComposer, Bloom, Vignette, Noise, ToneMapping, N8AO } from "@react-three/postprocessing";
+import { EffectComposer, Bloom, Vignette, Noise, ToneMapping } from "@react-three/postprocessing";
 import { ToneMappingMode } from "postprocessing";
 import { easing } from "maath";
 import { Color, Vector3, type DirectionalLight, type HemisphereLight, type MeshStandardMaterial, type PointLight, type ShaderMaterial } from "three";
@@ -234,7 +234,6 @@ export default function DeskWorld(props: DeskWorldProps) {
       <PerformanceMonitor onDecline={() => setLow(true)} />
       <World {...props} layer={layer} low={low} />
       <EffectComposer multisampling={low ? 0 : 4} enableNormalPass={false}>
-        {low ? <></> : <N8AO halfRes aoRadius={0.18} distanceFalloff={0.6} intensity={2.2} color="#05040a" />}
         <Bloom mipmapBlur luminanceThreshold={0.95} intensity={0.75} radius={0.7} />
         <ToneMapping mode={ToneMappingMode.AGX} />
         <Vignette offset={0.22} darkness={0.72} />
