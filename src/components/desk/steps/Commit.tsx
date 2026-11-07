@@ -12,8 +12,7 @@ export default function Commit({ t, pick, onPick }: { t: number; pick?: number |
   return (
     <div className="@container grid h-full grid-rows-[auto_minmax(0,1fr)] overflow-hidden bg-[#0f1115] font-mono text-[0.82rem]">
       <div className="flex items-center gap-2 border-b border-white/10 bg-[#0b0d10] px-4 py-2.5 text-white/50">
-        <span className="flex gap-1.5" aria-hidden><i className="size-3 rounded-full bg-[#ff5f57]" /><i className="size-3 rounded-full bg-[#febc2e]" /><i className="size-3 rounded-full bg-[#28c840]" /></span>
-        <span className="ml-3">~/tarang — git log</span>
+        <span>zsh · ~/tarang</span>
         <span className="ml-auto rounded bg-white/5 px-2 py-0.5 text-[0.7rem] text-[#5ee0c1]">⎇ main · {chapters.length} commits</span>
       </div>
       <div className="grid min-h-0 @[46rem]:grid-cols-[1fr_1.05fr]">

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import { Component, useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { AnimatePresence, motion, useInView, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useInView, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 import { chapters, person } from "@/lib/content";
 import { STEPS, fmtHour, hourAt, localAt, stepAt } from "./timeline";
 import { useMedia, useReducedMotion } from "./hooks";
@@ -17,6 +17,7 @@ import Ship from "./steps/Ship";
 import Plan from "./steps/Plan";
 import Learn from "./steps/Learn";
 import Debug from "./steps/Debug";
+import DeskOS, { contentT } from "./os/DeskOS";
 
 const DeskWorld = dynamic(() => import("./three/Scene"), { ssr: false });
 
@@ -84,15 +85,17 @@ function PinnedDay() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
   const p = useSpring(scrollYProgress, { stiffness: 90, damping: 28, mass: 0.5 });
 
-  const [state, setState] = useState({ step: 0, t: 0, time: "09:00" });
+  const [state, setState] = useState({ step: 0, t: 0, time: "09:00", h: 9 });
   const [pick, setPick] = useState<Pick>(null);
   const [lampOverride, setLampOverride] = useState<boolean | null>(null);
 
   useMotionValueEvent(p, "change", (v) => {
     const step = stepAt(v);
-    const t = Math.round(localAt(v, step) * 200) / 200;
-    const time = fmtHour(hourAt(v));
-    setState((s) => (s.step === step && s.t === t && s.time === time ? s : { step, t, time }));
+    // fine-grained so the window open/close scale stays smooth
+    const t = Math.round(localAt(v, step) * 1000) / 1000;
+    const h = hourAt(v);
+    const time = fmtHour(h);
+    setState((s) => (s.step === step && s.t === t && s.time === time ? s : { step, t, time, h }));
   });
   useEffect(() => { if (pick && (pick.step !== state.step || Math.abs(state.t - pick.at) > 0.2)) setPick(null); }, [state.step, state.t, pick]);
   useEffect(() => setLampOverride(null), [state.step]);
@@ -136,19 +139,18 @@ function PinnedDay() {
     else window.scrollTo({ top: target, behavior: "smooth" });
   }, [anchor]);
 
+  const ct = contentT(state.step, state.t);
   const screen = (
-    <AnimatePresence initial={false} mode="popLayout">
-      <motion.div key={state.step} className="absolute inset-0" initial={{ opacity: 0, scale: 0.99 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}>
-        <Screen step={state.step} t={state.t} pick={pick?.step === state.step ? pick.i : null} onPick={(i) => setPick({ step: state.step, i, at: state.t })} />
-      </motion.div>
-    </AnimatePresence>
+    <DeskOS step={state.step} t={state.t} time={state.time} hour={state.h} onJump={jump}>
+      <Screen step={state.step} t={ct} pick={pick?.step === state.step ? pick.i : null} onPick={(i) => setPick({ step: state.step, i, at: state.t })} />
+    </DeskOS>
   );
 
   return (
     <section ref={ref} aria-labelledby="day-heading" className="relative -mt-[5.5rem]" style={{ height: "1700svh" }}>
       <div className="sticky top-0 h-svh overflow-hidden bg-[#0b0d11]">
         <div className="absolute inset-0 z-0">
-          <DeskWorld mode="pinned" progress={p} step={state.step} lampOn={lampOn} onLamp={() => setLampOverride(!lampOn)} screen={screen} listenKeys={state.step === 5} active={visible} />
+          <DeskWorld mode="pinned" progress={p} step={state.step} lampOn={lampOn} onLamp={() => setLampOverride(!lampOn)} screen={screen} listenKeys={STEPS[state.step].id === "ship"} active={visible} />
         </div>
 
         {/* intro: the first frame */}
