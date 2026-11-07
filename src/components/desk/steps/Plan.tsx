@@ -23,17 +23,17 @@ export default function Plan({ t }: { t: number }) {
         </span>
         <span className="ml-auto hidden rounded-full border border-white/10 px-3 py-1 font-mono text-[0.72rem] text-white/55 @[40rem]:inline">09:30 IST · 15 min</span>
       </div>
-      <div className="grid min-h-0 gap-4 overflow-hidden p-5 @[44rem]:grid-cols-[1fr_1fr_1fr_0.85fr]">
+      <div className="flex min-h-0 flex-col gap-3 overflow-hidden p-3 @[44rem]:grid @[44rem]:grid-cols-[1fr_1fr_1fr_0.85fr] @[44rem]:gap-4 @[44rem]:p-5">
         {COLS.map((c) => (
-          <section key={c.id} className="flex min-h-0 flex-col rounded-2xl bg-white/[0.03] p-3 ring-1 ring-white/[0.06]">
+          <section key={c.id} className={`shrink-0 flex-col rounded-2xl bg-white/[0.03] p-3 ring-1 ring-white/[0.06] ${c.id === "done" ? "hidden @[44rem]:flex" : "flex"}`}>
             <p className="flex items-center gap-2 px-1 pb-2 font-mono text-[0.72rem] uppercase tracking-widest text-white/55">
               <i className="size-2 rounded-full" style={{ background: c.dot }} /> {c.label} <span className="ml-auto text-white/30">{c.items.length}</span>
             </p>
-            <ul className="space-y-2">
+            <ul className="space-y-1.5 @[44rem]:space-y-2">
               {c.items.map((it) => {
                 const on = k++ < shown;
                 return (
-                  <li key={it} className={`rounded-xl border border-white/10 bg-[#171a20] p-3 leading-snug text-white/85 shadow-[0_8px_20px_-14px_rgb(0_0_0/0.9)] transition-all duration-500 ${on ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}>
+                  <li key={it} className={`rounded-xl border border-white/10 bg-[#171a20] p-2.5 text-[0.84rem] leading-snug @[44rem]:p-3 @[44rem]:text-[0.95rem] text-white/85 shadow-[0_8px_20px_-14px_rgb(0_0_0/0.9)] transition-all duration-500 ${on ? "translate-y-0 opacity-100" : "translate-y-3 opacity-0"}`}>
                     {c.id === "done" && <span className="mr-1.5 text-[#5ee0c1]">✓</span>}{it}
                   </li>
                 );
@@ -50,7 +50,7 @@ export default function Plan({ t }: { t: number }) {
         </section>
       </div>
       {/* today's agenda: the rest of the day, as the site will scroll it */}
-      <div className="border-t border-white/10 px-5 py-3">
+      <div className="hidden border-t border-white/10 px-5 py-3 @[44rem]:block">
         <p className="mb-2 font-mono text-[0.68rem] uppercase tracking-widest text-white/40">Today&apos;s agenda</p>
         <ol className="grid grid-cols-3 gap-1.5 @[44rem]:grid-cols-9">
           {STEPS.map((st, i) => (

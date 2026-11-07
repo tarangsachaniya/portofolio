@@ -78,7 +78,7 @@ export default function Debug({ t, pick, onPick }: { t: number; pick?: number | 
             <p className="mt-1 leading-snug text-white/85">{f.lesson}</p>
           </div>
         </aside>
-        <div className="min-h-0 overflow-hidden p-5">
+        <div className="min-h-0 overflow-hidden p-3 text-[0.8rem] @[46rem]:p-5 @[46rem]:text-[0.86rem]">
           <p className="text-white/45">$ git diff {f.file} <span className="text-white/25">· simplified sketch</span></p>
           <div className="mt-4 overflow-hidden rounded-xl border border-white/10">
             <p className="border-b border-white/10 bg-white/[0.03] px-4 py-2 text-[0.75rem] text-white/50">{f.file}</p>
@@ -102,7 +102,7 @@ export default function Debug({ t, pick, onPick }: { t: number; pick?: number | 
           </div>
 
           {/* investigation steps */}
-          <ol className="mt-5 grid grid-cols-5 gap-2 text-[0.72rem]">
+          <ol className="mt-5 hidden grid-cols-5 gap-2 text-[0.72rem] @[30rem]:grid">
             {["reproduce", "measure", "isolate", "fix", "verify"].map((st, k) => {
               const done = lt > (k + 1) / 6;
               return (

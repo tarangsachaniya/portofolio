@@ -19,14 +19,14 @@ export default function Deploy({ t }: { t: number }) {
           <div key={k} className="bg-[#0d0f13] px-5 py-2.5"><p className="text-white/40">{k}</p><p className="mt-0.5 font-body text-[1.1rem] font-semibold text-white">{v}</p></div>
         ))}
       </div>
-      <ul className="grid min-h-0 auto-rows-[minmax(0,1fr)] grid-cols-2 gap-2.5 p-3 sm:p-4 @[46rem]:grid-cols-6 @[46rem]:grid-rows-3">
+      <ul className="grid min-h-0 auto-rows-[5.4rem] grid-cols-1 gap-2 overflow-hidden p-2.5 @[46rem]:auto-rows-[minmax(0,1fr)] @[46rem]:grid-cols-6 @[46rem]:grid-rows-3 @[46rem]:gap-2.5 @[46rem]:p-4">
         {LIVE.map((w, k) => {
           const start = k / (LIVE.length + 2);
           const done = t > (k + 1) / (LIVE.length + 2);
           const building = !done && t > start;
           const state = done ? (w.status === "Live" ? "Ready" : "Preview") : building ? "Building" : "Queued";
           return (
-            <li key={w.slug} className={`group relative col-span-2 min-h-[7rem] overflow-hidden rounded-2xl border transition-all duration-500 ${SIZE[k] ?? "@[46rem]:col-span-2"} ${done ? "border-white/15" : "border-white/5 opacity-60"}`}>
+            <li key={w.slug} className={`group relative min-h-0 overflow-hidden rounded-2xl border @[46rem]:min-h-[7rem] transition-all duration-500 ${SIZE[k] ?? "@[46rem]:col-span-2"} ${done ? "border-white/15" : "border-white/5 opacity-60"}`}>
               {w.shots[0] && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={w.shots[0].src} alt="" loading="lazy" className={`absolute inset-0 h-full w-full object-cover object-top transition-all duration-700 ${done ? "scale-100 opacity-90 group-hover:scale-[1.03]" : "scale-105 opacity-0"}`} />

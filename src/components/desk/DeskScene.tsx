@@ -179,7 +179,7 @@ function PinnedDay() {
   );
 }
 
-/* ═══════════════ phones: mini 3D desk + swipeable day ═══════════════ */
+/* ═══════════════ phones: mini 3D desk + the app OS ═══════════════ */
 function istHour() {
   const parts = new Intl.DateTimeFormat("en-GB", { hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "Asia/Kolkata" }).formatToParts(new Date());
   const h = Number(parts.find((x) => x.type === "hour")?.value ?? 12) + Number(parts.find((x) => x.type === "minute")?.value ?? 0) / 60;
@@ -194,7 +194,7 @@ function MobileDay() {
   const step = useMemo(() => { let i = 0; STEPS.forEach((s, k) => { if (hour >= s.h) i = k; }); return i; }, [hour]);
 
   return (
-    <section aria-labelledby="day-title" className="-mt-[5.5rem]">
+    <div className="-mt-[5.5rem]">
       <div ref={box} className="relative h-[100svh] min-h-[38rem] overflow-hidden bg-[#0b0d11]">
         <div className="absolute inset-0"><DeskWorld mode="mini" hour={hour} step={step} lampOn={hour >= 18} active={visible} screen={
           <div className="grid h-full place-items-center" style={{ background: "radial-gradient(60% 70% at 30% 30%, rgb(255 181 71 / 0.3), transparent 60%), radial-gradient(50% 60% at 75% 70%, rgb(155 140 255 / 0.35), transparent 60%), #0e1116" }}>
@@ -215,51 +215,65 @@ function MobileDay() {
           </label>
         </div>
       </div>
-      <SwipeDay />
-    </section>
+      <PhoneDay />
+    </div>
   );
 }
 
-function SwipeDay() {
-  const track = useRef<HTMLOListElement>(null);
-  const [cur, setCur] = useState(0);
-  const [picks, setPicks] = useState<Record<number, number | null>>({ [STEPS.findIndex((s) => s.id === "commit")]: chapters.length - 1, [STEPS.findIndex((s) => s.id === "review")]: 0 });
-  const onScroll = () => {
-    const el = track.current;
+/** Phones: the same app OS as the desktop monitor, pinned and scrubbed by native scrolling. */
+function PhoneDay() {
+  const ref = useRef<HTMLElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const [state, setState] = useState({ step: 0, t: 0, time: "09:00", h: 9 });
+  const [pick, setPick] = useState<Pick>(null);
+  const [size, setSize] = useState({ w: 360, h: 640 });
+
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    const step = stepAt(v);
+    const t = Math.round(localAt(v, step) * 1000) / 1000;
+    const h = hourAt(v);
+    const time = fmtHour(h);
+    setState((s) => (s.step === step && s.t === t && s.time === time ? s : { step, t, time, h }));
+  });
+  useEffect(() => { if (pick && (pick.step !== state.step || Math.abs(state.t - pick.at) > 0.2)) setPick(null); }, [state.step, state.t, pick]);
+  useEffect(() => {
+    const el = stage.current;
     if (!el) return;
-    setCur(Math.round(el.scrollLeft / (el.firstElementChild as HTMLElement).offsetWidth));
-  };
-  const go = (i: number) => {
-    const el = track.current;
-    const card = el?.children[i] as HTMLElement | undefined;
-    if (el && card) el.scrollTo({ left: card.offsetLeft - 20, behavior: "smooth" });
-  };
+    const measure = () => setSize({ w: Math.min(440, el.clientWidth - 16), h: el.clientHeight - 16 });
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const jump = useCallback((i: number) => {
+    const el = ref.current;
+    if (!el) return;
+    const top = el.getBoundingClientRect().top + window.scrollY;
+    const at = i === 0 ? 0 : STEPS[i].at + 0.025;
+    window.scrollTo({ top: top + (el.offsetHeight - window.innerHeight) * at, behavior: "smooth" });
+  }, []);
+
+  const progress = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
+  const ct = contentT(state.step, state.t);
   return (
-    <div className="pt-10">
-      <h2 id="day-title" className="px-5 font-display text-[2rem] font-bold leading-none tracking-[-0.04em]">A day at the desk</h2>
-      <p className="mt-2 px-5 text-sm text-fg-3">Swipe through it: nine stops from boot to ship.</p>
-      <div className="sticky top-[4.6rem] z-10 mt-5 flex gap-1.5 overflow-x-auto px-5 py-2 [scrollbar-width:none]">
-        {STEPS.map((s, i) => (
-          <button key={s.id} onClick={() => go(i)} aria-current={cur === i ? "step" : undefined} className={`shrink-0 rounded-full px-3 py-1.5 font-mono text-[0.72rem] transition-colors ${cur === i ? "bg-[#ffb547] text-[#14100a]" : "bg-white/[0.06] text-white/60"}`}>
-            {s.time} {s.label.toLowerCase()}
-          </button>
-        ))}
+    <section ref={ref} aria-labelledby="day-title" className="relative" style={{ height: "1100svh" }}>
+      <h2 id="day-title" className="sr-only">A day at the desk</h2>
+      <div className="sticky top-0 flex h-svh flex-col bg-[#0b0d11] pt-[5rem]">
+        <div className="flex items-center gap-3 px-4 pb-2 font-mono text-[0.7rem] text-white/60">
+          <span className="text-white">{state.time}</span>
+          <span className="flex-1 truncate">· {STEPS[state.step].label.toLowerCase()} · {STEPS[state.step].verb}</span>
+          <span>{state.step + 1}/{STEPS.length}</span>
+        </div>
+        <div className="mx-4 h-[2px] overflow-hidden rounded-full bg-white/10"><motion.div className="h-full bg-gradient-to-r from-[#ffb547] to-[#9b8cff]" style={{ width: progress }} /></div>
+        <div ref={stage} className="flex min-h-0 flex-1 items-start justify-center p-2">
+          <DeskOS variant="phone" width={size.w} height={size.h} step={state.step} t={state.t} time={state.time} hour={state.h} onJump={jump}>
+            <Screen step={state.step} t={ct} pick={pick?.step === state.step ? pick.i : null} onPick={(i) => setPick({ step: state.step, i, at: state.t })} />
+          </DeskOS>
+        </div>
       </div>
-      <ol ref={track} onScroll={onScroll} className="mt-3 flex snap-x snap-mandatory gap-3 overflow-x-auto scroll-px-5 px-5 pb-4 [scrollbar-width:none]">
-        {STEPS.map((s, i) => (
-          <li key={s.id} className="w-[86vw] max-w-[30rem] shrink-0 snap-start overflow-hidden rounded-[24px] border border-white/10 bg-[#0e1116] shadow-[0_30px_60px_-30px_rgb(0_0_0/0.9)]">
-            <p className="flex items-baseline justify-between gap-3 border-b border-white/10 px-4 py-3 font-mono text-[0.7rem]">
-              <span className="text-white"><span className="text-[#ffc46b]">{s.time}</span> · {s.label.toLowerCase()}</span>
-              <span className="text-white/45">{i + 1}/{STEPS.length}</span>
-            </p>
-            <div className={s.id === "deploy" ? "max-h-[34rem] overflow-y-auto" : s.id === "build" ? "h-[30rem]" : s.id === "boot" ? "h-[20rem]" : "h-[28rem]"}>
-              <Screen step={i} t={1} pick={picks[i] ?? null} onPick={(k) => setPicks((p) => ({ ...p, [i]: k }))} />
-            </div>
-          </li>
-        ))}
-      </ol>
-      <div className="flex justify-center gap-1.5 pb-4" aria-hidden>{STEPS.map((s, i) => <i key={s.id} className={`h-1 rounded-full transition-all ${cur === i ? "w-6 bg-[#ffb547]" : "w-1.5 bg-white/20"}`} />)}</div>
-    </div>
+    </section>
   );
 }
 
